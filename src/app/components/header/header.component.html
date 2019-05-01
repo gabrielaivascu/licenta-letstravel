@@ -1,0 +1,13 @@
+<div class="header" [class.user-mode]="loggedIn">
+  <div class="right-side" *ngIf="!loggedIn">
+    <i class="fa fa-facebook"></i>
+    <i class="fa fa-instagram"></i>
+    <i class="fa fa-youtube"></i>
+  </div>
+  <div class="logo">
+    <a routerLink="../homepage"><i class="fa fa-map-marker"></i><b> lets.travel</b></a>
+  </div>
+  <div class="right-side">
+    <ng-content select="[menu-btn]"></ng-content>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+@import "../../assets/base/base";
+
+:host() {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+h3 {
+  i {
+    padding: 0 5px;
+  }
+}
+
+.container {
+  padding: 25px;
+}

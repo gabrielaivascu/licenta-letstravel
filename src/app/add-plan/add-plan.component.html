@@ -1,0 +1,25 @@
+<app-header [loggedIn]="true">
+  <ul class="user-menu" menu-btn="menu">
+    <li><a>My plans</a></li>
+    <li><a>Previous trip</a></li>
+    <li><a>My profile</a></li>
+    <li><a>Ideas</a></li>
+  </ul>
+</app-header>
+
+<div class="flex-row">
+  <section class="box full-section">
+    <div class="header">
+      <h3>Hi! Let's plan your next trip to <span *ngIf="data">{{data.location}}</span> <i class="fa fa-plane"
+          aria-hidden="true"></i> {{days}} days</h3>
+    </div>
+    <div class="container">
+      <mat-tab-group>
+        <mat-tab *ngFor="let tab of tabs" [label]="tab">
+          <app-planner></app-planner>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </section>
+
+</div>

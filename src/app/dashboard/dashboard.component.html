@@ -1,0 +1,120 @@
+<app-header [loggedIn]="true">
+  <ul class="user-menu" menu-btn="menu">
+    <li><a>My plans</a></li>
+    <li><a>Previous trip</a></li>
+    <li><a>My profile</a></li>
+    <li><a>Ideas</a></li>
+  </ul>
+</app-header>
+
+<div class="flex-row">
+  <section class="box main-section">
+    <ng-container *ngIf="hasUpcomingTrip">
+      <div class="upcoming-trips">
+        <div class="header">
+          <h3>Upcomping trip to: Italy</h3>
+        </div>
+        <div class="container">
+          <div class="bg-box">
+            <h3>Days left: <span>10</span></h3>
+            <app-button>See your plan</app-button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!hasUpcomingTrip">
+      <div class="add-plan">
+        <div class="header">
+          <h3>Create a trip</h3>
+        </div>
+        <div class="container">
+          <div class="form">
+            <div class="bg-box">
+              <form [formGroup]="formGroupTrip" (ngSubmit)="onSubmit()">
+                <mat-form-field class="full-width">
+                  <input type="text" placeholder="What's your destination?" aria-label="Number" matInput
+                  formControlName="location" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let destionation of destinations" [value]="destionation">
+                      {{destionation}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <div class="form-row">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <app-button type="submit">Add plan</app-button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+  </section>
+  <section class="box secondary-section">
+    <div class="prev-trips">
+      <div class="header">
+        <h3>Previous trip</h3>
+      </div>
+      <div class="container">
+        <ul class="trip-list">
+          <li class="trip">
+            <div class="container">
+              <span class="number">3 day trip</span>
+              <img src="https://jacintopujol.files.wordpress.com/2017/11/dscf0936-2.jpg">
+              <div class="absolute-layout">
+                <app-button>See more</app-button>
+              </div>
+            </div>
+            <div class="footer">
+              <span>Iasi-Spain</span>
+            </div>
+          </li>
+          <li class="trip">
+            <div class="container">
+              <span class="number">10 day trip</span>
+              <img src="https://jacintopujol.files.wordpress.com/2017/11/dscf0936-2.jpg">
+              <div class="absolute-layout">
+                <app-button>See more</app-button>
+              </div>
+            </div>
+            <div class="footer">
+              <span>Iasi-Spain</span>
+            </div>
+          </li>
+          <li class="trip">
+            <div class="container">
+              <span class="number">5 day trip</span>
+              <img src="https://jacintopujol.files.wordpress.com/2017/11/dscf0936-2.jpg">
+              <div class="absolute-layout">
+                <app-button>See more</app-button>
+              </div>
+            </div>
+            <div class="footer">
+              <span>Iasi-Spain</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- list with photos -like insta feeds? -->
+    </div>
+  </section>
+</div>
+<div class="box full-section ">
+  <div class="ideas">
+    <div class="header">
+      <h3>Explore</h3>
+    </div>
+    <!-- slider with photo -->
+  </div>
+</div>

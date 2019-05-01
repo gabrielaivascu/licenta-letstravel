@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="main-container">
+  <div class="box">
+    <h3>Log in</h3>
+    <!-- <mat-form-field>
+
+      <input matInput type="text" [(ngModel)]="email" placeholder="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="password" placeholder="password">
+
+    </mat-form-field>
+    <button mat-button routerLink="../dashboard">Log In</button> -->
+
+    <form [formGroup]="loginForm">
+      <div class="form-group">
+        <mat-form-field>
+          <label>Email address</label>
+          <input matInput type="email" formControlName="email" class="form-control">
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <label>Password</label>
+          <input matInput type="password" class="form-control" formControlName="password">
+          <label class="error">{{errorMessage}}</label>
+        </mat-form-field>
+      </div>
+      <button mat-button type="submit" (click)="tryLogin(loginForm.value)">Login</button>
+    </form>
+
+    <button mat-button (click)="tryGoogleLogin()">
+      Login with Google account
+    </button>
+  </div>
+</div>
