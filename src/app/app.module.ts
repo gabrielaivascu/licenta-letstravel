@@ -12,7 +12,10 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
 import { environment } from '../environments/environment';
 
 import {
@@ -59,6 +62,7 @@ import { AuthService } from './services/auth.service';
 import { UserResolver } from './services/user.resolver';
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './services/user.service';
+import { FirebaseService } from './services/firebase.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,8 +119,10 @@ import { UserService } from './services/user.service';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
-  providers: [AuthService, UserService, UserResolver, AuthGuard],
+  providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

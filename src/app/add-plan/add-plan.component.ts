@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { StartPlanService } from '../services/start-plan.service';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-plan',
@@ -11,7 +14,8 @@ export class AddPlanComponent implements OnInit {
   days: number;
   tabs: any[] = [];
 
-  constructor(public startPlanService: StartPlanService) { }
+  constructor(public startPlanService: StartPlanService, public userService: UserService,
+    public authService: AuthService, private location: Location) { }
 
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
@@ -23,5 +27,13 @@ export class AddPlanComponent implements OnInit {
       }
       console.log(this.tabs);
     })
+  }
+  logout() {
+    this.authService.doLogout()
+      .then((res) => {
+        this.location.back();
+      }, (error) => {
+        console.log("Logout error", error);
+      });
   }
 }
