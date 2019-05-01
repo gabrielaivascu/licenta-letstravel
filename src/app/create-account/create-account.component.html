@@ -1,20 +1,31 @@
 <app-header></app-header>
 <div class="main-container">
   <div class="box">
-    <h3>Create an account</h3>
-    <form [formGroup]="registerForm">
-      <div class="form-group">
-        <label>Email address</label>
-        <input type="email" formControlName="email" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" formControlName="password">
+    <ng-container *ngIf="!successMessage">
+      <h3>Create an account</h3>
+      <form [formGroup]="registerForm">
+        <div class="form-group">
+          <mat-form-field>
+            <label>Email address</label>
+            <input matInput type="email" formControlName="email" class="form-control">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <label>Password</label>
+            <input matInput type="password" class="form-control" formControlName="password">
+          </mat-form-field>
+        </div>
         <label class="error">{{errorMessage}}</label>
-        <label class="success">{{successMessage}}</label>
-      </div>
-      <button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-default">Register</button>
-    </form>
-    <button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Register with Google</button>
+        <app-button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-default">Register
+        </app-button>
+      </form>
+      <app-button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Register with Google
+      </app-button>
+    </ng-container>
+    <ng-container *ngIf="successMessage">
+      <h3 class="success">{{successMessage}}</h3>
+      <app-button routerLink="../dashboard">Go to your dashboard</app-button>
+    </ng-container>
   </div>
 </div>

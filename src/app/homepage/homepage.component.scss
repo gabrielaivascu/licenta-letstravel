@@ -24,6 +24,7 @@
         background: rgba(255,255,255, 0.35);
         padding: 45px;
         border-radius: 15px;
+        text-align: center;
 
         button {
             background-color: #2b727e;
@@ -38,5 +39,9 @@
     a {
         text-decoration: none;
         color: black;
+
+        &:hover {
+            color: purple;
+        }
     }
 }

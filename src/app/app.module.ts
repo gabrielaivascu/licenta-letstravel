@@ -12,7 +12,6 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
@@ -57,6 +56,9 @@ import { ButtonComponent } from './components/button/button.component';
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { PlannerComponent } from './planner/planner.component';
 import { AuthService } from './services/auth.service';
+import { UserResolver } from './services/user.resolver';
+import { AuthGuard } from './guards/auth.guard';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,10 +114,9 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService, UserResolver, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

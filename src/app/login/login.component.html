@@ -23,14 +23,14 @@
         <mat-form-field>
           <label>Password</label>
           <input matInput type="password" class="form-control" formControlName="password">
-          <label class="error">{{errorMessage}}</label>
         </mat-form-field>
       </div>
-      <button mat-button type="submit" (click)="tryLogin(loginForm.value)">Login</button>
+      <label class="error">{{errorMessage}}</label>
+      <app-button mat-button type="submit" (click)="tryLogin(loginForm.value)">Login</app-button>
     </form>
 
-    <button mat-button (click)="tryGoogleLogin()">
-      Login with Google account
-    </button>
+    <app-button mat-button (click)="tryGoogleLogin()">
+      Login with Google
+    </app-button>
   </div>
 </div>

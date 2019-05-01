@@ -6,13 +6,14 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { AuthGuard } from './guards/auth.guard';
+import { UserResolver } from './services/user.resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
-  { path: 'homepage', component: HomepageComponent },
+  { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuard] },
   { path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent},
+  { path: 'dashboard', component: DashboardComponent, resolve: { data: UserResolver }},
   { path: 'add-plan', component: AddPlanComponent }
 ];
 
