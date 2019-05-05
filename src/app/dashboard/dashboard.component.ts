@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { Location } from '@angular/common';
 import { FirebaseService } from '../services/firebase.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -29,8 +30,6 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.startPlanService.myMethod(this.formGroupTrip.value);
-    console.log(this.formGroupTrip.value);
     this.firebaseService.createTrip(this.formGroupTrip.value);
     this.startPlanService.setLocation(this.formGroupTrip.value);
     this.router.navigateByUrl('/add-plan');

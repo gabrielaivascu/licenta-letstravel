@@ -1,0 +1,12 @@
+.calendar-container {
+    display: flex;
+    padding: 25px 0;
+
+    .column {
+        flex-grow: 1;
+
+        &:first-of-type {
+            margin-right: 25px;
+        }
+    }
+}

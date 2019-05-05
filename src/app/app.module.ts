@@ -15,8 +15,11 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 import {
   MatAutocompleteModule,
@@ -63,6 +66,7 @@ import { UserResolver } from './services/user.resolver';
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './services/user.service';
 import { FirebaseService } from './services/firebase.service';
+import { CalendarComponent } from './components/calendar/calendar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +78,8 @@ import { FirebaseService } from './services/firebase.service';
     UpcomingTripsComponent,
     ButtonComponent,
     AddPlanComponent,
-    PlannerComponent
+    PlannerComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -118,9 +123,15 @@ import { FirebaseService } from './services/firebase.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    FlatpickrModule.forRoot()
   ],
   providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],
   bootstrap: [AppComponent]
