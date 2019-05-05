@@ -15,11 +15,11 @@
     <ng-container *ngIf="hasUpcomingTrip">
       <div class="upcoming-trips">
         <div class="header">
-          <h3>Upcomping trip to: Italy</h3>
+          <h3>Upcomping trip to: {{upcomingLocation}}</h3>
         </div>
         <div class="container">
           <div class="bg-box">
-            <h3>Days left: <span>10</span></h3>
+            <h3>Days left: <span>{{daysLeft}}</span></h3>
             <app-button>See your plan</app-button>
           </div>
         </div>

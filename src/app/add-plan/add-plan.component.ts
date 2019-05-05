@@ -20,7 +20,7 @@ export class AddPlanComponent implements OnInit {
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
       this.data = data;
-      this.days = (this.data.endDate - this.data.startDate) / 1000 / 60 / 60 / 24;
+      this.days = this.data.endDate.getDate() - this.data.startDate.getDate();
       for (let i = 0; i < this.days; i++) {
         this.tabs.push('Day ' + (i + 1));
       }
