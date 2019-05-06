@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
 import { Location } from '@angular/common';
 import { FirebaseService } from '../services/firebase.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-import * as firebase from 'firebase/app';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,13 +15,13 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  destinations: string[] = ['Spain', 'Italy', 'Greece'];
+  destination: string = '';
   hasUpcomingTrip: boolean = false;
   upcomingLocation: string = '';
   daysLeft: number;
   formGroupTrip: FormGroup;
   constructor(public startPlanService: StartPlanService, public router: Router, public firebaseService: FirebaseService,
-    private location: Location, public userService: UserService, public authService: AuthService, private db: AngularFireDatabase) { }
+    public userService: UserService, public authService: AuthService, private db: AngularFireDatabase) { }
   trips: any;
 
   ngOnInit() {
@@ -34,13 +34,15 @@ export class DashboardComponent implements OnInit {
       } else {
         this.hasUpcomingTrip = false;
       }
-      console.log(this.trips);
+
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
         if (start > current) {
           this.upcomingLocation = trip.location;
           this.daysLeft = start.getDate() - current.getDate();
+        } else {
+          this.hasUpcomingTrip = false;
         }
       });
     });
@@ -52,7 +54,14 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public handleAddressChange(address: Address) {
+
+    this.destination = address.name;
+
+  }
+
   onSubmit() {
+    this.formGroupTrip.value.location = this.destination;
     this.firebaseService.createTrip(this.formGroupTrip.value);
     this.startPlanService.setLocation(this.formGroupTrip.value);
     this.router.navigateByUrl('/add-plan');
@@ -61,7 +70,7 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.authService.doLogout()
       .then((res) => {
-        this.location.back();
+        this.router.navigateByUrl('/homepage');
       }, (error) => {
         console.log("Logout error", error);
       });

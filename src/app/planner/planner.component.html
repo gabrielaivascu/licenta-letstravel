@@ -1,3 +1,14 @@
-<p>
-  planner works!
-</p>
+<div class="planner-container">
+
+    <div class="add">
+        <input matInput placeholder="Event name" [(ngModel)]="nameEvent">
+        <app-button (click)="addEvent()" class="add-btn">Add event</app-button>
+    </div>
+
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let event of events" cdkDrag>{{event}}</div>
+    </div>
+</div>
+
+<!-- <input matInput ngx-google-places-autocomplete #placesRef="ngx-places"
+    (onAddressChange)="handleAddressChange($event)" /> -->

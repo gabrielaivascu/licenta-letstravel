@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
@@ -10,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class FirebaseService {
   trips: Observable<any[]>;
-  constructor(private firestore: AngularFirestore, private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) { }
 
   getCurrentUser() {
     return firebase.auth().currentUser.uid;
@@ -29,10 +28,5 @@ export class FirebaseService {
       startDate: String(data.startDate),
       endDate: String(data.endDate)
     })
-    // firebase.database().ref('trips/' + userId).set({
-    //   location: data.location,
-    //   startDate: String(data.startDate),
-    //   endDate: String(data.endDate)
-    // });
   }
 }

@@ -1,11 +1,11 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li><a>My plans</a></li>
+    <li><a routerLink="/dashboard">Home</a></li>
+    <li><a>Next trip</a></li>
     <li><a>Previous trip</a></li>
     <li><a>My profile</a></li>
-    <li><a>Ideas</a></li>
     <li class="logout">
-      <a routerLink="../logout" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i> LOG OUT</a>
+      <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i> LOG OUT</a>
     </li>
   </ul>
 </app-header>
@@ -19,8 +19,8 @@
     <div class="container">
       <mat-tab-group>
         <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab">
-          <!-- <app-planner></app-planner> -->
-          <app-calendar [currentDate]="data.startDate" [tripDay]="i"></app-calendar>
+            <app-planner></app-planner>
+          <!-- <app-calendar [currentDate]="data.startDate" [tripDay]="i"></app-calendar> -->
         </mat-tab>
       </mat-tab-group>
     </div>

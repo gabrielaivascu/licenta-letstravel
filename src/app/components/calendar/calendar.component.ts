@@ -53,6 +53,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.tripDay);
+    console.log(this.currentDate);
     this.viewDate.setDate(this.currentDate.getDate() + this.tripDay);
   }
 
@@ -99,8 +100,8 @@ export class CalendarComponent implements OnInit {
       ...this.events,
       {
         title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
+        start: startOfDay(this.currentDate),
+        end: endOfDay(this.currentDate),
         color: colors.red,
         draggable: true,
         resizable: {

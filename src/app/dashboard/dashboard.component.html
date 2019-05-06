@@ -1,11 +1,11 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li><a>My plans</a></li>
+    <li><a>Home</a></li>
+    <li><a>Next trip</a></li>
     <li><a>Previous trip</a></li>
     <li><a>My profile</a></li>
-    <li><a>Ideas</a></li>
     <li class="logout">
-      <a routerLink="/" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i> LOG OUT</a>
+      <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i> LOG OUT</a>
     </li>
   </ul>
 </app-header>
@@ -35,13 +35,7 @@
             <div class="bg-box">
               <form [formGroup]="formGroupTrip" (ngSubmit)="onSubmit()">
                 <mat-form-field class="full-width">
-                  <input type="text" placeholder="What's your destination?" aria-label="Number" matInput
-                    formControlName="location" [matAutocomplete]="auto">
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let destionation of destinations" [value]="destionation">
-                      {{destionation}}
-                    </mat-option>
-                  </mat-autocomplete>
+                  <input matInput ngx-google-places-autocomplete formControlName="location" (onAddressChange)="handleAddressChange($event)" placeholder="What's your destination?"/>
                 </mat-form-field>
                 <div class="form-row">
                   <mat-form-field>
