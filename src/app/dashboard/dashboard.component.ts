@@ -20,29 +20,23 @@ export class DashboardComponent implements OnInit {
   upcomingLocation: string = '';
   daysLeft: number;
   formGroupTrip: FormGroup;
+  trips: any;
   constructor(public startPlanService: StartPlanService, public router: Router, public firebaseService: FirebaseService,
     public userService: UserService, public authService: AuthService, private db: AngularFireDatabase) { }
-  trips: any;
 
   ngOnInit() {
 
     let user = this.firebaseService.getCurrentUser();
     this.firebaseService.getTrips(user).subscribe(trip => {
       this.trips = trip;
-      if (this.trips.length > 0) {
-        this.hasUpcomingTrip = true;
-      } else {
-        this.hasUpcomingTrip = false;
-      }
-
+  
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
         if (start > current) {
+          this.hasUpcomingTrip = true;
           this.upcomingLocation = trip.location;
           this.daysLeft = start.getDate() - current.getDate();
-        } else {
-          this.hasUpcomingTrip = false;
         }
       });
     });
@@ -55,9 +49,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public handleAddressChange(address: Address) {
-
     this.destination = address.name;
-
   }
 
   onSubmit() {
