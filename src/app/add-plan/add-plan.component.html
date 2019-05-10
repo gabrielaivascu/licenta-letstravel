@@ -19,8 +19,8 @@
     <div class="container">
       <mat-tab-group>
         <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab">
-            <app-planner></app-planner>
-          <!-- <app-calendar [currentDate]="data.startDate" [tripDay]="i"></app-calendar> -->
+            <!-- <app-planner></app-planner> -->
+          <app-calendar [currentDate]="data.startDate" [tripDay]="i"></app-calendar>
         </mat-tab>
       </mat-tab-group>
     </div>

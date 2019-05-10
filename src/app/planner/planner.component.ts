@@ -26,6 +26,10 @@ export class PlannerComponent implements OnInit {
 
   }
 
+  save() {
+    
+  }
+
   addEvent() {
     this.events.push(this.nameEvent);
   }

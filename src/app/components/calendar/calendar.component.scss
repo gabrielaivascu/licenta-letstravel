@@ -1,12 +1,34 @@
 .calendar-container {
-    display: flex;
-    padding: 25px 0;
+  display: flex;
+  padding: 25px 0;
 
-    .column {
-        flex-grow: 1;
-
-        &:first-of-type {
-            margin-right: 25px;
-        }
+  .column {
+    &:first-of-type {
+      margin-right: 25px;
+      flex-grow: 1;
     }
+    &:last-of-type {
+      flex-basis: 500px;
+    }
+  }
+}
+
+.custom-input {
+  border: 1px solid grey;
+  height: 40px;
+  text-indent: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+::ng-deep .flatpickr-input[readonly] {
+  border: 1px solid grey;
+  height: 40px;
+  text-indent: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.action-container {
+  display: flex;
 }

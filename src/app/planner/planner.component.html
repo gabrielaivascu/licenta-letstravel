@@ -8,6 +8,8 @@
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let event of events" cdkDrag>{{event}}</div>
     </div>
+
+    <app-button (click)="save()" class="add-btn">Save day</app-button>
 </div>
 
 <!-- <input matInput ngx-google-places-autocomplete #placesRef="ngx-places"

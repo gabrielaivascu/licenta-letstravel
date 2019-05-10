@@ -48,16 +48,17 @@ export class CalendarComponent implements OnInit {
   @Input() currentDate: Date;
   @Input() tripDay: number;
   viewDate: Date = new Date();
-  
+  end: any;
+  start: any;
+
   constructor() { }
 
   ngOnInit() {
-    console.log(this.tripDay);
-    console.log(this.currentDate);
     this.viewDate.setDate(this.currentDate.getDate() + this.tripDay);
   }
 
   events: CalendarEvent[] = [];
+  nameEvent: string;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -94,15 +95,20 @@ export class CalendarComponent implements OnInit {
     });
     // this.handleEvent('Dropped or resized', event);
   }
+  save() {
+    console.log(this.events);
+  }
+
 
   addEvent(): void {
+    console.log(this.start);
     this.events = [
       ...this.events,
       {
-        title: 'New event',
-        start: startOfDay(this.currentDate),
-        end: endOfDay(this.currentDate),
-        color: colors.red,
+        title: this.nameEvent,
+        start: startOfDay(this.start),
+        end: endOfDay(this.end),
+        color: colors.blue,
         draggable: true,
         resizable: {
           beforeStart: true,

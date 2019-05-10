@@ -15,6 +15,7 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  destinations: string[] = ['Spain', 'Italy', 'Greece'];
   destination: string = '';
   hasUpcomingTrip: boolean = false;
   upcomingLocation: string = '';
@@ -29,10 +30,11 @@ export class DashboardComponent implements OnInit {
     let user = this.firebaseService.getCurrentUser();
     this.firebaseService.getTrips(user).subscribe(trip => {
       this.trips = trip;
-  
+
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
+        console.log(trip);
         if (start > current) {
           this.hasUpcomingTrip = true;
           this.upcomingLocation = trip.location;
@@ -48,12 +50,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  public handleAddressChange(address: Address) {
-    this.destination = address.name;
-  }
+  // public handleAddressChange(address: Address) {
+  //   this.destination = address.name;
+  // }
 
   onSubmit() {
-    this.formGroupTrip.value.location = this.destination;
+    // this.formGroupTrip.value.location = this.destination;
     this.firebaseService.createTrip(this.formGroupTrip.value);
     this.startPlanService.setLocation(this.formGroupTrip.value);
     this.router.navigateByUrl('/add-plan');

@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { PlacesService } from '../services/places.service';
 
 @Component({
   selector: 'app-add-plan',
@@ -16,7 +17,7 @@ export class AddPlanComponent implements OnInit {
   tabs: any[] = [];
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
-    public authService: AuthService, private location: Location, public router: Router) { }
+    public authService: AuthService, private location: Location, public router: Router, private places: PlacesService) { }
 
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
@@ -25,6 +26,7 @@ export class AddPlanComponent implements OnInit {
       for (let i = 0; i < this.days; i++) {
         this.tabs.push('Day ' + (i + 1));
       }
+      console.log(this.places.getPlace(this.data.location));
     })
   }
   logout() {
