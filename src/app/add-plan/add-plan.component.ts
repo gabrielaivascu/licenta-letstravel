@@ -26,7 +26,10 @@ export class AddPlanComponent implements OnInit {
       for (let i = 0; i < this.days; i++) {
         this.tabs.push('Day ' + (i + 1));
       }
-      console.log(this.places.getPlace(this.data.location));
+      // console.log(this.places.getPlace(this.data.location));
+      this.places.getPlace((this.data.location)).subscribe((response) => {
+        console.log(response);
+      });
     })
   }
   logout() {
