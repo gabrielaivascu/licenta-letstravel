@@ -17,23 +17,23 @@
     </mat-tab>
     <mat-tab label="Food">
       <div class="search">
-        <input matInput placeholder="Search" [(ngModel)]="searchString">
-        <app-button (click)="search(searchString)">Explore</app-button>
-        <p>{{searchResult | json}}</p>
+        <mat-form-field>
+          <input matInput placeholder="Search" [(ngModel)]="searchString">
+          <app-button (click)="search(searchString)">Search</app-button>
+          <p>{{searchResult | json}}</p>
+        </mat-form-field>
       </div>
 
       <div class="explore">
-
+        <h3>Explore</h3>
+        <!-- <app-button (click)="explore('food')">Explore</app-button> -->
+        <!-- {{exploreResult | json}} -->
+        <ul *ngFor="let place of places">
+          <li>{{place.name}}</li>
+          <!-- <img src="{{place.photoUrl}}"> -->
+        </ul>
+        <app-button (click)="submitFood()">Submit</app-button>
       </div>
-      <!-- <app-button (click)="explore('food')">Explore</app-button> -->
-      <!-- {{exploreResult | json}} -->
-      <ul *ngFor="let place of places">
-        <li>{{place.name}}</li>
-        <!-- <img src="{{place.photoUrl}}"> -->
-      </ul>
-      
-      <app-button (click)="submitFood()">Submit</app-button>
-      <!-- FOOD -->
     </mat-tab>
     <mat-tab label="Outdoor"> Outdoor </mat-tab>
   </mat-tab-group>

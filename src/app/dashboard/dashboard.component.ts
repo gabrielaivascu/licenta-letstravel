@@ -13,7 +13,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  destinations: string[] = ['Spain', 'Italy', 'Greece'];
+  destinations: string[] = ['Barcelona', 'Rome', 'Antalya'];
   destination: string = '';
   hasUpcomingTrip: boolean = false;
   upcomingLocation: string = '';

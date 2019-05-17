@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  
+  @Input() type: 'default' | 'yellow' | 'secodary' = 'default';
   constructor() { }
 
   ngOnInit() {

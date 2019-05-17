@@ -1,3 +1,5 @@
+@import "../../../assets/base/colors";
+
 .header {
   position: relative;
   display: flex;
@@ -48,27 +50,47 @@
 
       li {
         display: flex;
+        align-items: center;
         flex-shrink: 0;
+        font-weight: 600;
+        font-size: 14px;
+        position: relative;
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          border-radius: 2px;
+          bottom: 0;
+          background-color: $yellow;
+          transition: width 0.3s;
+        }
 
         &:hover {
-          a {
-            color: purple;
+
+          &:not(.logout) {
+            &:after {
+              width: 100%;
+            }
           }
+
           &.logout {
             a {
-              color: purple;
+              color: $yellow;
             }
           }
         }
 
         &:not(:last-child) {
-          margin-right: 15px;
+          margin-right: 25px;
         }
 
         &.logout {
           a {
             text-decoration: none;
             color: black;
+            font-size: 22px;
           }
         }
       }
