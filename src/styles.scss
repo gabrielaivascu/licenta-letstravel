@@ -1,6 +1,4 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
-@import "../node_modules/flatpickr/dist/flatpickr.css";
 
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
@@ -12,6 +10,11 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 body {
   font-size: 16px;
   background-color: #f2f2f2;
+}
+
+body,
+html {
+  font-family: "Roboto";
 }
 
 a {

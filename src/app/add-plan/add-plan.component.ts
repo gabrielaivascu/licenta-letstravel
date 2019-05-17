@@ -27,9 +27,9 @@ export class AddPlanComponent implements OnInit {
         this.tabs.push('Day ' + (i + 1));
       }
       // console.log(this.places.getPlace(this.data.location));
-      this.places.getPlace((this.data.location)).subscribe((response) => {
-        console.log(response);
-      });
+      // this.places.getPlace((this.data.location)).subscribe((response) => {
+      //   console.log(response);
+      // });
     })
   }
   logout() {

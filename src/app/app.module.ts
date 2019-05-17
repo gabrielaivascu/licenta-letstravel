@@ -16,9 +16,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { FlatpickrModule } from 'angularx-flatpickr';
 import { HttpClientModule } from '@angular/common/http';
 import {
   MatAutocompleteModule,
@@ -65,9 +62,8 @@ import { UserResolver } from './services/user.resolver';
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './services/user.service';
 import { FirebaseService } from './services/firebase.service';
-import { CalendarComponent } from './components/calendar/calendar.component';
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DialogComponent } from './planner/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +77,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ButtonComponent,
     AddPlanComponent,
     PlannerComponent,
-    CalendarComponent
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -128,15 +124,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory
-    }),
-    FlatpickrModule.forRoot(),
     HttpClientModule,
-    GooglePlaceModule,
     DragDropModule
   ],
+  entryComponents: [DialogComponent],
   providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],
   bootstrap: [AppComponent]
 })

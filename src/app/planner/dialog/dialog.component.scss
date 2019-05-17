@@ -1,0 +1,48 @@
+::ng-deep .mat-dialog-container {
+  .mat-tab-body-wrapper {
+    max-height: 500px;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #bbb;
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 8px;
+    }
+
+    scrollbar-face-color: #bbb;
+    scrollbar-shadow-color: transparent;
+    scrollbar-arrow-color: #bbb;
+    scrollbar-track-color: transparent;
+  }
+}
+
+::ng-deep .mat-tab-labels {
+  justify-content: center;
+
+  .mat-tab-label {
+    min-width: 100px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 0 10px;
+    height: auto;
+    padding: 10px 25px;
+    opacity: 1;
+
+    &.mat-tab-label-active {
+      background-color: blue;
+      color: white;
+    }
+  }
+
+  ::ng-deep .mat-ink-bar{
+    display: none;
+  }
+}

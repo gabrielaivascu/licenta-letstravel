@@ -17,12 +17,15 @@
           aria-hidden="true"></i> {{days}} days</h3>
     </div>
     <div class="container">
-      <mat-tab-group>
-        <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab">
-            <!-- <app-planner></app-planner> -->
-          <app-calendar [currentDate]="data.startDate" [tripDay]="i"></app-calendar>
-        </mat-tab>
-      </mat-tab-group>
+
+      <mat-horizontal-stepper #stepper>
+        <mat-step *ngFor="let tab of tabs">
+            <ng-template matStepLabel>{{tab}}</ng-template>
+            <app-planner [location]="data.location"></app-planner>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+      <app-button>Save plan</app-button>
     </div>
   </section>
 

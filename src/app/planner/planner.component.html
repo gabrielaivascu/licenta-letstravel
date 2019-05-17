@@ -1,16 +1,17 @@
 <div class="planner-container">
+    <div cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+        <div class="box" *ngFor="let event of events" cdkDrag>{{event}}</div>
+        <div *ngIf="events.length === 0" class="empty">No events added</div>
+    </div>
 
     <div class="add">
-        <input matInput placeholder="Event name" [(ngModel)]="nameEvent">
-        <app-button (click)="addEvent()" class="add-btn">Add event</app-button>
-    </div>
+        <!-- <mat-label>Favorite food</mat-label>
+        <mat-select [(ngModel)]="eventType" class="dropdown">
+            <mat-option *ngFor="let type of types" [value]="type" >
+                {{type}}
+            </mat-option>
+        </mat-select> -->
+        <app-button (click)="openDialog()" class="add-btn">Add event</app-button>
 
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let event of events" cdkDrag>{{event}}</div>
     </div>
-
-    <app-button (click)="save()" class="add-btn">Save day</app-button>
 </div>
-
-<!-- <input matInput ngx-google-places-autocomplete #placesRef="ngx-places"
-    (onAddressChange)="handleAddressChange($event)" /> -->

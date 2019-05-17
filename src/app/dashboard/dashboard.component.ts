@@ -34,12 +34,12 @@ export class DashboardComponent implements OnInit {
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
-        console.log(trip);
-        if (start > current) {
-          this.hasUpcomingTrip = true;
-          this.upcomingLocation = trip.location;
-          this.daysLeft = start.getDate() - current.getDate();
-        }
+        // console.log(trip);
+        // if (start > current) {
+        //   this.hasUpcomingTrip = true;
+        //   this.upcomingLocation = trip.location;
+        //   this.daysLeft = start.getDate() - current.getDate();
+        // }
       });
     });
 

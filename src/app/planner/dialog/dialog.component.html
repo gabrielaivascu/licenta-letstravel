@@ -1,0 +1,40 @@
+<div class="modal-content">
+  <mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="tabChanged($event)">
+    <mat-tab label="Flight">
+      <p>Flight</p>
+      <form [formGroup]="flightData">
+        <mat-form-field>
+          <input matInput placeholder="To" formControlName="destination">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="start date" formControlName="startDate">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="end date" formControlName="endDate">
+        </mat-form-field>
+      </form>
+      <app-button (click)="submit()">Submit</app-button>
+    </mat-tab>
+    <mat-tab label="Food">
+      <div class="search">
+        <input matInput placeholder="Search" [(ngModel)]="searchString">
+        <app-button (click)="search(searchString)">Explore</app-button>
+        <p>{{searchResult | json}}</p>
+      </div>
+
+      <div class="explore">
+
+      </div>
+      <!-- <app-button (click)="explore('food')">Explore</app-button> -->
+      <!-- {{exploreResult | json}} -->
+      <ul *ngFor="let place of places">
+        <li>{{place.name}}</li>
+        <!-- <img src="{{place.photoUrl}}"> -->
+      </ul>
+      
+      <app-button (click)="submitFood()">Submit</app-button>
+      <!-- FOOD -->
+    </mat-tab>
+    <mat-tab label="Outdoor"> Outdoor </mat-tab>
+  </mat-tab-group>
+</div>

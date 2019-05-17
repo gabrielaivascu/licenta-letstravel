@@ -15,3 +15,25 @@ h3 {
 .container {
   padding: 25px;
 }
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  justify-content: center;
+
+  .mat-stepper-horizontal-line {
+    max-width: 200px;
+
+    .mat-step-header {
+      &:hover {
+        background: transparent;
+
+        .mat-step-label {
+          color: blue;
+        }
+      }
+    }
+
+    .mat-step-header-ripple {
+      display: none;
+    }
+  }
+}

@@ -35,7 +35,7 @@
             <div class="bg-box">
               <form [formGroup]="formGroupTrip" (ngSubmit)="onSubmit()">
                 <mat-form-field class="full-width">
-                  <!-- <input matInput ngx-google-places-autocomplete formControlName="location" (onAddressChange)="handleAddressChange($event)" placeholder="What's your destination?"/> -->
+                
                   <input type="text" placeholder="What's your destination?" aria-label="Number" matInput
                     formControlName="location" [matAutocomplete]="auto">
                   <mat-autocomplete #auto="matAutocomplete">
