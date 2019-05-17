@@ -4,10 +4,8 @@ import { StartPlanService } from '../services/start-plan.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { Location } from '@angular/common';
 import { FirebaseService } from '../services/firebase.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
 
 @Component({
   selector: 'app-dashboard',
