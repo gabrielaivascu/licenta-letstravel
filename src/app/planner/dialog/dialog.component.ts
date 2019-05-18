@@ -17,9 +17,11 @@ export class DialogComponent implements OnInit {
   exploreResult: any;
   searchString: any;
   exploreFood: boolean = false;
-  url : String;
-  
-  places:any = [{ name: String, photoUrl: String}];
+  url: String;
+
+  photosPlace: any = [];
+
+  places: any = [];
 
   dataToSave: any = {
     type: String,
@@ -54,24 +56,19 @@ export class DialogComponent implements OnInit {
   explore(section: string) {
     this.exploreFood = true;
     this.placesService.getPlace(this.data.location, section).subscribe((result) => {
-      // this.exploreResult = result.response.groups.items;
       this.exploreResult = Object(result).response.groups[0].items;
-      console.log(this.exploreResult);
-      let i = 0;
-      for(let i = 0; i<this.exploreResult.length;i++) {
 
-        this.places[i].name = this.exploreResult[i].venue.name;
-        setTimeout(()=>{
-
+      for (let i = 0; i < this.exploreResult.length; i++) {
+        this.places.push(this.exploreResult[i].venue.name);
+        // this.places[i].name = this.exploreResult[i].venue.name;
+        
           this.placesService.getPhotos(this.exploreResult[i].venue.id).subscribe((result) => {
-            console.log(result);
             let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
-            this.places[i].photoUrl = url;
+            this.photosPlace.push(url);
           });
-        },300)
+        
       }
-      console.log(this.places);
-    })
+    });
   }
 
   search(text: string) {

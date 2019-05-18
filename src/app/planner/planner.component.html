@@ -5,13 +5,9 @@
     </div>
 
     <div class="add">
-        <!-- <mat-label>Favorite food</mat-label>
-        <mat-select [(ngModel)]="eventType" class="dropdown">
-            <mat-option *ngFor="let type of types" [value]="type" >
-                {{type}}
-            </mat-option>
-        </mat-select> -->
-        <app-button (click)="openDialog()" class="add-btn">Add event</app-button>
-
+        <app-button (click)="openDialog()" class="add-btn">
+            <i class="material-icons">add</i>
+        </app-button>
+        <span>Add event</span>
     </div>
 </div>

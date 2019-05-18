@@ -1,5 +1,7 @@
+@import "../../assets/base/colors";
+
 .list {
-  width: 500px;
+  width: 60%;
   max-width: 100%;
   border: solid 1px #ccc;
   min-height: 60px;
@@ -58,14 +60,31 @@
 
 .add {
   display: flex;
-  margin: 15px 0;
-
-  input {
-    max-width: 380px;
-  }
+  flex-direction: column;
+  flex-grow: 1;
+  padding-top: 25px;
 
   .add-btn {
-    margin-left: 25px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    ::ng-deep .mat-button {
+      min-width: auto;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+
+      .material-icons {
+        font-size: 26px;
+      }
+    }
+  }
+
+  span {
+    color: $grey-2;
+    font-size: 14px;
+    text-align: center;
   }
 }
 
@@ -73,4 +92,6 @@
   display: flex;
 }
 
-
+.cdk-overlay-pane {
+  width: 70% !important;
+}

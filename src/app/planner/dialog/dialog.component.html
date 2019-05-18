@@ -1,37 +1,44 @@
 <div class="modal-content">
   <mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="tabChanged($event)">
     <mat-tab label="Flight">
-      <p>Flight</p>
-      <form [formGroup]="flightData">
-        <mat-form-field>
-          <input matInput placeholder="To" formControlName="destination">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="start date" formControlName="startDate">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="end date" formControlName="endDate">
-        </mat-form-field>
-      </form>
-      <app-button (click)="submit()">Submit</app-button>
+      <div class="column-layout">
+        <form [formGroup]="flightData" class="form">
+          <mat-form-field>
+            <input matInput placeholder="To" formControlName="destination">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="start date" formControlName="startDate">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="end date" formControlName="endDate">
+          </mat-form-field>
+        </form>
+        <app-button (click)="submit()">Submit</app-button>
+      </div>
     </mat-tab>
     <mat-tab label="Food">
-      <div class="search">
-        <mat-form-field>
-          <input matInput placeholder="Search" [(ngModel)]="searchString">
-          <app-button (click)="search(searchString)">Search</app-button>
-          <p>{{searchResult | json}}</p>
-        </mat-form-field>
-      </div>
+      <div class="column-layout">
+        <div class="row-layout">
+          <div class="search">
+            <mat-form-field>
+              <input matInput placeholder="Search" [(ngModel)]="searchString">
+            </mat-form-field>
+            <app-button (click)="search(searchString)" type="secondary">Search</app-button>
+            <p>{{searchResult | json}}</p>
+          </div>
 
-      <div class="explore">
-        <h3>Explore</h3>
-        <!-- <app-button (click)="explore('food')">Explore</app-button> -->
-        <!-- {{exploreResult | json}} -->
-        <ul *ngFor="let place of places">
-          <li>{{place.name}}</li>
-          <!-- <img src="{{place.photoUrl}}"> -->
-        </ul>
+          <div class="explore">
+            <h3> <i class="material-icons">explore</i> Explore</h3>
+            <ul *ngIf="places.length > 0" class="places-list">
+              <li *ngFor="let place of places; let i = index" class="place">
+                <h4>{{place}}</h4>
+                <div class="img-container">
+                  <img src="{{photosPlace[i]}}">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
         <app-button (click)="submitFood()">Submit</app-button>
       </div>
     </mat-tab>

@@ -16,7 +16,7 @@ export class PlacesService {
   }
 
   getPlace(city, section) {
-    let url = 'https://api.foursquare.com/v2/venues/explore?' + this.key + '&limit=1' + '&near=' + city + '&section=' + section + '&venuePhotos=1';
+    let url = 'https://api.foursquare.com/v2/venues/explore?' + this.key + '&limit=3' + '&near=' + city + '&section=' + section;
     let place = this.http.get(url);
     return place;
   }

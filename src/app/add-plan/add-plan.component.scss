@@ -6,14 +6,26 @@
   width: 100%;
 }
 
+.container {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-stepper-horizontal {
+  width: 100%;
+}
+
 h3 {
   i {
     padding: 0 5px;
   }
 }
 
-.container {
-  padding: 25px;
+.box.full-section {
+  margin-top: 30px;
 }
 
 ::ng-deep .mat-horizontal-stepper-header-container {
