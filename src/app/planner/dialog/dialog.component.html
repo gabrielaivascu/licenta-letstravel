@@ -26,7 +26,7 @@
             <mat-form-field>
               <input matInput placeholder="Search" [(ngModel)]="searchString">
             </mat-form-field>
-            <app-button (click)="search(searchString)" type="secondary">Search</app-button>
+            <app-button (click)="search1(searchString)" type="secondary">Search</app-button>
 
             <div class="selected">
               <p>Place to eat selected: <b>{{foodPlace}}</b></p>
@@ -60,7 +60,7 @@
             <mat-form-field>
               <input matInput placeholder="Search" [(ngModel)]="searchString">
             </mat-form-field>
-            <app-button (click)="search(searchString)" type="secondary">Search</app-button>
+            <app-button (click)="search2(searchString)" type="secondary">Search</app-button>
 
             <div class="selected">
               <p>Outdoor selected: <b>{{outdoorPlace}}</b></p>
@@ -84,7 +84,7 @@
             </ul>
           </div>
         </div>
-        <app-button (click)="submitFood()">Submit</app-button>
+        <app-button (click)="submitOutdoor()">Submit</app-button>
       </div>
     </mat-tab>
   </mat-tab-group>

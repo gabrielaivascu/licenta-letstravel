@@ -56,7 +56,7 @@ export class DialogComponent implements OnInit {
   explore1(section: string) {
     this.exploreFood = true;
 
-    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 3).subscribe((result) => {
       this.exploreResultFood = Object(result).response.groups[0].items;
 
       for (let i = 0; i < this.exploreResultFood.length; i++) {
@@ -74,7 +74,7 @@ export class DialogComponent implements OnInit {
   explore2(section: string) {
     this.exploreOutdoor = true;
 
-    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 2).subscribe((result) => {
       this.exploreResultOutdoor = Object(result).response.groups[0].items;
 
       for (let i = 0; i < this.exploreResultOutdoor.length; i++) {
@@ -89,13 +89,23 @@ export class DialogComponent implements OnInit {
     });
   }
 
-  search(text: string) {
+  search1(text: string) {
     this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
       this.searchResult = Object(result).response.venues[0];
       console.log(result);
       this.foodPlace = this.searchResult.name;
       this.foodPlaceLocation.lat = this.searchResult.location.lat;
       this.foodPlaceLocation.lng = this.searchResult.location.lng;
+    })
+  }
+
+  search2(text: string) {
+    this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
+      this.searchResult = Object(result).response.venues[0];
+      console.log(result);
+      this.outdoorPlace = this.searchResult.name;
+      this.outdoorPlaceLocation.lat = this.searchResult.location.lat;
+      this.outdoorPlaceLocation.lng = this.searchResult.location.lng;
     })
   }
 
@@ -123,5 +133,16 @@ export class DialogComponent implements OnInit {
       }
     }
     this.dialogRef.close({ type: 'food', placeName: this.foodPlace, placeLocation: this.foodPlaceLocation });
+  }
+
+  submitOutdoor() {
+    for(let j=0;j<this.exploreResultOutdoor.length; j++) {
+      console.log(this.exploreResultOutdoor[j].venue.name);
+      if(this.exploreResultOutdoor[j].venue.name === this.outdoorPlace) {
+        this.outdoorPlaceLocation.lat = this.exploreResultOutdoor[j].venue.location.lat;
+        this.outdoorPlaceLocation.lng = this.exploreResultOutdoor[j].venue.location.lng;
+      }
+    }
+    this.dialogRef.close({ type: 'food', placeName: this.outdoorPlace, placeLocation: this.outdoorPlaceLocation });
   }
 }

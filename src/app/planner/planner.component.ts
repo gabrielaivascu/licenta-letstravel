@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
@@ -9,7 +9,7 @@ import { PlacesService } from '../services/places.service';
   templateUrl: './planner.component.html',
   styleUrls: ['./planner.component.scss']
 })
-export class PlannerComponent implements OnInit {
+export class PlannerComponent implements OnInit, OnDestroy {
   nameEvent: string;
   events = [];
   eventType: string;
@@ -21,7 +21,7 @@ export class PlannerComponent implements OnInit {
 
   locationList: [{ lat: number, lng: number }] = [{ lat: 0, lng: 0 }];
 
-  zoom: number = 15;
+  zoom: number = 13;
   @Input() location: string;
 
   constructor(public dialog: MatDialog, private placesService: PlacesService) {
@@ -38,6 +38,10 @@ export class PlannerComponent implements OnInit {
         this.lng = Object(result).response.groups[0].items[0].venue.location.lng;
       });
     }
+  }
+
+  ngOnDestroy() {
+    localStorage.setItem('location', '');
   }
 
   save() {
