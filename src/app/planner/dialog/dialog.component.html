@@ -2,6 +2,9 @@
   <mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="tabChanged($event)">
     <mat-tab label="Flight">
       <div class="column-layout">
+        <div class="fligh-banner">
+          <img src="https://image.flaticon.com/icons/svg/129/129500.svg" alt="">
+        </div>
         <form [formGroup]="flightData" class="form">
           <mat-form-field>
             <input matInput placeholder="To" formControlName="destination">
@@ -24,24 +27,65 @@
               <input matInput placeholder="Search" [(ngModel)]="searchString">
             </mat-form-field>
             <app-button (click)="search(searchString)" type="secondary">Search</app-button>
-            <p>{{searchResult | json}}</p>
+
+            <div class="selected">
+              <p>Place to eat selected: <b>{{foodPlace}}</b></p>
+            </div>
           </div>
 
           <div class="explore">
             <h3> <i class="material-icons">explore</i> Explore</h3>
-            <ul *ngIf="places.length > 0" class="places-list">
-              <li *ngFor="let place of places; let i = index" class="place">
-                <h4>{{place}}</h4>
-                <div class="img-container">
-                  <img src="{{photosPlace[i]}}">
-                </div>
-              </li>
+            <ul *ngIf="foodPlaces.length > 0" class="places-list">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="foodPlace">
+                <li *ngFor="let place of foodPlaces; let i = index" class="place">
+                  <div class="img-container">
+                    <img src="{{foodPhotosPlace[i]}}">
+                  </div>
+                  <app-button type="yellow" class="see-more">See more</app-button>
+                  <div class="select">
+                    <mat-radio-button [value]="place">{{place}}</mat-radio-button>
+                  </div>
+                </li>
+              </mat-radio-group>
             </ul>
           </div>
         </div>
         <app-button (click)="submitFood()">Submit</app-button>
       </div>
     </mat-tab>
-    <mat-tab label="Outdoor"> Outdoor </mat-tab>
+    <mat-tab label="Outdoors">
+      <div class="column-layout">
+        <div class="row-layout">
+          <div class="search">
+            <mat-form-field>
+              <input matInput placeholder="Search" [(ngModel)]="searchString">
+            </mat-form-field>
+            <app-button (click)="search(searchString)" type="secondary">Search</app-button>
+
+            <div class="selected">
+              <p>Outdoor selected: <b>{{outdoorPlace}}</b></p>
+            </div>
+          </div>
+
+          <div class="explore">
+            <h3> <i class="material-icons">explore</i> Explore</h3>
+            <ul *ngIf="outdoorPlaces.length > 0" class="places-list">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="outdoorPlace">
+                <li *ngFor="let place of outdoorPlaces; let i = index" class="place">
+                  <div class="img-container">
+                    <img src="{{outdoorPhotosPlace[i]}}">
+                  </div>
+                  <app-button type="yellow" class="see-more">See more</app-button>
+                  <div class="select">
+                    <mat-radio-button [value]="place">{{place}}</mat-radio-button>
+                  </div>
+                </li>
+              </mat-radio-group>
+            </ul>
+          </div>
+        </div>
+        <app-button (click)="submitFood()">Submit</app-button>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>

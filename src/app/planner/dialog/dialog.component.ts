@@ -15,29 +15,29 @@ export interface DialogData {
 export class DialogComponent implements OnInit {
   searchResult: any;
   exploreResult: any;
+  exploreResultFood: any;
+  exploreResultOutdoor: any;
   searchString: any;
-  exploreFood: boolean = false;
   url: String;
 
-  photosPlace: any = [];
+  exploreFood: boolean = false;
+  exploreOutdoor: boolean = false;
+  foodPlace: string;
+  foodPlaceLocation: {lat: any, lng: any} = {lat: '', lng: ''};
+  foodPhotosPlace: any = [];
+  foodPlaces: any = [];
 
-  places: any = [];
+  outdoorPlace: string;
+  outdoorPlaceLocation: {lat: any, lng: any} = {lat: '', lng: ''};
+  outdoorPhotosPlace: any = [];
+  outdoorPlaces: any = [];
 
-  dataToSave: any = {
-    type: String,
-    data: Object
-  };
   selected: number;
 
   flightData = new FormGroup({
     destination: new FormControl(),
     startDate: new FormControl(),
     endDate: new FormControl(),
-  });
-
-  foodData = new FormGroup({
-    name: new FormControl(),
-    details: new FormControl
   });
 
   constructor(
@@ -53,18 +53,36 @@ export class DialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  explore(section: string) {
+  explore1(section: string) {
     this.exploreFood = true;
-    this.placesService.getPlace(this.data.location, section).subscribe((result) => {
-      this.exploreResult = Object(result).response.groups[0].items;
 
-      for (let i = 0; i < this.exploreResult.length; i++) {
-        this.places.push(this.exploreResult[i].venue.name);
-        // this.places[i].name = this.exploreResult[i].venue.name;
-        
-          this.placesService.getPhotos(this.exploreResult[i].venue.id).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
+      this.exploreResultFood = Object(result).response.groups[0].items;
+
+      for (let i = 0; i < this.exploreResultFood.length; i++) {
+        this.foodPlaces.push(this.exploreResultFood[i].venue.name);
+
+          this.placesService.getPhotos(this.exploreResultFood[i].venue.id).subscribe((result) => {
             let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
-            this.photosPlace.push(url);
+            this.foodPhotosPlace.push(url);
+          });
+        
+      }
+    });
+  }
+
+  explore2(section: string) {
+    this.exploreOutdoor = true;
+
+    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
+      this.exploreResultOutdoor = Object(result).response.groups[0].items;
+
+      for (let i = 0; i < this.exploreResultOutdoor.length; i++) {
+        this.outdoorPlaces.push(this.exploreResultOutdoor[i].venue.name);
+
+          this.placesService.getPhotos(this.exploreResultOutdoor[i].venue.id).subscribe((result) => {
+            let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
+            this.outdoorPhotosPlace.push(url);
           });
         
       }
@@ -75,6 +93,9 @@ export class DialogComponent implements OnInit {
     this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
       this.searchResult = Object(result).response.venues[0];
       console.log(result);
+      this.foodPlace = this.searchResult.name;
+      this.foodPlaceLocation.lat = this.searchResult.location.lat;
+      this.foodPlaceLocation.lng = this.searchResult.location.lng;
     })
   }
 
@@ -82,14 +103,25 @@ export class DialogComponent implements OnInit {
     // console.log(e);
     this.selected = index;
     if (index == 1 && !this.exploreFood) {
-      this.explore('food');
+      this.explore1('food');
+    }
+    if (index == 2 && !this.exploreOutdoor) {
+      this.explore2('outdoor');
     }
   }
 
   submit() {
     this.dialogRef.close({ type: 'flight', data: this.flightData });
   }
+
   submitFood() {
-    this.dialogRef.close({ type: 'food', data: this.searchResult });
+    for(let j=0;j<this.exploreResultFood.length; j++) {
+      console.log(this.exploreResultFood[j].venue.name);
+      if(this.exploreResultFood[j].venue.name === this.foodPlace) {
+        this.foodPlaceLocation.lat = this.exploreResultFood[j].venue.location.lat;
+        this.foodPlaceLocation.lng = this.exploreResultFood[j].venue.location.lng;
+      }
+    }
+    this.dialogRef.close({ type: 'food', placeName: this.foodPlace, placeLocation: this.foodPlaceLocation });
   }
 }

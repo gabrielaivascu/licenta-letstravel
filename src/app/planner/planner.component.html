@@ -1,13 +1,20 @@
 <div class="planner-container">
     <div cdkDropList class="list" (cdkDropListDropped)="drop($event)">
         <div class="box" *ngFor="let event of events" cdkDrag>{{event}}</div>
-        <div *ngIf="events.length === 0" class="empty">No events added</div>
+        <!-- <div *ngIf="events.length === 0" class="empty">No events added</div> -->
+        <div class="add">
+            <app-button (click)="openDialog()" class="add-btn">
+                <i class="material-icons">add</i>
+            </app-button>
+            <span>Add event</span>
+        </div>
     </div>
 
-    <div class="add">
-        <app-button (click)="openDialog()" class="add-btn">
-            <i class="material-icons">add</i>
-        </app-button>
-        <span>Add event</span>
+    <div class="map-container">
+        <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
+            <agm-marker *ngIf="locationList.length === 1" [latitude]="lat" [longitude]="lng"></agm-marker>
+            <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
+            </agm-marker>
+        </agm-map>
     </div>
 </div>

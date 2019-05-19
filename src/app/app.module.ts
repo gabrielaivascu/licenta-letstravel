@@ -64,6 +64,7 @@ import { UserService } from './services/user.service';
 import { FirebaseService } from './services/firebase.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DialogComponent } from './planner/dialog/dialog.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,10 @@ import { DialogComponent } from './planner/dialog/dialog.component';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAGjPKxEo7Jy5BsHwdrgA5lPzHC3eHAxtE'
+    })
   ],
   entryComponents: [DialogComponent],
   providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],

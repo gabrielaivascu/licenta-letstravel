@@ -17,19 +17,16 @@ export class AddPlanComponent implements OnInit {
   tabs: any[] = [];
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
-    public authService: AuthService, private location: Location, public router: Router, private places: PlacesService) { }
+    public authService: AuthService, private location: Location, public router: Router) { }
 
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
       this.data = data;
-      this.days = this.data.endDate.getDate() - this.data.startDate.getDate();
+      this.days = (this.data.endDate.getDate() - this.data.startDate.getDate()) + 1;
       for (let i = 0; i < this.days; i++) {
         this.tabs.push('Day ' + (i + 1));
       }
-      // console.log(this.places.getPlace(this.data.location));
-      // this.places.getPlace((this.data.location)).subscribe((response) => {
-      //   console.log(response);
-      // });
+
     })
   }
   logout() {
