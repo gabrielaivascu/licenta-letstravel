@@ -1,4 +1,5 @@
 @import "../../assets/base/base";
+@import "../../assets/base/colors";
 
 :host() {
   display: flex;
@@ -14,9 +15,51 @@
   align-items: center;
 }
 
-.mat-stepper-horizontal {
+.row-container {
+  display: flex;
   width: 100%;
+}
+
+.map-container {
+  display: flex;
+    justify-content: center;
+    width: 40%;
+    min-width: 500px;
+}
+
+agm-map {
+  height: 400px;
+  min-width: 400px;
+  display: flex;
+  width: 100%;
+}
+.mat-stepper-horizontal {
+  width: 60%;
   min-height: 300px;
+
+  ::ng-deep .mat-horizontal-stepper-header {
+    height: 60px;
+    margin-bottom: 15px;
+    flex-direction: column;
+    justify-content: center;
+    
+    .mat-step-icon {
+      margin: 0;
+      margin-bottom: 5px;
+    }
+
+    &.mat-step-header .mat-step-icon-selected {
+      background-color: $blue;
+    }
+
+    .mat-step-label {
+      min-width: auto;
+    }
+
+    .mat-step-header-ripple.mat-ripple {
+      opacity: 0;
+    }
+  }
 }
 
 h3 {

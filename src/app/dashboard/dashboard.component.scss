@@ -186,11 +186,6 @@
     align-items: center;
     height: 100%;
 
-    // background-image: url(../../assets/images/add-plan.jpg);
-    // background-size: cover;
-    // background-position: center;
-    // padding: 100px;
-
     .form,
     .img {
       width: 50%;
@@ -199,6 +194,7 @@
     .img {
       max-height: 475px;
       width: 50%;
+      max-width: 600px;
 
       img {
         width: 100%;

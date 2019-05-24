@@ -11,13 +11,18 @@ import { PlacesService } from '../services/places.service';
   templateUrl: './add-plan.component.html',
   styleUrls: ['./add-plan.component.scss']
 })
-export class AddPlanComponent implements OnInit {
+export class AddPlanComponent implements OnInit, OnDestroy {
   data: any;
   days: number;
   tabs: any[] = [];
 
+  lat: number = 0;
+  lng: number = 0;
+  zoom: number = 13;
+
   constructor(public startPlanService: StartPlanService, public userService: UserService,
-    public authService: AuthService, private location: Location, public router: Router) { }
+    public authService: AuthService, private location: Location, public router: Router,
+    private placesService: PlacesService) { }
 
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
@@ -27,7 +32,21 @@ export class AddPlanComponent implements OnInit {
         this.tabs.push('Day ' + (i + 1));
       }
 
+      console.log(localStorage.getItem('location'));
+      if (localStorage.getItem('location') != this.data.location && this.data.location) {
+        localStorage.setItem('location', this.data.location);
+
+        this.placesService.getPlace(this.data.location, 'trending', 1).subscribe((result) => {
+          this.lat = Object(result).response.geocode.center.lat;
+          this.lng = Object(result).response.geocode.center.lng;
+          console.log(this.lat);
+        });
+      }
+
     })
+  }
+  ngOnDestroy() {
+    localStorage.setItem('location', '');
   }
   logout() {
     this.authService.doLogout()

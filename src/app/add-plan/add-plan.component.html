@@ -17,13 +17,21 @@
           aria-hidden="true"></i> {{days}} days</h3>
     </div>
     <div class="container">
-
-      <mat-horizontal-stepper #stepper>
-        <mat-step *ngFor="let tab of tabs">
+      <div class="row-container">
+        <mat-horizontal-stepper #stepper>
+          <mat-step *ngFor="let tab of tabs">
             <ng-template matStepLabel>{{tab}}</ng-template>
             <app-planner [location]="data.location"></app-planner>
-        </mat-step>
-      </mat-horizontal-stepper>
+          </mat-step>
+        </mat-horizontal-stepper>
+  
+  
+        <div class="map-container">
+          <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
+            <!-- <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker> -->
+          </agm-map>
+        </div>
+      </div>
 
       <app-button type="secondary">Save plan</app-button>
     </div>
