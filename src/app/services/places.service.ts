@@ -32,4 +32,10 @@ export class PlacesService {
     let tip = this.http.get(url);
     return tip;
   }
+
+  getDetails(venueId) {
+    let url = 'https://api.foursquare.com/v2/venues/' + venueId + '?' + this.key;
+    let tip = this.http.get(url);
+    return tip;
+  }
 }

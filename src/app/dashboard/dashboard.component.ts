@@ -6,6 +6,8 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { FirebaseService } from '../services/firebase.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import {Location} from '@angular-material-extensions/google-maps-autocomplete';
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,11 @@ export class DashboardComponent implements OnInit {
   daysLeft: number;
   formGroupTrip: FormGroup;
   trips: any;
+  // coord: any = 
+  location: any;
+  latitude: number;
+  longitude: number;
+
   constructor(public startPlanService: StartPlanService, public router: Router, public firebaseService: FirebaseService,
     public userService: UserService, public authService: AuthService, private db: AngularFireDatabase) { }
 
@@ -44,13 +51,29 @@ export class DashboardComponent implements OnInit {
     this.formGroupTrip = new FormGroup({
       location: new FormControl(),
       startDate: new FormControl(),
-      endDate: new FormControl()
+      endDate: new FormControl(),
+      coord: new FormControl()
     });
   }
 
   // public handleAddressChange(address: Address) {
   //   this.destination = address.name;
   // }
+
+  // onAutocompleteSelected(result: any) {
+  //   console.log('onAutocompleteSelected: ', result);
+  // }
+
+  onLocationSelected(location: Location) {
+    // console.log('onLocationSelected: ', location);
+    // this.location = location;
+    this.formGroupTrip.patchValue({coord: location});
+
+  }
+
+  onAutocompleteSelected(result: PlaceResult) {
+    this.formGroupTrip.patchValue({location: result.name});
+  }
 
   onSubmit() {
     // this.formGroupTrip.value.location = this.destination;

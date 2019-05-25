@@ -65,6 +65,7 @@ import { FirebaseService } from './services/firebase.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DialogComponent } from './planner/dialog/dialog.component';
 import { AgmCoreModule } from '@agm/core';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete'; 
 
 @NgModule({
   declarations: [
@@ -128,8 +129,10 @@ import { AgmCoreModule } from '@agm/core';
     HttpClientModule,
     DragDropModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAGjPKxEo7Jy5BsHwdrgA5lPzHC3eHAxtE'
-    })
+      apiKey: 'AIzaSyAGjPKxEo7Jy5BsHwdrgA5lPzHC3eHAxtE',
+      libraries: ['places']
+    }),
+    MatGoogleMapsAutocompleteModule.forRoot()
   ],
   entryComponents: [DialogComponent],
   providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],

@@ -32,19 +32,17 @@
         </div>
         <div class="container">
           <div class="img">
-            <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80" alt="">
+            <img
+              src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+              alt="">
           </div>
           <div class="form">
             <div class="bg-box">
               <form [formGroup]="formGroupTrip" (ngSubmit)="onSubmit()">
                 <mat-form-field class="full-width">
-                  <input type="text" placeholder="What's your destination?" aria-label="Number" matInput
-                    formControlName="location" [matAutocomplete]="auto">
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let destionation of destinations" [value]="destionation">
-                      {{destionation}}
-                    </mat-option>
-                  </mat-autocomplete>
+                  <input matInput matGoogleMapsAutocomplete [country]="en" placeholder="What's your destination?"
+                    (onLocationSelected)="onLocationSelected($event)"
+                    (onAutocompleteSelected)="onAutocompleteSelected($event)" formControlName="location">
                 </mat-form-field>
                 <div class="form-row">
                   <mat-form-field>
@@ -119,6 +117,7 @@
                 <ul class="location">
                   <li><i class="fa fa-plane" aria-hidden="true"></i></li>
                   <li>Iasi</li>
+                  <li><i class="material-icons">more_horiz</i></li>
                   <li>Tenerife</li>
                 </ul>
                 <div class="date">
@@ -149,6 +148,7 @@
                 <ul class="location">
                   <li><i class="fa fa-plane" aria-hidden="true"></i></li>
                   <li>Iasi</li>
+                  <li><i class="material-icons">more_horiz</i></li>
                   <li>Tenerife</li>
                 </ul>
                 <div class="date">

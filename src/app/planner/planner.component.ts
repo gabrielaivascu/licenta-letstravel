@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
@@ -14,11 +14,12 @@ export class PlannerComponent implements OnInit, OnDestroy {
   events = [];
   eventType: string;
   event: any;
-
+  
+  @Output() newLocation = new EventEmitter();
 
   // position: {lat: number, lng: number} = {lat: 0, lng: 0 };
 
-  locationList: [{ lat: number, lng: number }] = [{ lat: 0, lng: 0 }];
+  // locationList: [{ lat: number, lng: number }] = [{ lat: 0, lng: 0 }];
 
   @Input() location: string;
 
@@ -58,7 +59,9 @@ export class PlannerComponent implements OnInit, OnDestroy {
       }
       if (result.type === 'food') {
         this.events.push('Go to ' + result.placeName);
-        console.log(this.locationList.length);
+        // console.log(this.locationList.length);
+
+        this.newLocation.emit({ lat: result.placeLocation.lat, lng:  result.placeLocation.lng });
 
         // this.lat = result.placeLocation.lat;
         // this.lng = result.placeLocation.lng;

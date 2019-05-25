@@ -23,12 +23,12 @@ export class DialogComponent implements OnInit {
   exploreFood: boolean = false;
   exploreOutdoor: boolean = false;
   foodPlace: string;
-  foodPlaceLocation: {lat: any, lng: any} = {lat: '', lng: ''};
+  foodPlaceLocation: { lat: any, lng: any } = { lat: '', lng: '' };
   foodPhotosPlace: any = [];
   foodPlaces: any = [];
 
   outdoorPlace: string;
-  outdoorPlaceLocation: {lat: any, lng: any} = {lat: '', lng: ''};
+  outdoorPlaceLocation: { lat: any, lng: any } = { lat: '', lng: '' };
   outdoorPhotosPlace: any = [];
   outdoorPlaces: any = [];
 
@@ -56,17 +56,17 @@ export class DialogComponent implements OnInit {
   explore1(section: string) {
     this.exploreFood = true;
 
-    this.placesService.getPlace(this.data.location, section, 3).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
       this.exploreResultFood = Object(result).response.groups[0].items;
 
       for (let i = 0; i < this.exploreResultFood.length; i++) {
-        this.foodPlaces.push(this.exploreResultFood[i].venue.name);
+        this.foodPlaces.push(this.exploreResultFood[i].venue);
 
-          this.placesService.getPhotos(this.exploreResultFood[i].venue.id).subscribe((result) => {
-            let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
-            this.foodPhotosPlace.push(url);
-          });
-        
+        this.placesService.getPhotos(this.exploreResultFood[i].venue.id).subscribe((result) => {
+          let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
+          this.foodPhotosPlace.push(url);
+        });
+
       }
     });
   }
@@ -78,34 +78,40 @@ export class DialogComponent implements OnInit {
       this.exploreResultOutdoor = Object(result).response.groups[0].items;
 
       for (let i = 0; i < this.exploreResultOutdoor.length; i++) {
-        this.outdoorPlaces.push(this.exploreResultOutdoor[i].venue.name);
+        this.outdoorPlaces.push(this.exploreResultOutdoor[i].venue);
 
-          this.placesService.getPhotos(this.exploreResultOutdoor[i].venue.id).subscribe((result) => {
-            let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
-            this.outdoorPhotosPlace.push(url);
-          });
-        
+        this.placesService.getPhotos(this.exploreResultOutdoor[i].venue.id).subscribe((result) => {
+          let url = Object(result).response.photos.items[0].prefix + '960' + Object(result).response.photos.items[0].suffix;
+          this.outdoorPhotosPlace.push(url);
+        });
+
       }
     });
   }
 
-  search1(text: string) {
-    this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
-      this.searchResult = Object(result).response.venues[0];
-      console.log(result);
-      this.foodPlace = this.searchResult.name;
-      this.foodPlaceLocation.lat = this.searchResult.location.lat;
-      this.foodPlaceLocation.lng = this.searchResult.location.lng;
-    })
+  show(index:any) {
+    console.log(index);
   }
 
-  search2(text: string) {
+  search(text: string, typeLocation: string) {
     this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
       this.searchResult = Object(result).response.venues[0];
+      let id = Object(result).response.venues[0].id;
+      this.placesService.getDetails(id).subscribe((result) => {
+        console.log(result);
+      });
+
       console.log(result);
-      this.outdoorPlace = this.searchResult.name;
-      this.outdoorPlaceLocation.lat = this.searchResult.location.lat;
-      this.outdoorPlaceLocation.lng = this.searchResult.location.lng;
+      if (typeLocation === 'food') {
+        this.foodPlace = this.searchResult.name;
+        this.foodPlaceLocation.lat = this.searchResult.location.lat;
+        this.foodPlaceLocation.lng = this.searchResult.location.lng;
+      }
+      if (typeLocation === 'outdoor') {
+        this.outdoorPlace = this.searchResult.name;
+        this.outdoorPlaceLocation.lat = this.searchResult.location.lat;
+        this.outdoorPlaceLocation.lng = this.searchResult.location.lng;
+      }
     })
   }
 
@@ -125,9 +131,9 @@ export class DialogComponent implements OnInit {
   }
 
   submitFood() {
-    for(let j=0;j<this.exploreResultFood.length; j++) {
+    for (let j = 0; j < this.exploreResultFood.length; j++) {
       console.log(this.exploreResultFood[j].venue.name);
-      if(this.exploreResultFood[j].venue.name === this.foodPlace) {
+      if (this.exploreResultFood[j].venue.name === this.foodPlace) {
         this.foodPlaceLocation.lat = this.exploreResultFood[j].venue.location.lat;
         this.foodPlaceLocation.lng = this.exploreResultFood[j].venue.location.lng;
       }
@@ -136,9 +142,9 @@ export class DialogComponent implements OnInit {
   }
 
   submitOutdoor() {
-    for(let j=0;j<this.exploreResultOutdoor.length; j++) {
+    for (let j = 0; j < this.exploreResultOutdoor.length; j++) {
       console.log(this.exploreResultOutdoor[j].venue.name);
-      if(this.exploreResultOutdoor[j].venue.name === this.outdoorPlace) {
+      if (this.exploreResultOutdoor[j].venue.name === this.outdoorPlace) {
         this.outdoorPlaceLocation.lat = this.exploreResultOutdoor[j].venue.location.lat;
         this.outdoorPlaceLocation.lng = this.exploreResultOutdoor[j].venue.location.lng;
       }

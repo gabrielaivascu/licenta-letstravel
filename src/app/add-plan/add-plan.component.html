@@ -21,14 +21,14 @@
         <mat-horizontal-stepper #stepper>
           <mat-step *ngFor="let tab of tabs">
             <ng-template matStepLabel>{{tab}}</ng-template>
-            <app-planner [location]="data.location"></app-planner>
+            <app-planner [location]="data.location" (newLocation)="addMarker($event)"></app-planner>
           </mat-step>
         </mat-horizontal-stepper>
-  
-  
+
         <div class="map-container">
           <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
-            <!-- <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker> -->
+            <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
+            </agm-marker>
           </agm-map>
         </div>
       </div>

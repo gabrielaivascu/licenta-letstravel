@@ -7,12 +7,13 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 export class StartPlanService {
 
   private data = new BehaviorSubject('');
+
   currentData = this.data.asObservable();
 
   constructor() { }
 
   setLocation(data: string) {
-    this.data.next(data)
+    this.data.next(data);
   }
 
 }
