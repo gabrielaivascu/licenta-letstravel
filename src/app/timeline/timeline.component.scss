@@ -1,0 +1,78 @@
+@import "../../assets/base/colors";
+@import "../../assets/base/base";
+
+:host() {
+  width: 100%;
+}
+
+h3 {
+  i {
+    padding: 0 5px;
+  }
+}
+
+.box.full-section {
+  margin-top: 30px;
+}
+
+::ng-deep mgl-timeline {
+  width: 100%;
+  display: block;
+
+  mgl-timeline-entry {
+    &.expanded {
+      .mgl-timeline-entry-card {
+        overflow: hidden;
+      }
+
+      mgl-timeline-entry-dot {
+        justify-content: flex-end;
+      }
+
+      .mgl-timeline-entry-card-header {
+        color: $white;
+      }
+    }
+
+    .mgl-timeline-entry-card,
+    .mgl-timeline-entry-card-header {
+      border-radius: 5px;
+    }
+    mgl-timeline-entry-dot {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+      cursor: pointer;
+      color: $white;
+
+      &:hover {
+        width: 42px !important;
+        height: 42px !important;
+      }
+
+      &.primary {
+        background-color: $blue;
+      }
+    }
+  }
+
+  .mgl-timeline-line {
+    width: 8px !important;
+    background-color: $grey-4 !important;
+    border-radius: 5px;
+  }
+}
+
+.container {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-container {
+  display: flex;
+  width: 100%;
+}

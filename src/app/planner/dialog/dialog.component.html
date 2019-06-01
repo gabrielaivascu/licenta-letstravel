@@ -27,7 +27,13 @@
               <input matInput placeholder="Search" [(ngModel)]="searchString">
             </mat-form-field>
             <app-button (click)="search(searchString, 'food')" type="secondary">Search</app-button>
-
+            <div *ngIf="searchResult" class="result-container">
+              <p>Name: {{searchResult.name}}</p>
+              <!-- <a href="{{searchResult.shortUrl}}"> -->
+              <img src="{{searchResult.photoUrl}}" alt="">
+              <!-- </a> -->
+              <p>price: {{searchResult.price}} <span>searchResult.priceMessage</span></p>
+            </div>
             <div class="selected">
               <p>Place to eat selected: <b>{{foodPlace}}</b></p>
             </div>
@@ -64,7 +70,9 @@
               <input matInput placeholder="Search" [(ngModel)]="searchString">
             </mat-form-field>
             <app-button (click)="search(searchString, 'outdoor')" type="secondary">Search</app-button>
-
+            <div class="result">
+              <p *ngIf="searchResult">Name: {{searchResult.name}}</p>
+            </div>
             <div class="selected">
               <p>Outdoor selected: <b>{{outdoorPlace}}</b></p>
             </div>

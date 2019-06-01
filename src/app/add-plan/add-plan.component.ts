@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { PlacesService } from '../services/places.service';
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
   selector: 'app-add-plan',
@@ -13,8 +14,12 @@ import { PlacesService } from '../services/places.service';
 })
 export class AddPlanComponent implements OnInit, OnDestroy {
   data: any;
+  key: any;
   days: number;
   tabs: any[] = [];
+  selectedIndex = 0;
+
+  allEvents: any = [];
 
   lat: number = 52.520008;
   lng: number = 13.404954;
@@ -24,11 +29,12 @@ export class AddPlanComponent implements OnInit, OnDestroy {
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
     public authService: AuthService, private location: Location, public router: Router,
-    private placesService: PlacesService) { }
+    private placesService: PlacesService, public firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
-      this.data = data;
+      this.data = data.value;
+      this.key = data.key;
 
       this.days = (this.data.endDate.getDate() - this.data.startDate.getDate()) + 1;
       for (let i = 0; i < this.days; i++) {
@@ -47,6 +53,16 @@ export class AddPlanComponent implements OnInit, OnDestroy {
     localStorage.setItem('location', '');
   }
 
+  addEvents(e: any) {
+    this.allEvents[e.index] = {events: e.events, type: e.type};
+    // this.allEvents[e.index].events = e.events;
+    // this.allEvents[e.index].type = e.type;
+  }
+
+  changed(e: any) {
+    this.selectedIndex = e.selectedIndex;
+  }
+
   logout() {
     this.authService.doLogout()
       .then((res) => {
@@ -59,5 +75,13 @@ export class AddPlanComponent implements OnInit, OnDestroy {
   addMarker(result) {
     console.log(result);
     this.locationList.push(result);
+  }
+
+
+  savePlan() {
+    console.log("save plan");
+    console.log(this.allEvents);
+    this.firebaseService.createPlan(this.allEvents, this.key);
+    this.router.navigateByUrl('/timeline');
   }
 }

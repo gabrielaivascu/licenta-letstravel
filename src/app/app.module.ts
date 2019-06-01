@@ -65,7 +65,9 @@ import { FirebaseService } from './services/firebase.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DialogComponent } from './planner/dialog/dialog.component';
 import { AgmCoreModule } from '@agm/core';
-import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete'; 
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { TimelineComponent } from './timeline/timeline.component'; 
+import { MglTimelineModule } from 'angular-mgl-timeline';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
     ButtonComponent,
     AddPlanComponent,
     PlannerComponent,
-    DialogComponent
+    DialogComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
@@ -132,7 +135,9 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
       apiKey: 'AIzaSyAGjPKxEo7Jy5BsHwdrgA5lPzHC3eHAxtE',
       libraries: ['places']
     }),
-    MatGoogleMapsAutocompleteModule.forRoot()
+    MatGoogleMapsAutocompleteModule.forRoot(),
+    MglTimelineModule
+    
   ],
   entryComponents: [DialogComponent],
   providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],

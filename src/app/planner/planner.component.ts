@@ -16,6 +16,8 @@ export class PlannerComponent implements OnInit, OnDestroy {
   event: any;
   
   @Output() newLocation = new EventEmitter();
+  @Output() eventsList = new EventEmitter();
+  @Input() day: any;
 
   // position: {lat: number, lng: number} = {lat: 0, lng: 0 };
 
@@ -27,6 +29,7 @@ export class PlannerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(this.day)
   }
 
   ngOnDestroy() {
@@ -51,23 +54,21 @@ export class PlannerComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
-      console.log(result);
-
+ 
       if (result.type === 'flight') {
         this.events.push('Flight to ' + result.data.value.destination);
       }
       if (result.type === 'food') {
-        this.events.push('Go to ' + result.placeName);
-        // console.log(this.locationList.length);
-
-        this.newLocation.emit({ lat: result.placeLocation.lat, lng:  result.placeLocation.lng });
-
-        // this.lat = result.placeLocation.lat;
-        // this.lng = result.placeLocation.lng;
-
-        // this.locationList.push({ lat: this.lat, lng: this.lng });
+        this.events.push('Go to ' + result.place.name);
+        this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
+      if (result.type === 'outdoor') {
+        this.events.push('Go to ' + result.place.name);
+        this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
+      }
+
+      console.log(this.day);
+      this.eventsList.emit({events: this.events, index: this.day, type: result.type});
     });
   }
 }

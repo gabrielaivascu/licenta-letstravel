@@ -28,25 +28,25 @@ export class DashboardComponent implements OnInit {
   longitude: number;
 
   constructor(public startPlanService: StartPlanService, public router: Router, public firebaseService: FirebaseService,
-    public userService: UserService, public authService: AuthService, private db: AngularFireDatabase) { }
+    public userService: UserService, public authService: AuthService) { }
 
   ngOnInit() {
 
     let user = this.firebaseService.getCurrentUser();
-    this.firebaseService.getTrips(user).subscribe(trip => {
-      this.trips = trip;
+    // this.firebaseService.getTrips(user).subscribe(trip => {
+    //   this.trips = trip;
 
-      this.trips.forEach(trip => {
-        let start = new Date(trip.startDate);
-        let current = new Date();
-        // console.log(trip);
-        // if (start > current) {
-        //   this.hasUpcomingTrip = true;
-        //   this.upcomingLocation = trip.location;
-        //   this.daysLeft = start.getDate() - current.getDate();
-        // }
-      });
-    });
+    //   this.trips.forEach(trip => {
+    //     let start = new Date(trip.startDate);
+    //     let current = new Date();
+    //     console.log(trip);
+    //     if (start > current) {
+    //       this.hasUpcomingTrip = true;
+    //       this.upcomingLocation = trip.location;
+    //       this.daysLeft = start.getDate() - current.getDate();
+    //     }
+    //   });
+    // });
 
     this.formGroupTrip = new FormGroup({
       location: new FormControl(),
@@ -77,8 +77,8 @@ export class DashboardComponent implements OnInit {
 
   onSubmit() {
     // this.formGroupTrip.value.location = this.destination;
-    this.firebaseService.createTrip(this.formGroupTrip.value);
-    this.startPlanService.setLocation(this.formGroupTrip.value);
+    let tripKey = this.firebaseService.createTrip(this.formGroupTrip.value);
+    this.startPlanService.setLocation({value: this.formGroupTrip.value, key: tripKey});
     this.router.navigateByUrl('/add-plan');
   }
 

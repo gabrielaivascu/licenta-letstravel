@@ -18,10 +18,10 @@
     </div>
     <div class="container">
       <div class="row-container">
-        <mat-horizontal-stepper #stepper>
-          <mat-step *ngFor="let tab of tabs">
+        <mat-horizontal-stepper #stepper (selectionChange)="changed($event)">
+          <mat-step *ngFor="let tab of tabs; let i = index">
             <ng-template matStepLabel>{{tab}}</ng-template>
-            <app-planner [location]="data.location" (newLocation)="addMarker($event)"></app-planner>
+            <app-planner [location]="data.location" (newLocation)="addMarker($event)" [day]="i" (eventsList)="addEvents($event)"></app-planner>
           </mat-step>
         </mat-horizontal-stepper>
 
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <app-button type="secondary">Save plan</app-button>
+      <app-button type="secondary" (click)="savePlan()">Save plan</app-button>
     </div>
   </section>
 

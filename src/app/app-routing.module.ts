@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserResolver } from './services/user.resolver';
+import { TimelineComponent } from './timeline/timeline.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, resolve: { data: UserResolver }},
-  { path: 'add-plan', component: AddPlanComponent }
+  { path: 'add-plan', component: AddPlanComponent },
+  { path: 'timeline', component: TimelineComponent }
+
 ];
 
 @NgModule({
