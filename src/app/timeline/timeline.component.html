@@ -17,11 +17,11 @@
     </div>
     <div class="container">
       <div class="row-container">
-
+        <ng-container *ngIf="showTimeline">
         <mgl-timeline [toggle]="toggle" [alternate]="alternate" [side]="side">
           <ng-container *ngFor="let day of events; let i = index;">
               <ng-container *ngIf="day">
-              <mgl-timeline-entry *ngFor="let event of day.events; let j = index;" (expand)="onExpandEntry($event, i)">
+              <mgl-timeline-entry *ngFor="let event of day.events; let j = index;" (expand)="onExpandEntry($event, i)" >
                   <mgl-timeline-entry-header (click)="onHeaderClick($event)">
                     <div>{{event}}</div>
                   </mgl-timeline-entry-header>
@@ -41,9 +41,8 @@
                 </mgl-timeline-entry>
                 </ng-container>
           </ng-container>
-         
         </mgl-timeline>
-
+      </ng-container>
       </div>
     </div>
   </section>

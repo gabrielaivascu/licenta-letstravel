@@ -63,11 +63,14 @@ export class PlannerComponent implements OnInit, OnDestroy {
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
       if (result.type === 'outdoor') {
-        this.events.push('Go to ' + result.place.name);
+        this.events.push('Visit ' + result.place.name);
+        this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
+      }
+      if (result.type === 'shops') {
+        this.events.push('Shopping at ' + result.place.name);
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
 
-      console.log(this.day);
       this.eventsList.emit({events: this.events, index: this.day, type: result.type});
     });
   }

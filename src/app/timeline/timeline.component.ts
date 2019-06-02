@@ -19,6 +19,7 @@ export class TimelineComponent implements OnInit {
   side = 'left';
   plans: any;
   events: any;
+  showTimeline:boolean = false;
 
   entries = [
     {
@@ -30,19 +31,16 @@ export class TimelineComponent implements OnInit {
   constructor(public firebaseService: FirebaseService,public authService: AuthService, public router: Router) { }
 
   ngOnInit() {
-    // let user = this.firebaseService.getCurrentUser();
     let self = this;
     firebase.auth().onAuthStateChanged( (user) => {
-      // user hols the reference to currentUser variable.
-      // console.log(user.uid);
 
       self.firebaseService.getPlans(user.uid).subscribe(plan => {
         self.plans = plan;
+        console.log(plan);
   
         self.plans.forEach(plan => {
-          // console.log(plan);
           self.events = Object(plan).events;
-          console.log(self.events);
+          this.showTimeline = true;
         });
       });
     });
@@ -57,6 +55,9 @@ export class TimelineComponent implements OnInit {
     } 
     if(type==='outdoor') {
       return 'location_city';
+    } 
+    if(type==='shops') {
+      return 'shopping_basket';
     } 
   }
 

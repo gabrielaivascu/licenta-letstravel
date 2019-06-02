@@ -55,8 +55,6 @@ export class AddPlanComponent implements OnInit, OnDestroy {
 
   addEvents(e: any) {
     this.allEvents[e.index] = {events: e.events, type: e.type};
-    // this.allEvents[e.index].events = e.events;
-    // this.allEvents[e.index].type = e.type;
   }
 
   changed(e: any) {
