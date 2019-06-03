@@ -28,8 +28,9 @@
 }
 
 agm-map {
-  height: 400px;
-  min-width: 400px;
+  height: 100%;
+  min-height: 300px;
+  min-width: 300px;
   display: flex;
   width: 100%;
 }
@@ -70,6 +71,22 @@ h3 {
 
 .box.full-section {
   margin-top: 30px;
+}
+
+.planner {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+
+  .container{
+    flex-grow: 1;
+    justify-content: flex-start;
+
+    .row-container {
+      margin-bottom: 25px;
+      flex-grow: 1;
+    }
+  }
 }
 
 ::ng-deep .mat-horizontal-stepper-header-container {

@@ -16,9 +16,10 @@
             <input matInput placeholder="end date" formControlName="endDate">
           </mat-form-field>
         </form>
-        <app-button (click)="submit()">Submit</app-button>
+        <app-button (click)="submit('flight')">Add event</app-button>
       </div>
     </mat-tab>
+    
     <mat-tab label="Food">
       <div class="column-layout">
         <div class="row-layout">
@@ -40,12 +41,13 @@
           </div>
 
           <div class="explore">
-            <h3> <i class="material-icons">explore</i> Explore</h3>
+            <h3> <i class="material-icons">explore</i> Our suggestion</h3>
             <ul *ngIf="foodPlaces.length > 0" class="places-list">
               <mat-radio-group aria-label="Select an option" [(ngModel)]="foodPlace">
                 <li *ngFor="let place of foodPlaces; let i = index" class="place">
                   <div class="img-container">
-                    <img src="{{foodPhotosPlace[i]}}">
+                    <!-- <img src="{{foodPhotosPlace[i]}}"> -->
+                    <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
                     <img src="{{place.categories[0].icon.prefix}}90{{place.categories[0].icon.suffix}}" alt="">
@@ -59,7 +61,7 @@
             </ul>
           </div>
         </div>
-        <app-button (click)="submitFood()">Submit</app-button>
+        <app-button (click)="submitFood()">Add event</app-button>
       </div>
     </mat-tab>
     <mat-tab label="Outdoors">
@@ -84,7 +86,8 @@
               <mat-radio-group aria-label="Select an option" [(ngModel)]="outdoorPlace">
                 <li *ngFor="let place of outdoorPlaces; let i = index" class="place">
                   <div class="img-container">
-                    <img src="{{outdoorPhotosPlace[i]}}">
+                    <!-- <img src="{{outdoorPhotosPlace[i]}}"> -->
+                    <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
                     <img src="{{place.categories[0].icon.prefix}}90{{place.categories[0].icon.suffix}}" alt="">
@@ -98,7 +101,7 @@
             </ul>
           </div>
         </div>
-        <app-button (click)="submitOutdoor()" class="modal-btn">Submit</app-button>
+        <app-button (click)="submitOutdoor()" class="modal-btn">Add event</app-button>
       </div>
     </mat-tab>
     <mat-tab label="Shops">
@@ -123,7 +126,8 @@
                 <mat-radio-group aria-label="Select an option" [(ngModel)]="shopsPlace">
                   <li *ngFor="let place of shopsPlaces; let i = index" class="place">
                     <div class="img-container">
-                      <img src="{{shopsPhotosPlace[i]}}">
+                      <!-- <img src="{{shopsPhotosPlace[i]}}"> -->
+                      <img src="{{photosUrl.get(place.id)}}">
                     </div>
                     <div class="category">
                       <img src="{{place.categories[0].icon.prefix}}90{{place.categories[0].icon.suffix}}" alt="">
@@ -137,8 +141,27 @@
               </ul>
             </div>
           </div>
-          <app-button (click)="submitShops()" class="modal-btn">Submit</app-button>
+          <app-button (click)="submitShops()" class="modal-btn">Add event</app-button>
         </div>
       </mat-tab>
+      <mat-tab label="Other activity">
+          <div class="column-layout">
+            <div class="fligh-banner">
+              <img src="https://image.flaticon.com/icons/svg/129/129500.svg" alt="">
+            </div>
+            <form [formGroup]="otherData" class="form">
+              <mat-form-field>
+                <input matInput placeholder="What you want to do" formControlName="name">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="start date" formControlName="startDate">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="end date" formControlName="endDate">
+              </mat-form-field>
+            </form>
+            <app-button (click)="submit('other')">Add event</app-button>
+          </div>
+        </mat-tab>
   </mat-tab-group>
 </div>

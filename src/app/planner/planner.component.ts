@@ -49,7 +49,8 @@ export class PlannerComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '850px',
+      width: '860px',
+      height: '650px',
       data: { location: this.location, event: this.event }
     });
 
@@ -57,6 +58,9 @@ export class PlannerComponent implements OnInit, OnDestroy {
  
       if (result.type === 'flight') {
         this.events.push('Flight to ' + result.data.value.destination);
+      }
+      if (result.type === 'other') {
+        this.events.push(result.data.value.name);
       }
       if (result.type === 'food') {
         this.events.push('Go to ' + result.place.name);

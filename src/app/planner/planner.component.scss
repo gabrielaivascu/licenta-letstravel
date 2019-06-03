@@ -93,9 +93,18 @@
 
 .planner-container {
   display: flex;
+  height: calc(100vh - 360px);
 }
 
 .cdk-overlay-pane {
   width: 70% !important;
 }
 
+::ng-deep .mat-horizontal-stepper-header-container {
+  justify-content: center;
+}
+
+::ng-deep .mat-horizontal-content-container {
+  height: calc(100% - 75px);
+  padding-bottom: 0;
+}

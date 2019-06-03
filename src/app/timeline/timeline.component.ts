@@ -59,6 +59,9 @@ export class TimelineComponent implements OnInit {
     if(type==='shops') {
       return 'shopping_basket';
     } 
+    if(type==='other') {
+      return 'schedule';
+    } 
   }
 
   addEntry() {

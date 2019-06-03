@@ -34,19 +34,16 @@ export class DialogComponent implements OnInit {
   
   exploreFood: boolean = false;
   foodPlace: string;
-  foodPhotosPlace: any = [];
   foodPlaces: any = [];
   
   exploreResultOutdoor: any;
   exploreOutdoor: boolean = false;
   outdoorPlace: string;
-  outdoorPhotosPlace: any = [];
   outdoorPlaces: any = [];
 
   exploreResultShops: any;
   exploreShops: boolean = false;
   shopsPlace: string;
-  shopsPhotosPlace: any = [];
   shopsPlaces: any = [];
  
   selected: number;
@@ -56,6 +53,14 @@ export class DialogComponent implements OnInit {
     startDate: new FormControl(),
     endDate: new FormControl(),
   });
+
+  otherData = new FormGroup({
+    name: new FormControl(),
+    startDate: new FormControl(),
+    endDate: new FormControl(),
+  });
+
+  photosUrl = new Map();
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -72,16 +77,18 @@ export class DialogComponent implements OnInit {
 
   explore1(section: string) {
     this.exploreFood = true;
+    let place = new Map();
 
-    this.placesService.getPlace(this.data.location, section, 3).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 2).subscribe((result) => {
       this.exploreResultFood = Object(result).response.groups[0].items;
 
       for (let i = 0; i < this.exploreResultFood.length; i++) {
         this.foodPlaces.push(this.exploreResultFood[i].venue);
+        let id = this.exploreResultFood[i].venue.id;
 
-        this.placesService.getPhotos(this.exploreResultFood[i].venue.id).subscribe((result) => {
+        this.placesService.getPhotos(id).subscribe((result) => {
           let url = Object(result).response.photos.items[0].prefix + '640' + Object(result).response.photos.items[0].suffix;
-          this.foodPhotosPlace.push(url);
+          this.photosUrl.set(id, url);
         });
       }
     });
@@ -95,10 +102,11 @@ export class DialogComponent implements OnInit {
 
       for (let i = 0; i < this.exploreResultOutdoor.length; i++) {
         this.outdoorPlaces.push(this.exploreResultOutdoor[i].venue);
+        let id = this.exploreResultOutdoor[i].venue.id;
 
         this.placesService.getPhotos(this.exploreResultOutdoor[i].venue.id).subscribe((result) => {
           let url = Object(result).response.photos.items[0].prefix + '640' + Object(result).response.photos.items[0].suffix;
-          this.outdoorPhotosPlace.push(url);
+          this.photosUrl.set(id, url);
         });
       }
     });
@@ -112,10 +120,11 @@ export class DialogComponent implements OnInit {
 
       for (let i = 0; i < this.exploreResultShops.length; i++) {
         this.shopsPlaces.push(this.exploreResultShops[i].venue);
+        let id = this.exploreResultShops[i].venue.id;
 
         this.placesService.getPhotos(this.exploreResultShops[i].venue.id).subscribe((result) => {
           let url = Object(result).response.photos.items[0].prefix + '640' + Object(result).response.photos.items[0].suffix;
-          this.shopsPhotosPlace.push(url);
+          this.photosUrl.set(id, url);
         });
       }
     });
@@ -164,15 +173,19 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  submit() {
-    this.dialogRef.close({ type: 'flight', data: this.flightData });
+  submit(type: string) {
+    if(type=== 'flight') {
+      this.dialogRef.close({ type: 'flight', data: this.flightData });
+    }
+    if(type=== 'other') {
+      this.dialogRef.close({ type: 'other', data: this.otherData });
+    }
   }
 
   submitFood() {
     this.locationData.name = this.foodPlace;
 
     for (let j = 0; j < this.exploreResultFood.length; j++) {
-      console.log(this.exploreResultFood[j].venue.name);
       if (this.exploreResultFood[j].venue.name === this.foodPlace) {
         this.locationData.lat = this.exploreResultFood[j].venue.location.lat;
         this.locationData.lng = this.exploreResultFood[j].venue.location.lng;
@@ -185,7 +198,6 @@ export class DialogComponent implements OnInit {
     this.locationData.name = this.outdoorPlace;
 
     for (let j = 0; j < this.exploreResultOutdoor.length; j++) {
-      console.log(this.exploreResultOutdoor[j].venue.name);
       if (this.exploreResultOutdoor[j].venue.name === this.outdoorPlace) {
         this.locationData.lat = this.exploreResultOutdoor[j].venue.location.lat;
         this.locationData.lng = this.exploreResultOutdoor[j].venue.location.lng;
@@ -198,7 +210,6 @@ export class DialogComponent implements OnInit {
     this.locationData.name = this.shopsPlace;
 
     for (let j = 0; j < this.exploreResultShops.length; j++) {
-      console.log(this.exploreResultShops[j].venue.name);
       if (this.exploreResultShops[j].venue.name === this.shopsPlace) {
         this.locationData.lat = this.exploreResultShops[j].venue.location.lat;
         this.locationData.lng = this.exploreResultShops[j].venue.location.lng;
