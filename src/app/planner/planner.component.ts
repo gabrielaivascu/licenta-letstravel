@@ -57,21 +57,21 @@ export class PlannerComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
  
       if (result.type === 'flight') {
-        this.events.push('Flight to ' + result.data.value.destination);
+        this.events.push({content: 'Flight to ' + result.data.value.destination, type: 'flight'});
       }
       if (result.type === 'other') {
-        this.events.push(result.data.value.name);
+        this.events.push({content: result.data.value.name, type:'other'});
       }
       if (result.type === 'food') {
-        this.events.push('Go to ' + result.place.name);
+        this.events.push({content:'Go to ' + result.place.name, type: 'food'});
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
       if (result.type === 'outdoor') {
-        this.events.push('Visit ' + result.place.name);
+        this.events.push({content:'Visit ' + result.place.name, type: 'outdoor'});
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
       if (result.type === 'shops') {
-        this.events.push('Shopping at ' + result.place.name);
+        this.events.push({content:'Shopping at ' + result.place.name, type: 'outdoor'});
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
 

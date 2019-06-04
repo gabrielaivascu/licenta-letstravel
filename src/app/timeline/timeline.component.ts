@@ -40,6 +40,7 @@ export class TimelineComponent implements OnInit {
   
         self.plans.forEach(plan => {
           self.events = Object(plan).events;
+          console.log(self.events);
           this.showTimeline = true;
         });
       });

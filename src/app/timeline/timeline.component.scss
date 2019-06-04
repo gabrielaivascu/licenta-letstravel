@@ -26,6 +26,7 @@ h3 {
 
       mgl-timeline-entry-dot {
         justify-content: flex-end;
+        padding-right: 15px;
       }
 
       .mgl-timeline-entry-card-header {
@@ -44,11 +45,6 @@ h3 {
       transition: all 0.3s;
       cursor: pointer;
       color: $white;
-
-      &:hover {
-        width: 42px !important;
-        height: 42px !important;
-      }
 
       &.primary {
         background-color: $blue;
