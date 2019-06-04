@@ -18,31 +18,46 @@
     <div class="container">
       <div class="row-container timeline-container">
         <ng-container *ngIf="showTimeline">
-        <mgl-timeline [toggle]="toggle" [alternate]="alternate" [side]="side">
-          <ng-container *ngFor="let day of events; let i = index;">
+          <mgl-timeline [toggle]="toggle" [alternate]="alternate" [side]="side">
+            <ng-container *ngFor="let day of events; let i = index;">
               <ng-container *ngIf="day">
-              <mgl-timeline-entry *ngFor="let event of day.events; let j = index;" (expand)="onExpandEntry($event, i)" >
+                <mgl-timeline-entry (expand)="onExpandEntry($event, i)" class="day-number">
                   <mgl-timeline-entry-header (click)="onHeaderClick($event)">
+                    <!-- <div>Day {{i + 1}}</div> -->
+                  </mgl-timeline-entry-header>
+          
+                  <mgl-timeline-entry-dot class="primary" [size]="size" (click)="onDotClick($event)">
+                      <p>Day {{i + 1}}</p>
+                  </mgl-timeline-entry-dot>
+                </mgl-timeline-entry>
+
+                <mgl-timeline-entry (expand)="onExpandEntry($event, i)" class="none">
+                    <mgl-timeline-entry-header (click)="onHeaderClick($event)">
+                    </mgl-timeline-entry-header>
+                    <mgl-timeline-entry-dot class="primary" [size]="size" (click)="onDotClick($event)">
+                    </mgl-timeline-entry-dot>
+                  </mgl-timeline-entry>
+
+                <mgl-timeline-entry *ngFor="let event of day.events; let j = index;"
+                  (expand)="onExpandEntry($event, i)" toggle="false">
+                  <mgl-timeline-entry-header (click)="onHeaderClick($event)">
+                    <div class="header-icon">
+                      <i class="material-icons">
+                        {{getIcon(event.type)}}
+                      </i>
+                    </div>
                     <div>{{event.content}}</div>
                   </mgl-timeline-entry-header>
                   <mgl-timeline-entry-content>
-                    <!-- <div>
-                      <div>{{entry.content}}</div>
-                      <div>{{entry.content}}</div>
-                      <div>{{entry.content}}</div>
-                    </div> -->
                   </mgl-timeline-entry-content>
                   <mgl-timeline-entry-dot class="primary" [size]="size" (click)="onDotClick($event)">
-                      <i class="material-icons">
-                          {{getIcon(event.type)}}
-                          </i>
                   </mgl-timeline-entry-dot>
-                  <mgl-timeline-entry-side>Day {{i + 1}}</mgl-timeline-entry-side>
+                  <!-- <mgl-timeline-entry-side>Day {{i + 1}}</mgl-timeline-entry-side> -->
                 </mgl-timeline-entry>
-                </ng-container>
-          </ng-container>
-        </mgl-timeline>
-      </ng-container>
+              </ng-container>
+            </ng-container>
+          </mgl-timeline>
+        </ng-container>
       </div>
     </div>
   </section>

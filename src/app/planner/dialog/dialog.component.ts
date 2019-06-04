@@ -77,9 +77,8 @@ export class DialogComponent implements OnInit {
 
   explore1(section: string) {
     this.exploreFood = true;
-    let place = new Map();
 
-    this.placesService.getPlace(this.data.location, section, 2).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
       this.exploreResultFood = Object(result).response.groups[0].items;
 
       for (let i = 0; i < this.exploreResultFood.length; i++) {

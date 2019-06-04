@@ -1,5 +1,6 @@
 @import "../../assets/base/colors";
 @import "../../assets/base/base";
+@import "../../assets/base/mixins";
 
 :host() {
   width: 100%;
@@ -11,6 +12,12 @@ h3 {
   }
 }
 
+.flex-row {
+  @include scrollbar($grey-1);
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+}
+
 .box.full-section {
   margin-top: 30px;
 }
@@ -18,7 +25,31 @@ h3 {
 ::ng-deep mgl-timeline {
   width: 100%;
   display: block;
+  font-family: "Poppins", sans-serif !important;
+
   mgl-timeline-entry {
+
+    &.none {
+      display: none;
+    }
+
+    &.day-number {
+      .mgl-timeline-entry-card {
+        box-shadow: none;
+      }
+
+      .mgl-timeline-entry-card-header {
+        background: transparent !important;
+      }
+
+      mgl-timeline-entry-dot {
+        background-color: #395aff !important;
+        width: 80px !important;
+        padding: 15px;
+        font-weight: bold;
+      }
+    }
+
     &.expanded {
       .mgl-timeline-entry-card {
         overflow: hidden;
@@ -34,6 +65,27 @@ h3 {
       }
     }
 
+    mgl-timeline-entry-header {
+      position: relative;
+      padding-top: 30px;
+      overflow: visible;
+
+      .header-icon {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #3a5aff;
+        border-radius: 50%;
+        display: flex;
+        color: white;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
     .mgl-timeline-entry-card,
     .mgl-timeline-entry-card-header {
       border-radius: 5px;
@@ -42,12 +94,11 @@ h3 {
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: all 0.3s;
-      cursor: pointer;
       color: $white;
 
       &.primary {
-        background-color: $blue;
+        background-color: $white;
+        border: 3px solid $blue;
       }
     }
   }
@@ -73,5 +124,5 @@ h3 {
 }
 
 .timeline-container {
-  height: calc(100vh - 225px);
+  min-height: calc(100vh - 225px);
 }

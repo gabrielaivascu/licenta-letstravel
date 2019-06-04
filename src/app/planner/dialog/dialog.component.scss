@@ -16,9 +16,20 @@
 .search {
   flex-grow: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   margin: 0 50px;
+  margin-top: 25px;
+
+  .search-img-container{
+    height: 200px;
+    max-width: 250px;
+    overflow: hidden;
+
+    img{
+      width: 100%;
+    }
+  }
 }
 
 .result-container {
@@ -34,7 +45,7 @@
   h3 {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 
     img {
       width: 20px;
@@ -140,6 +151,27 @@
     max-height: 200px;
     overflow: hidden;
     margin-top: 20px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .search-img {
+    display: none;
+
+
+    img {
+      max-width: 110px;
+      width: 100%;
+    }
+  }
+
+  .other-banner {
+    overflow: hidden;
+    margin-top: 40px;
+    height: 250px;
+    max-width: 150px;
 
     img {
       width: 100%;

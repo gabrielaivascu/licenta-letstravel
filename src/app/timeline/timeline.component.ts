@@ -14,8 +14,8 @@ export class TimelineComponent implements OnInit {
   alternate: boolean = true;
   toggle: boolean = true;
   color: boolean = true;
-  size: number = 40;
-  expandEnabled: boolean = true;
+  size: number = 20;
+  expandEnabled: boolean = false;
   side = 'left';
   plans: any;
   events: any;

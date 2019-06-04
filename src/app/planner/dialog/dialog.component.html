@@ -29,11 +29,11 @@
             </mat-form-field>
             <app-button (click)="search(searchString, 'food')" type="secondary">Search</app-button>
             <div *ngIf="searchResult" class="result-container">
-              <p>Name: {{searchResult.name}}</p>
-              <!-- <a href="{{searchResult.shortUrl}}"> -->
-              <img src="{{searchResult.photoUrl}}" alt="">
-              <!-- </a> -->
-              <p>price: {{searchResult.price}} <span>searchResult.priceMessage</span></p>
+              <p>Name: <b>{{searchResult.name}}</b></p>
+                <div class="search-img-container">
+                  <img src="{{searchResult.photoUrl}}" alt="">
+                </div>
+              <p>Price: <b>{{searchResult.price}} <span>{{searchResult.priceMessage}}</span></b></p>
             </div>
             <div class="selected">
               <p>Place to eat selected: <b>{{foodPlace}}</b></p>
@@ -46,7 +46,6 @@
               <mat-radio-group aria-label="Select an option" [(ngModel)]="foodPlace">
                 <li *ngFor="let place of foodPlaces; let i = index" class="place">
                   <div class="img-container">
-                    <!-- <img src="{{foodPhotosPlace[i]}}"> -->
                     <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
@@ -72,9 +71,13 @@
               <input matInput placeholder="Search" [(ngModel)]="searchString">
             </mat-form-field>
             <app-button (click)="search(searchString, 'outdoor')" type="secondary">Search</app-button>
-            <div class="result">
-              <p *ngIf="searchResult">Name: {{searchResult.name}}</p>
-            </div>
+            <div *ngIf="searchResult" class="result-container">
+                <p>Name: <b>{{searchResult.name}}</b></p>
+                  <div class="search-img-container">
+                    <img src="{{searchResult.photoUrl}}" alt="">
+                  </div>
+                <p>Price: <b>{{searchResult.price}} <span>{{searchResult.priceMessage}}</span></b></p>
+              </div>
             <div class="selected">
               <p>Outdoor selected: <b>{{outdoorPlace}}</b></p>
             </div>
@@ -86,7 +89,6 @@
               <mat-radio-group aria-label="Select an option" [(ngModel)]="outdoorPlace">
                 <li *ngFor="let place of outdoorPlaces; let i = index" class="place">
                   <div class="img-container">
-                    <!-- <img src="{{outdoorPhotosPlace[i]}}"> -->
                     <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
@@ -112,9 +114,13 @@
                 <input matInput placeholder="Search" [(ngModel)]="searchString">
               </mat-form-field>
               <app-button (click)="search(searchString, 'shops')" type="secondary">Search</app-button>
-              <div class="result">
-                <p *ngIf="searchResult">Name: {{searchResult.name}}</p>
-              </div>
+              <div *ngIf="searchResult" class="result-container">
+                  <p>Name: <b>{{searchResult.name}}</b></p>
+                    <div class="search-img-container">
+                      <img src="{{searchResult.photoUrl}}" alt="">
+                    </div>
+                  <p>Price: <b>{{searchResult.price}} <span>{{searchResult.priceMessage}}</span></b></p>
+                </div>
               <div class="selected">
                 <p>Shops selected: <b>{{shopsPlace}}</b></p>
               </div>
@@ -126,7 +132,6 @@
                 <mat-radio-group aria-label="Select an option" [(ngModel)]="shopsPlace">
                   <li *ngFor="let place of shopsPlaces; let i = index" class="place">
                     <div class="img-container">
-                      <!-- <img src="{{shopsPhotosPlace[i]}}"> -->
                       <img src="{{photosUrl.get(place.id)}}">
                     </div>
                     <div class="category">
@@ -146,12 +151,12 @@
       </mat-tab>
       <mat-tab label="Other activity">
           <div class="column-layout">
-            <div class="fligh-banner">
-              <img src="https://image.flaticon.com/icons/svg/129/129500.svg" alt="">
+            <div class="other-banner">
+              <img src="https://image.flaticon.com/icons/svg/214/214333.svg" alt="">
             </div>
             <form [formGroup]="otherData" class="form">
               <mat-form-field>
-                <input matInput placeholder="What you want to do" formControlName="name">
+                <input matInput placeholder="Some activity" formControlName="name">
               </mat-form-field>
               <mat-form-field>
                 <input matInput placeholder="start date" formControlName="startDate">
