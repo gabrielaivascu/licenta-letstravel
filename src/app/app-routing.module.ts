@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, resolve: { data: UserResolver }},
   { path: 'add-plan', component: AddPlanComponent },
-  { path: 'timeline', component: TimelineComponent }
+  { path: 'timeline/:plan', component: TimelineComponent }
 
 ];
 

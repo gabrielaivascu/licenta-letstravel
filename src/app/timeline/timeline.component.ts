@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
 import * as firebase from 'firebase/app';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -28,20 +28,27 @@ export class TimelineComponent implements OnInit {
     }
   ]
 
-  constructor(public firebaseService: FirebaseService,public authService: AuthService, public router: Router) { }
+  constructor(
+    public firebaseService: FirebaseService,
+    public authService: AuthService, 
+    public router: Router, 
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     let self = this;
+    let tripKey = this.route.snapshot.paramMap.get("plan");
+
     firebase.auth().onAuthStateChanged( (user) => {
 
-      self.firebaseService.getPlans(user.uid).subscribe(plan => {
-        self.plans = plan;
-        console.log(plan);
+      self.firebaseService.getPlans(user.uid).subscribe(plans => {
+        self.plans = plans;
   
         self.plans.forEach(plan => {
-          self.events = Object(plan).events;
-          console.log(self.events);
-          this.showTimeline = true;
+          if(plan.tripId === tripKey) {
+            self.events = Object(plan).events;
+            console.log(self.events);
+            this.showTimeline = true;
+          }
         });
       });
     });

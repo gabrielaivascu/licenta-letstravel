@@ -23,9 +23,20 @@
     align-items: center;
     font-size: 22px;
 
+    img {
+      margin-right: 7px;
+      width: 28px;
+    }
+
     a {
       text-decoration: none;
-      color: black;
+      height: 20px;
+      align-items: center;
+      display: flex;
+
+      b {
+        font-size: 16px;
+      }
     }
   }
 
@@ -67,8 +78,8 @@
           transition: width 0.3s;
         }
 
-        &:hover {
-
+        &:hover,
+        &.active {
           &:not(.logout) {
             &:after {
               width: 100%;

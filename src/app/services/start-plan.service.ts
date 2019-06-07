@@ -13,7 +13,6 @@ export class StartPlanService {
   constructor() { }
 
   setLocation(data: any) {
-    console.log(data);
     this.data.next(data);
   }
 

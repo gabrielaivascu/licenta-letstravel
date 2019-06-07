@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { FirebaseService } from '../services/firebase.service';
-import { AngularFireDatabase } from '@angular/fire/database';
-import {Location} from '@angular-material-extensions/google-maps-autocomplete';
-import PlaceResult = google.maps.places.PlaceResult;
 
+import { Location } from '@angular-material-extensions/google-maps-autocomplete';
+import PlaceResult = google.maps.places.PlaceResult;
+import PlaceSearchRequest = google.maps.places.PlaceSearchRequest;
+import * as firebase from 'firebase/app';
+import { PlacesService } from '../services/places.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -22,63 +24,85 @@ export class DashboardComponent implements OnInit {
   daysLeft: number;
   formGroupTrip: FormGroup;
   trips: any;
-  // coord: any = 
   location: any;
   latitude: number;
   longitude: number;
 
-  constructor(public startPlanService: StartPlanService, public router: Router, public firebaseService: FirebaseService,
-    public userService: UserService, public authService: AuthService) { }
+  upcomingTrips: any = [];
+  prevTrips: any = [];
+
+  constructor(
+    public startPlanService: StartPlanService,
+    public router: Router,
+    public firebaseService: FirebaseService,
+    public userService: UserService,
+    public authService: AuthService,
+    private placesService: PlacesService) { }
 
   ngOnInit() {
 
     let user = this.firebaseService.getCurrentUser();
-    // this.firebaseService.getTrips(user).subscribe(trip => {
-    //   this.trips = trip;
+    this.firebaseService.getTrips(user).subscribe(trip => {
+      console.log(trip);
+      this.trips = trip;
 
-    //   this.trips.forEach(trip => {
-    //     let start = new Date(trip.startDate);
-    //     let current = new Date();
-    //     console.log(trip);
-    //     if (start > current) {
-    //       this.hasUpcomingTrip = true;
-    //       this.upcomingLocation = trip.location;
-    //       this.daysLeft = start.getDate() - current.getDate();
-    //     }
-    //   });
-    // });
+      this.trips.forEach(trip => {
+        let start = new Date(trip.startDate);
+        let current = new Date();
+        if (start > current) {
+          this.upcomingTrips.push(trip);
+        } else {
+          this.prevTrips.push(trip);
+        }
+      });
+    });
 
     this.formGroupTrip = new FormGroup({
       location: new FormControl(),
       startDate: new FormControl(),
       endDate: new FormControl(),
-      coord: new FormControl()
+      coord: new FormControl(),
+      photoUrl: new FormControl()
     });
   }
+
+
 
   // public handleAddressChange(address: Address) {
   //   this.destination = address.name;
   // }
 
-  // onAutocompleteSelected(result: any) {
-  //   console.log('onAutocompleteSelected: ', result);
-  // }
-
   onLocationSelected(location: Location) {
-    // console.log('onLocationSelected: ', location);
-    // this.location = location;
-    this.formGroupTrip.patchValue({coord: location});
+    this.formGroupTrip.patchValue({ coord: location });
 
   }
 
   onAutocompleteSelected(result: PlaceResult) {
-    this.formGroupTrip.patchValue({location: result.name});
+    console.log(result);
+    this.formGroupTrip.patchValue({ location: result.name });
+    this.formGroupTrip.patchValue({
+      photoUrl: result.photos[5].getUrl({
+        maxHeight: undefined,
+        maxWidth: 640
+      })
+    });
+  }
+
+  numberOfDaysLeft(startDate: any) {
+    let start = new Date(startDate);
+    let current = new Date();
+    return (start.getDate() - current.getDate());
+  }
+
+  daysTrip(startDate: any, endDate: any) {
+    let start = new Date(startDate);
+    let end = new Date(endDate);
+    return ((end.getDate() - start.getDate()) + 1);
   }
 
   onSubmit() {
-    // this.formGroupTrip.value.location = this.destination;
     let tripKey = this.firebaseService.createTrip(this.formGroupTrip.value);
-    this.startPlanService.setLocation({value: this.formGroupTrip.value, key: tripKey});
+    this.startPlanService.setLocation({ value: this.formGroupTrip.value, key: tripKey });
     this.router.navigateByUrl('/add-plan');
   }
 

@@ -29,7 +29,7 @@ export class AddPlanComponent implements OnInit, OnDestroy {
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
     public authService: AuthService, private location: Location, public router: Router,
-    private placesService: PlacesService, public firebaseService: FirebaseService) { }
+    public firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.startPlanService.currentData.subscribe(data => {
@@ -71,15 +71,12 @@ export class AddPlanComponent implements OnInit, OnDestroy {
   }
 
   addMarker(result) {
-    console.log(result);
     this.locationList.push(result);
   }
 
 
   savePlan() {
-    console.log("save plan");
-    console.log(this.allEvents);
     this.firebaseService.createPlan(this.allEvents, this.key);
-    this.router.navigateByUrl('/timeline');
+    this.router.navigate(['/timeline', this.key]);
   }
 }

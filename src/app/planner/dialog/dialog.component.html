@@ -42,15 +42,15 @@
 
           <div class="explore">
             <h3> <i class="material-icons">explore</i> Our suggestion</h3>
-            <ul *ngIf="foodPlaces.length > 0" class="places-list">
+            <ul *ngIf="exploreResults.food.values.length > 0" class="places-list">
               <mat-radio-group aria-label="Select an option" [(ngModel)]="foodPlace">
-                <li *ngFor="let place of foodPlaces; let i = index" class="place">
+                <li *ngFor="let place of exploreResults.food.values; let i = index" class="place">
                   <div class="img-container">
                     <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
-                    <img src="{{place.categories[0].icon.prefix}}90{{place.categories[0].icon.suffix}}" alt="">
-                    <p class="text">{{place.categories[0].name}}</p>
+                    <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}" alt="">
+                    <p class="text">{{place.category.name}}</p>
                   </div>
                   <div class="select">
                     <mat-radio-button [value]="place.name">{{place.name}}</mat-radio-button>
@@ -84,16 +84,16 @@
           </div>
 
           <div class="explore">
-            <h3> <i class="material-icons">explore</i> Explore</h3>
-            <ul *ngIf="outdoorPlaces.length > 0" class="places-list">
+            <h3> <i class="material-icons">explore</i> Our suggestion</h3>
+            <ul *ngIf="exploreResults.outdoor.values.length > 0" class="places-list">
               <mat-radio-group aria-label="Select an option" [(ngModel)]="outdoorPlace">
-                <li *ngFor="let place of outdoorPlaces; let i = index" class="place">
+                <li *ngFor="let place of exploreResults.outdoor.values; let i = index" class="place">
                   <div class="img-container">
                     <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
-                    <img src="{{place.categories[0].icon.prefix}}90{{place.categories[0].icon.suffix}}" alt="">
-                    <p class="text">{{place.categories[0].name}}</p>
+                    <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}" alt="">
+                    <p class="text">{{place.category.name}}</p>
                   </div>
                   <div class="select">
                     <mat-radio-button [value]="place.name">{{place.name}}</mat-radio-button>
@@ -127,16 +127,16 @@
             </div>
   
             <div class="explore">
-              <h3> <i class="material-icons">explore</i> Explore</h3>
-              <ul *ngIf="shopsPlaces.length > 0" class="places-list">
+              <h3> <i class="material-icons">explore</i> Our suggestion</h3>
+              <ul *ngIf="exploreResults.shops.values.length > 0" class="places-list">
                 <mat-radio-group aria-label="Select an option" [(ngModel)]="shopsPlace">
-                  <li *ngFor="let place of shopsPlaces; let i = index" class="place">
+                  <li *ngFor="let place of exploreResults.shops.values; let i = index" class="place">
                     <div class="img-container">
                       <img src="{{photosUrl.get(place.id)}}">
                     </div>
                     <div class="category">
-                      <img src="{{place.categories[0].icon.prefix}}90{{place.categories[0].icon.suffix}}" alt="">
-                      <p class="text">{{place.categories[0].name}}</p>
+                      <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}" alt="">
+                      <p class="text">{{place.category.name}}</p>
                     </div>
                     <div class="select">
                       <mat-radio-button [value]="place.name">{{place.name}}</mat-radio-button>

@@ -5,7 +5,12 @@
     <i class="fa fa-youtube"></i>
   </div>
   <div class="logo">
-    <a routerLink="../homepage"><i class="fa fa-map-marker"></i><b> lets.travel</b></a>
+    <a *ngIf="!loggedIn" routerLink="/homepage">
+      <img src="../../../assets/images/logo.svg" alt="Let's travel"><b>lets.travel</b>
+    </a>
+    <a *ngIf="loggedIn" routerLink="/dashboard">
+      <img src="../../../assets/images/logo.svg" alt="Let's travel"><b>lets.travel</b>
+    </a>
   </div>
   <div class="right-side">
     <ng-content select="[menu-btn]"></ng-content>

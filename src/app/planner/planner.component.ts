@@ -29,7 +29,7 @@ export class PlannerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.day)
+    // console.log(this.day)
   }
 
   ngOnDestroy() {

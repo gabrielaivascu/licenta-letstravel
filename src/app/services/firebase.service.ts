@@ -35,28 +35,21 @@ export class FirebaseService {
 
     var updates = {};
     updates['/trips/' + userId + '/' + newPostKey] = {
+        tripId: newPostKey,
         location: data.location,
         startDate: String(data.startDate),
-        endDate: String(data.endDate)
+        endDate: String(data.endDate),
+        photoUrl: data.photoUrl
       };
-      console.log("postkey");
-      console.log(newPostKey);
-
     firebase.database().ref().update(updates);
 
     return newPostKey;
-    // let trips = this.db.list('/trips/' + userId + '/' + newPostKey);
-    // trips.push({
-    //   location: data.location,
-    //   startDate: String(data.startDate),
-    //   endDate: String(data.endDate)
-    // });
   }
 
   createPlan(data, tripId: any) {
     let userId = firebase.auth().currentUser.uid;
     let plan = this.db.list('/plan/' + userId);
-    console.log(data);
+
     plan.push({
       events: data,
       tripId: tripId

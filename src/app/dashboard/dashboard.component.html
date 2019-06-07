@@ -1,9 +1,8 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li><a>Home</a></li>
+    <li class="active"><a>Dashboard</a></li>
     <li><a>Next trip</a></li>
     <li><a>Previous trip</a></li>
-    <li><a>My profile</a></li>
     <li class="logout">
       <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
     </li>
@@ -12,170 +11,105 @@
 
 <div class="flex-row">
   <section class="box main-section">
-    <ng-container *ngIf="hasUpcomingTrip">
-      <div class="upcoming-trips">
-        <div class="header">
-          <h3>Upcomping trip to: {{upcomingLocation}}</h3>
+    <div class="add-plan">
+      <div class="header">
+        <h3>Create a trip</h3>
+      </div>
+      <div class="container">
+        <div class="img">
+          <img
+            src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+            alt="">
         </div>
-        <div class="container">
+        <div class="form">
           <div class="bg-box">
-            <h3>Days left: <span>{{daysLeft}}</span></h3>
-            <app-button>See your plan</app-button>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!hasUpcomingTrip">
-      <div class="add-plan">
-        <div class="header">
-          <h3>Create a trip</h3>
-        </div>
-        <div class="container">
-          <div class="img">
-            <img
-              src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-              alt="">
-          </div>
-          <div class="form">
-            <div class="bg-box">
-              <form [formGroup]="formGroupTrip" (ngSubmit)="onSubmit()">
-                <mat-form-field class="full-width">
-                  <input matInput matGoogleMapsAutocomplete [country]="en" placeholder="What's your destination?"
-                    (onLocationSelected)="onLocationSelected($event)"
-                    (onAutocompleteSelected)="onAutocompleteSelected($event)" formControlName="location">
+            <form [formGroup]="formGroupTrip" (ngSubmit)="onSubmit()">
+              <mat-form-field class="full-width">
+                <input matInput matGoogleMapsAutocomplete [country]="en" placeholder="What's your destination?"
+                  (onLocationSelected)="onLocationSelected($event)"
+                  (onAutocompleteSelected)="onAutocompleteSelected($event)" formControlName="location">
+              </mat-form-field>
+              <div class="form-row">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
                 </mat-form-field>
-                <div class="form-row">
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
-                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                    <mat-datepicker #startDate></mat-datepicker>
-                  </mat-form-field>
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                    <mat-datepicker #endDate></mat-datepicker>
-                  </mat-form-field>
-                </div>
-                <app-button type="secondary">Add plan</app-button>
-              </form>
-            </div>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <app-button type="secondary">Add plan</app-button>
+            </form>
           </div>
-
         </div>
       </div>
-    </ng-container>
+    </div>
   </section>
   <section class="box secondary-section">
     <div class="prev-trips">
       <div class="header">
-        <h3>Previous trip</h3>
+        <h3>Next trips</h3>
       </div>
       <div class="container">
-        <ul class="trip-list">
-          <li class="trip">
+        <ul *ngIf="upcomingTrips.length > 0" class="trip-list">
+          <li *ngFor="let trip of upcomingTrips" class="trip">
             <div class="container">
-              <span class="number"><b>3</b> day trip</span>
+              <span class="number"><b>{{daysTrip(trip.startDate, trip.endDate)}}</b> day trip</span>
+              <span class="days">{{numberOfDaysLeft(trip.startDate)}} days left</span>
               <div class="img-container">
-                <img
-                  src="https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80">
+                <img src="{{trip.photoUrl}}">
               </div>
-              <app-button type="yellow" class="more">See more</app-button>
+              <app-button type="yellow" class="more" [routerLink]="['/timeline', trip.tripId]">See plan</app-button>
             </div>
             <div class="footer">
               <div class="info">
                 <ul class="location">
                   <li><i class="fa fa-plane" aria-hidden="true"></i></li>
-                  <li>Iasi</li>
-                  <li><i class="material-icons">more_horiz</i></li>
-                  <li>Tenerife</li>
+                  <li>{{trip.location}}</li>
                 </ul>
                 <div class="date">
-                  12 May
+                  {{trip.startDate | date :'mediumDate'}}
                 </div>
               </div>
-              <p class="description">Best trip ever!</p>
-
-              <ul class="labels">
-                <li><i class="fa fa-share-alt" aria-hidden="true"></i></li>
-                <li>#sun</li>
-                <li>#spain</li>
-                <li>#travel</li>
-              </ul>
-            </div>
-          </li>
-          <li class="trip">
-            <div class="container">
-              <span class="number"><b>3</b> day trip</span>
-              <div class="img-container">
-                <img
-                  src="https://images.unsplash.com/photo-1464069668014-99e9cd4abf16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1189&q=80">
-              </div>
-              <app-button type="yellow" class="more">See more</app-button>
-            </div>
-            <div class="footer">
-              <div class="info">
-                <ul class="location">
-                  <li><i class="fa fa-plane" aria-hidden="true"></i></li>
-                  <li>Iasi</li>
-                  <li><i class="material-icons">more_horiz</i></li>
-                  <li>Tenerife</li>
-                </ul>
-                <div class="date">
-                  12 May
-                </div>
-              </div>
-              <p class="description">Best trip ever!</p>
-
-              <ul class="labels">
-                <li><i class="fa fa-share-alt" aria-hidden="true"></i></li>
-                <li>#sun</li>
-                <li>#spain</li>
-                <li>#travel</li>
-              </ul>
-            </div>
-          </li>
-          <li class="trip">
-            <div class="container">
-              <span class="number"><b>3</b> day trip</span>
-              <div class="img-container">
-                <img
-                  src="https://image.freepik.com/free-photo/female-tourists-hand-have-happy-travel-map_1150-7411.jpg">
-              </div>
-              <app-button type="yellow" class="more">See more</app-button>
-            </div>
-            <div class="footer">
-              <div class="info">
-                <ul class="location">
-                  <li><i class="fa fa-plane" aria-hidden="true"></i></li>
-                  <li>Iasi</li>
-                  <li><i class="material-icons">more_horiz</i></li>
-                  <li>Tenerife</li>
-                </ul>
-                <div class="date">
-                  12 May
-                </div>
-              </div>
-              <p class="description">Best trip ever!</p>
-
-              <ul class="labels">
-                <li><i class="fa fa-share-alt" aria-hidden="true"></i></li>
-                <li>#sun</li>
-                <li>#spain</li>
-                <li>#travel</li>
-              </ul>
             </div>
           </li>
         </ul>
       </div>
-      <!-- list with photos -like insta feeds? -->
     </div>
   </section>
 </div>
-<div class="box full-section ">
+<div class="box full-section trips">
   <div class="ideas">
     <div class="header">
-      <h3>Explore</h3>
+      <h3>Previous trip</h3>
     </div>
-    <!-- slider with photo -->
+    <div class="previous-trip">
+      <ul *ngIf="prevTrips.length > 0" class="trip-list">
+        <li *ngFor="let trip of prevTrips" class="trip">
+          <div class="container">
+            <span class="number"><b>3</b> day trip</span>
+            <div class="img-container">
+              <img src="{{trip.photoUrl}}">
+            </div>
+            <app-button type="yellow" class="more">See plan</app-button>
+          </div>
+          <div class="footer">
+            <div class="info">
+              <ul class="location">
+                <li><i class="fa fa-plane" aria-hidden="true"></i></li>
+                <li>{{trip.location}}</li>
+              </ul>
+              <div class="date">
+                {{trip.startDate | date :'mediumDate'}}
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+    </div>
   </div>
 </div>

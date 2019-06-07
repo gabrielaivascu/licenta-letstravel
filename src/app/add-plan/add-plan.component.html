@@ -1,9 +1,8 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li><a routerLink="/dashboard">Home</a></li>
+    <li><a>Dashboard</a></li>
     <li><a>Next trip</a></li>
     <li><a>Previous trip</a></li>
-    <li><a>My profile</a></li>
     <li class="logout">
       <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
     </li>
@@ -21,7 +20,8 @@
         <mat-horizontal-stepper #stepper (selectionChange)="changed($event)">
           <mat-step *ngFor="let tab of tabs; let i = index">
             <ng-template matStepLabel>{{tab}}</ng-template>
-            <app-planner [location]="data.location" (newLocation)="addMarker($event)" [day]="i" (eventsList)="addEvents($event)"></app-planner>
+            <app-planner [location]="data.location" (newLocation)="addMarker($event)" [day]="i"
+              (eventsList)="addEvents($event)"></app-planner>
           </mat-step>
         </mat-horizontal-stepper>
 

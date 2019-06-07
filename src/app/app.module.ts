@@ -68,6 +68,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { TimelineComponent } from './timeline/timeline.component'; 
 import { MglTimelineModule } from 'angular-mgl-timeline';
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { MglTimelineModule } from 'angular-mgl-timeline';
     AddPlanComponent,
     PlannerComponent,
     DialogComponent,
-    TimelineComponent
+    TimelineComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
