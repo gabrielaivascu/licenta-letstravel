@@ -273,9 +273,20 @@
       margin-right: 15px;
       max-height: 220px;
 
+      &:nth-child(n + 5) {
+        display: none;
+      }
+      
       .container {
         height: 170px;
       }
+    }
+
+    .more-trips {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
     }
   }
 }

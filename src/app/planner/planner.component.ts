@@ -43,6 +43,11 @@ export class PlannerComponent implements OnInit, OnDestroy {
     this.events.push(this.nameEvent);
   }
 
+  remove(index: any) {
+    console.log(index);
+    this.events.splice(index, 1);
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.events, event.previousIndex, event.currentIndex);
   }
@@ -50,7 +55,7 @@ export class PlannerComponent implements OnInit, OnDestroy {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '860px',
-      height: '650px',
+      height: '640px',
       data: { location: this.location, event: this.event }
     });
 
@@ -63,7 +68,7 @@ export class PlannerComponent implements OnInit, OnDestroy {
         this.events.push({content: result.data.value.name, type:'other'});
       }
       if (result.type === 'food') {
-        this.events.push({content:'Go to ' + result.place.name, type: 'food'});
+        this.events.push({content:'Eating at ' + result.place.name, type: 'food'});
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
       if (result.type === 'outdoor') {
@@ -73,6 +78,10 @@ export class PlannerComponent implements OnInit, OnDestroy {
       if (result.type === 'shops') {
         this.events.push({content:'Shopping at ' + result.place.name, type: 'shop'});
         this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
+      }
+      if (result.type === 'hotel') {
+        this.events.push({content:'Go to ' + result.place.name, type: 'hotel'});
+        // this.newLocation.emit({ lat: result.place.lat, lng:  result.place.lng });
       }
 
       this.eventsList.emit({events: this.events, index: this.day, type: result.type});

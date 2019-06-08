@@ -70,6 +70,9 @@ export class TimelineComponent implements OnInit {
     if(type==='other') {
       return 'schedule';
     } 
+    if(type==='hotel') {
+      return 'hotel';
+    } 
   }
 
   addEntry() {

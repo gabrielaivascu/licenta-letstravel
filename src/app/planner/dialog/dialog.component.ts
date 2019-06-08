@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlacesService } from 'src/app/services/places.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import PlaceResult = google.maps.places.PlaceResult;
 
 export interface DialogData {
   location: string;
@@ -64,6 +65,11 @@ export class DialogComponent implements OnInit {
     endDate: new FormControl(),
   });
 
+  hotelData = new FormGroup({
+    name: new FormControl(),
+    startDate: new FormControl()
+  });
+
   otherData = new FormGroup({
     name: new FormControl(),
     startDate: new FormControl(),
@@ -114,7 +120,7 @@ export class DialogComponent implements OnInit {
               id: exploreResult[i].venue.id,
               category: exploreResult[i].venue.categories[0],
               lat: exploreResult[i].venue.location.lat,
-              lng: exploreResult[i].venue.location.lat
+              lng: exploreResult[i].venue.location.lng
             });
             break;
           }
@@ -124,7 +130,7 @@ export class DialogComponent implements OnInit {
               id: exploreResult[i].venue.id,
               category: exploreResult[i].venue.categories[0],
               lat: exploreResult[i].venue.location.lat,
-              lng: exploreResult[i].venue.location.lat
+              lng: exploreResult[i].venue.location.lng
             });
             break;
           }
@@ -134,7 +140,7 @@ export class DialogComponent implements OnInit {
               id: exploreResult[i].venue.id,
               category: exploreResult[i].venue.categories[0],
               lat: exploreResult[i].venue.location.lat,
-              lng: exploreResult[i].venue.location.lat
+              lng: exploreResult[i].venue.location.lng
             });
             break;
           }
@@ -151,7 +157,15 @@ export class DialogComponent implements OnInit {
       }
     });
   }
-  
+
+  onLocationSelected(location: Location) {
+    // this.hotelData.patchValue({ coord: location });
+  }
+
+  onAutocompleteSelected(result: PlaceResult) {
+    this.hotelData.patchValue({ name: result.name });
+  }
+
   search(text: string, typeLocation: string) {
     this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
       this.searchResult = Object(result).response.venues[0];
@@ -180,13 +194,13 @@ export class DialogComponent implements OnInit {
 
   tabChanged(index: number) {
     this.selected = index;
-    if (index == 1 && !this.exploreResults.food.selected) {
+    if (index == 2 && !this.exploreResults.food.selected) {
       this.explore('food');
     }
-    if (index == 2 && !this.exploreResults.outdoor.selected) {
+    if (index == 3 && !this.exploreResults.outdoor.selected) {
       this.explore('outdoor');
     }
-    if (index == 3 && !this.exploreResults.shops.selected) {
+    if (index == 4 && !this.exploreResults.shops.selected) {
       this.explore('shops');
     }
   }
@@ -197,6 +211,9 @@ export class DialogComponent implements OnInit {
     }
     if (type === 'other') {
       this.dialogRef.close({ type: 'other', data: this.otherData });
+    }
+    if (type === 'hotel') {
+      this.dialogRef.close({ type: 'hotel', data: this.hotelData });
     }
   }
 

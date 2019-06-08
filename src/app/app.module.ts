@@ -135,7 +135,8 @@ import { NavComponent } from './components/nav/nav.component';
     DragDropModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAGjPKxEo7Jy5BsHwdrgA5lPzHC3eHAxtE',
-      libraries: ['places']
+      libraries: ['places', 'geometry'],
+      language: 'en'
     }),
     MatGoogleMapsAutocompleteModule.forRoot(),
     MglTimelineModule

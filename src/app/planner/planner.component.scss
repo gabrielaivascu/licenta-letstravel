@@ -36,6 +36,12 @@
   cursor: move;
   background: white;
   font-size: 14px;
+
+  .delete {
+    cursor: pointer;
+    font-size: 21px;
+    color: $red;
+  }
 }
 
 .cdk-drag-preview {

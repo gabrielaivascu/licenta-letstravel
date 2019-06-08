@@ -8,9 +8,8 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { Location } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
-import PlaceSearchRequest = google.maps.places.PlaceSearchRequest;
-import * as firebase from 'firebase/app';
 import { PlacesService } from '../services/places.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -43,7 +42,7 @@ export class DashboardComponent implements OnInit {
 
     let user = this.firebaseService.getCurrentUser();
     this.firebaseService.getTrips(user).subscribe(trip => {
-      console.log(trip);
+      // console.log(trip);
       this.trips = trip;
 
       this.trips.forEach(trip => {
@@ -74,11 +73,9 @@ export class DashboardComponent implements OnInit {
 
   onLocationSelected(location: Location) {
     this.formGroupTrip.patchValue({ coord: location });
-
   }
 
   onAutocompleteSelected(result: PlaceResult) {
-    console.log(result);
     this.formGroupTrip.patchValue({ location: result.name });
     this.formGroupTrip.patchValue({
       photoUrl: result.photos[5].getUrl({
@@ -91,13 +88,15 @@ export class DashboardComponent implements OnInit {
   numberOfDaysLeft(startDate: any) {
     let start = new Date(startDate);
     let current = new Date();
-    return (start.getDate() - current.getDate());
+    let day = 1000 * 60 * 60 * 24;
+    return (Math.round(((start.getTime() - current.getTime()) / day) + 1));
   }
 
   daysTrip(startDate: any, endDate: any) {
     let start = new Date(startDate);
     let end = new Date(endDate);
-    return ((end.getDate() - start.getDate()) + 1);
+    let day = 1000 * 60 * 60 * 24;
+    return (Math.round((end.getTime() - start.getTime()) / day) + 1);
   }
 
   onSubmit() {

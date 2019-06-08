@@ -1,6 +1,11 @@
 <div class="planner-container">
     <div cdkDropList class="list" (cdkDropListDropped)="drop($event)">
-        <div class="box" *ngFor="let event of events" cdkDrag>{{event.content}}</div>
+        <div class="box" *ngFor="let event of events; let i = index" cdkDrag>
+            <span>{{event.content}}</span>
+            <i class="material-icons delete" (click)="remove(i)">
+                delete_outline
+            </i>
+        </div>
         <!-- <div *ngIf="events.length === 0" class="empty">No events added</div> -->
         <div class="add">
             <app-button (click)="openDialog()" class="add-btn">
