@@ -46,7 +46,7 @@ export class TimelineComponent implements OnInit {
         self.plans.forEach(plan => {
           if(plan.tripId === tripKey) {
             self.events = Object(plan).events;
-            console.log(self.events);
+            // console.log(self.events);
             this.showTimeline = true;
           }
         });
@@ -55,6 +55,7 @@ export class TimelineComponent implements OnInit {
   }
 
   getIcon(type:string) {
+    // console.log(type);
     if(type==='flight') {
       return 'flight';
     } 
@@ -64,7 +65,7 @@ export class TimelineComponent implements OnInit {
     if(type==='outdoor') {
       return 'location_city';
     } 
-    if(type==='shops') {
+    if(type==='shop') {
       return 'shopping_basket';
     } 
     if(type==='other') {
