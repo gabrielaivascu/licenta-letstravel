@@ -10,6 +10,11 @@
             <input matInput placeholder="To" formControlName="destination">
           </mat-form-field>
           <mat-form-field>
+            <input matInput matGoogleMapsAutocomplete placeholder="Airport name"
+              (onLocationSelected)="onLocationSelected($event, 'flight')"
+              (onAutocompleteSelected)="onAutocompleteSelected($event)" formControlName="airport">
+          </mat-form-field>
+          <mat-form-field>
             <input matInput placeholder="Departure hour" formControlName="startDate">
           </mat-form-field>
           <mat-form-field>
@@ -28,8 +33,8 @@
         <form [formGroup]="hotelData" class="form">
             <mat-form-field>
                 <input matInput matGoogleMapsAutocomplete placeholder="Accommodation name"
-                  (onLocationSelected)="onLocationSelected($event)"
-                  (onAutocompleteSelected)="onAutocompleteSelected($event)" formControlName="name">
+                  (onLocationSelected)="onLocationSelected($event, 'hotel')"
+                  (onAutocompleteSelected)="onAutocompleteSelected($event, 'hotel')" formControlName="name">
               </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Check-in hour" formControlName="startDate">

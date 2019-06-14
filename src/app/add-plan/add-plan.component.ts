@@ -54,7 +54,7 @@ export class AddPlanComponent implements OnInit, OnDestroy {
   }
 
   addEvents(e: any) {
-    this.allEvents[e.index] = {events: e.events, type: e.type};
+    this.allEvents[e.index] = {events: e.events};
   }
 
   changed(e: any) {
@@ -83,6 +83,7 @@ export class AddPlanComponent implements OnInit, OnDestroy {
 
 
   savePlan() {
+    console.log(this.allEvents);
     this.firebaseService.createPlan(this.allEvents, this.key);
     this.router.navigate(['/timeline', this.key]);
   }

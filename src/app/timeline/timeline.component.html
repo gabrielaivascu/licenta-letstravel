@@ -44,7 +44,12 @@
                         {{getIcon(event.type)}}
                       </i>
                     </div>
-                    <div>{{event.content}}</div>
+                    <div *ngIf="event.type !== 'distance'">{{event.content}}</div>
+                    <div *ngIf="event.type === 'distance'">
+                      <p>Distance: <b>{{event.content}} km</b></p>
+                      <p>Estimated walking time: <b>{{getEstimation(event.content, 'walk')}} minutes</b>.</p>
+                      <p>Estimated driving time: <b>{{getEstimation(event.content, 'drive')}} minutes</b>.</p>
+                    </div>
                   </mgl-timeline-entry-header>
                   <mgl-timeline-entry-content>
                   </mgl-timeline-entry-content>
@@ -56,6 +61,10 @@
             </ng-container>
           </mgl-timeline>
         </ng-container>
+        <agm-map latitude=0 longitude=0>
+          <!-- <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
+          </agm-marker> -->
+        </agm-map>
       </div>
     </div>
   </section>

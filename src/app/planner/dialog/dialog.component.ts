@@ -62,6 +62,8 @@ export class DialogComponent implements OnInit {
   flightData = new FormGroup({
     destination: new FormControl(),
     startDate: new FormControl(),
+    airport: new FormControl(),
+    airportLocation: new FormControl(),
     endDate: new FormControl(),
   });
 
@@ -159,12 +161,22 @@ export class DialogComponent implements OnInit {
     });
   }
 
-  onLocationSelected(location: Location) {
-    this.hotelData.patchValue({ coord: location });
+  onLocationSelected(location: Location, type: String) {
+    if(type === 'hotel') {
+      this.hotelData.patchValue({ coord: location });
+    }
+    if(type === 'flight') {
+      this.flightData.patchValue({ airportLocation: location });
+    }
   }
 
-  onAutocompleteSelected(result: PlaceResult) {
-    this.hotelData.patchValue({ name: result.name });
+  onAutocompleteSelected(result: PlaceResult, type: String) {
+    if(type === 'hotel') {
+      this.hotelData.patchValue({ name: result.name });
+    }
+    if(type === 'flight') {
+      this.flightData.patchValue({ airport: result.name });
+    }
   }
 
   search(text: string, typeLocation: string) {
