@@ -8,7 +8,7 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { Location } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
-import { PlacesService } from '../services/places.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -35,14 +35,11 @@ export class DashboardComponent implements OnInit {
     public router: Router,
     public firebaseService: FirebaseService,
     public userService: UserService,
-    public authService: AuthService,
-    private placesService: PlacesService) { }
+    public authService: AuthService) { }
 
   ngOnInit() {
-
     let user = this.firebaseService.getCurrentUser();
     this.firebaseService.getTrips(user).subscribe(trip => {
-      // console.log(trip);
       this.trips = trip;
 
       this.trips.forEach(trip => {
@@ -64,12 +61,6 @@ export class DashboardComponent implements OnInit {
       photoUrl: new FormControl()
     });
   }
-
-
-
-  // public handleAddressChange(address: Address) {
-  //   this.destination = address.name;
-  // }
 
   onLocationSelected(location: Location) {
     this.formGroupTrip.patchValue({ coord: location });

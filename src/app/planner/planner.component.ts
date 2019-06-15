@@ -19,24 +19,15 @@ export class PlannerComponent implements OnInit, OnDestroy {
   @Output() eventsList = new EventEmitter();
   @Input() day: any;
 
-  // position: {lat: number, lng: number} = {lat: 0, lng: 0 };
-
-  // locationList: [{ lat: number, lng: number }] = [{ lat: 0, lng: 0 }];
-
   @Input() location: string;
 
   constructor(public dialog: MatDialog, private placesService: PlacesService) {
   }
 
   ngOnInit() {
-    // console.log(this.day)
   }
 
   ngOnDestroy() {
-  }
-
-  save() {
-
   }
 
   addEvent() {
@@ -44,7 +35,6 @@ export class PlannerComponent implements OnInit, OnDestroy {
   }
 
   remove(index: any) {
-    console.log(index);
     this.events.splice(index, 1);
   }
 
@@ -71,19 +61,19 @@ export class PlannerComponent implements OnInit, OnDestroy {
         this.events.push({ content: result.data.value.name, type: 'other' });
       }
       if (result.type === 'food') {
-        this.events.push({ content: 'Eating at ' + result.place.name, type: 'food', coord: { lat: result.place.lat, lng: result.place.lng } });
+        this.events.push({ content: 'Eating at ' + result.place.name, type: 'food', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address, price: result.price });
         this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
       }
       if (result.type === 'outdoor') {
-        this.events.push({ content: 'Visit ' + result.place.name, type: 'outdoor', coord: { lat: result.place.lat, lng: result.place.lng } });
+        this.events.push({ content: 'Visit ' + result.place.name, type: 'outdoor', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address  });
         this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
       }
       if (result.type === 'shops') {
-        this.events.push({ content: 'Shopping at ' + result.place.name, type: 'shop', coord: { lat: result.place.lat, lng: result.place.lng } });
+        this.events.push({ content: 'Shopping at ' + result.place.name, type: 'shop', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address });
         this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
       }
       if (result.type === 'hotel') {
-        this.events.push({ content: 'Go to ' + result.data.value.name, type: 'hotel', coord: { lat:  result.data.value.coord.latitude, lng:  result.data.value.coord.longitude }, });
+        this.events.push({ content: 'Go to ' + result.data.value.name, type: 'hotel', coord: { lat:  result.data.value.coord.latitude, lng: result.data.value.coord.longitude } });
         this.newLocation.emit({ lat: result.data.value.coord.latitude, lng: result.data.value.coord.longitude });
       }
 

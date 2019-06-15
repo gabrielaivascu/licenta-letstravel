@@ -9,12 +9,6 @@
           <mat-form-field>
             <input matInput placeholder="To" formControlName="destination">
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Departure hour" formControlName="startDate">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Arrival Hour" formControlName="endDate">
-          </mat-form-field>
         </form>
         <app-button (click)="submit('flight')">Add event</app-button>
       </div>
@@ -31,9 +25,6 @@
                   (onLocationSelected)="onLocationSelected($event, 'hotel')"
                   (onAutocompleteSelected)="onAutocompleteSelected($event, 'hotel')" formControlName="name">
               </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Check-in hour" formControlName="startDate">
-          </mat-form-field>
         </form>
         <app-button (click)="submit('hotel')">Add event</app-button>
       </div>
@@ -177,12 +168,6 @@
             <form [formGroup]="otherData" class="form">
               <mat-form-field>
                 <input matInput placeholder="Some activity" formControlName="name">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="start hour" formControlName="startDate">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="end hour" formControlName="endDate">
               </mat-form-field>
             </form>
             <app-button (click)="submit('other')">Add event</app-button>

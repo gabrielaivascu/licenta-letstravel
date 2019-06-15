@@ -69,6 +69,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { TimelineComponent } from './timeline/timeline.component'; 
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NavComponent } from './components/nav/nav.component';
+import { PreviousTripComponent } from './previous-trip/previous-trip.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { NavComponent } from './components/nav/nav.component';
     PlannerComponent,
     DialogComponent,
     TimelineComponent,
-    NavComponent
+    NavComponent,
+    PreviousTripComponent
   ],
   imports: [
     BrowserModule,

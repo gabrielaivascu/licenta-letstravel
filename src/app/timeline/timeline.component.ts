@@ -49,7 +49,7 @@ export class TimelineComponent implements OnInit {
         self.plans.forEach(plan => {
           if (plan.tripId === tripKey) {
             self.events = Object(plan).events;
-            // console.log(self.events);
+            console.log(self.events);
             this.getDistances(self.events);
             this.showTimeline = true;
           }
@@ -58,16 +58,31 @@ export class TimelineComponent implements OnInit {
     });
   }
 
+  getPrice(tier: number) {
+    if (tier === 1) {
+      return '< $10'
+    }
+    if (tier === 2) {
+      return '$10 - $20'
+    }
+    if (tier === 3) {
+      return '$20 - $30'
+    }
+    if (tier === 3) {
+      return '> $30'
+    }
+  }
+
   getDistances(events: any) {
     // console.log(events);
     events.forEach((day) => {
-      if(day.events.length > 0) {
+      if (day.events.length > 0) {
         for (let i = 1; i < day.events.length; i++) {
-          if(day.events[i-1].coord !== undefined && day.events[i].coord !== undefined) {
+          if (day.events[i - 1].coord !== undefined && day.events[i].coord !== undefined) {
 
-            let distResult = this.getDistanceBetweenTwo(day.events[i-1].coord, day.events[i].coord);
-            if(distResult !== null) {
-              day.events.splice(i, 0, {content: distResult, type: 'distance'});
+            let distResult = this.getDistanceBetweenTwo(day.events[i - 1].coord, day.events[i].coord);
+            if (distResult !== null) {
+              day.events.splice(i, 0, { content: distResult, type: 'distance' });
               i++;
               console.log(day.events);
               // this.getEstimation(distResult);
@@ -78,34 +93,33 @@ export class TimelineComponent implements OnInit {
     })
   }
 
-  getDistanceBetweenTwo(coord1: any, coord2: any){
+  getDistanceBetweenTwo(coord1: any, coord2: any) {
     let dist1 = new google.maps.LatLng(coord1.lat, coord1.lng);
     let dist2 = new google.maps.LatLng(coord2.lat, coord2.lng);
 
     let distance = google.maps.geometry.spherical.computeDistanceBetween(dist1, dist2);
-    console.log(distance/1000 + ' km');
-    if(distance !== NaN) {
-      return +(distance/1000).toFixed(2);
+    console.log(distance / 1000 + ' km');
+    if (distance !== NaN) {
+      return +(distance / 1000).toFixed(2);
     } else {
       return null;
     }
   }
 
   getEstimation(km: number, type: string) {
-    if(type === 'walk') {
-      let walking = (60 * km)/ 4.6;
+    if (type === 'walk') {
+      let walking = (60 * km) / 4.6;
       console.log(Math.round(walking));
       return Math.round(walking);
     }
-    if(type === 'drive') {
-      let driving = (60 * km)/ 60;
+    if (type === 'drive') {
+      let driving = (60 * km) / 60;
       console.log(Math.round(driving));
       return Math.round(driving);
     }
   }
 
   getIcon(type: string) {
-    // console.log(type);
     if (type === 'flight') {
       return 'flight';
     }
@@ -125,7 +139,7 @@ export class TimelineComponent implements OnInit {
       return 'hotel';
     }
     if (type === 'distance') {
-      return 'navigation';
+      return 'directions_walk';
     }
   }
 

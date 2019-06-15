@@ -8,6 +8,8 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserResolver } from './services/user.resolver';
 import { TimelineComponent } from './timeline/timeline.component';
+import { UpcomingTripsComponent } from './upcoming-trips/upcoming-trips.component';
+import { PreviousTripComponent } from './previous-trip/previous-trip.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, resolve: { data: UserResolver }},
   { path: 'add-plan', component: AddPlanComponent },
+  { path: 'upcoming-trips', component: UpcomingTripsComponent },
+  { path: 'previous-trips', component: PreviousTripComponent },
   { path: 'timeline/:plan', component: TimelineComponent }
 
 ];

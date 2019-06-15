@@ -44,7 +44,15 @@
                         {{getIcon(event.type)}}
                       </i>
                     </div>
-                    <div *ngIf="event.type !== 'distance'">{{event.content}}</div>
+                    <div *ngIf="event.type === 'food'">
+                      <h4>{{event.content}}</h4>
+                      <p>Address: <i>{{event.address}}</i></p>
+                      <p *ngIf="event.price">Budget needed: <b>{{getPrice(event.price)}}</b></p>
+                    </div>
+                    <div *ngIf="event.type !== 'distance' && event.type !== 'food'">
+                      <h4>{{event.content}}</h4>
+                      <p *ngIf="event.address">Address: <i>{{event.address}}</i></p>
+                    </div>
                     <div *ngIf="event.type === 'distance'">
                       <p>Distance: <b>{{event.content}} km</b></p>
                       <p>Estimated walking time: <b>{{getEstimation(event.content, 'walk')}} minutes</b>.</p>

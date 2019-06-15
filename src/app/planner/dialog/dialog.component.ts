@@ -14,7 +14,8 @@ export interface LocationData {
   lat: number,
   lng: number,
   photoUrl?: string,
-  category?: string
+  category?: string,
+  address?: string
 }
 
 export interface Place {
@@ -22,7 +23,9 @@ export interface Place {
   id: string,
   category: any,
   lat: number,
-  lng: number
+  lng: number,
+  address: string,
+  price?: any
 }
 
 export interface exploreResults {
@@ -86,7 +89,6 @@ export class DialogComponent implements OnInit {
     private placesService: PlacesService) { }
 
   ngOnInit(): void {
-    // console.log(this.data.location);
   }
 
   onNoClick(): void {
@@ -111,7 +113,7 @@ export class DialogComponent implements OnInit {
         console.log("invalid");
       }
     }
-    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 2).subscribe((result) => {
       let exploreResult = Object(result).response.groups[0].items;
 
       for (let i = 0; i < exploreResult.length; i++) {
@@ -122,7 +124,8 @@ export class DialogComponent implements OnInit {
               id: exploreResult[i].venue.id,
               category: exploreResult[i].venue.categories[0],
               lat: exploreResult[i].venue.location.lat,
-              lng: exploreResult[i].venue.location.lng
+              lng: exploreResult[i].venue.location.lng,
+              address: exploreResult[i].venue.location.address
             });
             break;
           }
@@ -132,7 +135,8 @@ export class DialogComponent implements OnInit {
               id: exploreResult[i].venue.id,
               category: exploreResult[i].venue.categories[0],
               lat: exploreResult[i].venue.location.lat,
-              lng: exploreResult[i].venue.location.lng
+              lng: exploreResult[i].venue.location.lng,
+              address: exploreResult[i].venue.location.address
             });
             break;
           }
@@ -142,7 +146,8 @@ export class DialogComponent implements OnInit {
               id: exploreResult[i].venue.id,
               category: exploreResult[i].venue.categories[0],
               lat: exploreResult[i].venue.location.lat,
-              lng: exploreResult[i].venue.location.lng
+              lng: exploreResult[i].venue.location.lng,
+              address: exploreResult[i].venue.location.address
             });
             break;
           }
@@ -159,9 +164,11 @@ export class DialogComponent implements OnInit {
         if(section === 'food') {
           this.placesService.getDetails(id).subscribe((result) => {
             // console.log(result);
-            let priceTier = Object(result).response.venue.price.tier;
-            this.priceFood.set(id, priceTier);
-            console.log(this.priceFood);
+            if(Object(result).response.venue.price !== undefined) {
+              let priceTier = Object(result).response.venue.price.tier;
+              this.priceFood.set(id, priceTier);
+              console.log(this.priceFood);
+            }
           });
         }
       }
@@ -199,6 +206,7 @@ export class DialogComponent implements OnInit {
       this.locationData.name = this.searchResult.name;
       this.locationData.lat = this.searchResult.location.lat;
       this.locationData.lng = this.searchResult.location.lng;
+      this.locationData.address = this.searchResult.location.address;
 
       if (typeLocation === 'food') {
         this.foodPlace = this.searchResult.name;
@@ -239,14 +247,20 @@ export class DialogComponent implements OnInit {
 
   submitFood() {
     this.locationData.name = this.foodPlace;
+    let priceTier = null;
 
     for (let j = 0; j < this.exploreResults.food.values.length; j++) {
       if (this.exploreResults.food.values[j].name === this.foodPlace) {
         this.locationData.lat = this.exploreResults.food.values[j].lat;
         this.locationData.lng = this.exploreResults.food.values[j].lng;
+        this.locationData.address = this.exploreResults.food.values[j].address;
+        let id = Number(this.exploreResults.food.values[j].id);
+        if(this.priceFood.get(this.exploreResults.food.values[j].id) !== undefined) {
+          priceTier = this.priceFood.get(this.exploreResults.food.values[j].id);
+        }
       }
     }
-    this.dialogRef.close({ type: 'food', place: this.locationData });
+    this.dialogRef.close({ type: 'food', place: this.locationData, price: priceTier });
   }
 
   submitOutdoor() {
@@ -256,6 +270,7 @@ export class DialogComponent implements OnInit {
       if (this.exploreResults.outdoor.values[j].name === this.outdoorPlace) {
         this.locationData.lat = this.exploreResults.outdoor.values[j].lat;
         this.locationData.lng = this.exploreResults.outdoor.values[j].lng;
+        this.locationData.address = this.exploreResults.outdoor.values[j].address;
       }
     }
     this.dialogRef.close({ type: 'outdoor', place: this.locationData });
@@ -268,6 +283,7 @@ export class DialogComponent implements OnInit {
       if (this.exploreResults.shops.values[j].name === this.shopsPlace) {
         this.locationData.lat = this.exploreResults.shops.values[j].lat;
         this.locationData.lng = this.exploreResults.shops.values[j].lng;
+        this.locationData.address = this.exploreResults.shops.values[j].address;
       }
     }
     this.dialogRef.close({ type: 'shops', place: this.locationData });

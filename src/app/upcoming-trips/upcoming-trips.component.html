@@ -1,3 +1,46 @@
-<p>
-  upcoming-trips works!
-</p>
+<app-header [loggedIn]="true">
+  <ul class="user-menu" menu-btn="menu">
+    <li routerLink="/dashboard"><a>Dashboard</a></li>
+    <li class="active" routerLink="/upcoming-trips"><a>Next trip</a></li>
+    <li routerLink="/previous-trips"><a>Previous trip</a></li>
+    <li class="logout">
+      <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+    </li>
+  </ul>
+</app-header>
+
+<div class="flex-row">
+  <section class="box full-section">
+    <div class="header">
+      <h3>Next trips</h3>
+    </div>
+    <div class="container">
+      <div class="row-container trip-container">
+        <div *ngIf="upcomingTrips.length === 0" class="trip-list">No trip is coming</div>
+        <ul *ngIf="upcomingTrips.length > 0" class="trip-list">
+          <li *ngFor="let trip of upcomingTrips" class="trip">
+            <div class="container">
+              <span class="number"><b>{{daysTrip(trip.startDate, trip.endDate)}}</b> day trip</span>
+              <span class="days">{{numberOfDaysLeft(trip.startDate)}} days left</span>
+              <div class="img-container">
+                <img src="{{trip.photoUrl}}">
+              </div>
+              <app-button type="yellow" class="more" [routerLink]="['/timeline', trip.tripId]">See plan</app-button>
+            </div>
+            <div class="footer">
+              <div class="info">
+                <ul class="location">
+                  <li><i class="fa fa-plane" aria-hidden="true"></i></li>
+                  <li>{{trip.location}}</li>
+                </ul>
+                <div class="date">
+                  {{trip.startDate | date :'mediumDate'}}
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
