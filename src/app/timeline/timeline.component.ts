@@ -63,12 +63,15 @@ export class TimelineComponent implements OnInit {
     events.forEach((day) => {
       if(day.events.length > 0) {
         for (let i = 1; i < day.events.length; i++) {
-          let distResult = this.getDistanceBetweenTwo(day.events[i-1].coord, day.events[i].coord);
-          if(distResult !== null) {
-            day.events.splice(i, 0, {content: distResult, type: 'distance'});
-            i++;
-            console.log(day.events);
-            // this.getEstimation(distResult);
+          if(day.events[i-1].coord !== undefined && day.events[i].coord !== undefined) {
+
+            let distResult = this.getDistanceBetweenTwo(day.events[i-1].coord, day.events[i].coord);
+            if(distResult !== null) {
+              day.events.splice(i, 0, {content: distResult, type: 'distance'});
+              i++;
+              console.log(day.events);
+              // this.getEstimation(distResult);
+            }
           }
         }
       }
@@ -90,7 +93,7 @@ export class TimelineComponent implements OnInit {
 
   getEstimation(km: number, type: string) {
     if(type === 'walk') {
-      let walking = (60 * km)/ 4.8;
+      let walking = (60 * km)/ 4.6;
       console.log(Math.round(walking));
       return Math.round(walking);
     }

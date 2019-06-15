@@ -62,8 +62,6 @@ export class DialogComponent implements OnInit {
   flightData = new FormGroup({
     destination: new FormControl(),
     startDate: new FormControl(),
-    airport: new FormControl(),
-    airportLocation: new FormControl(),
     endDate: new FormControl(),
   });
 
@@ -80,6 +78,7 @@ export class DialogComponent implements OnInit {
   });
 
   photosUrl = new Map();
+  priceFood = new Map();
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -112,7 +111,7 @@ export class DialogComponent implements OnInit {
         console.log("invalid");
       }
     }
-    this.placesService.getPlace(this.data.location, section, 4).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 1).subscribe((result) => {
       let exploreResult = Object(result).response.groups[0].items;
 
       for (let i = 0; i < exploreResult.length; i++) {
@@ -157,6 +156,14 @@ export class DialogComponent implements OnInit {
           let url = Object(result).response.photos.items[0].prefix + '640' + Object(result).response.photos.items[0].suffix;
           this.photosUrl.set(id, url);
         });
+        if(section === 'food') {
+          this.placesService.getDetails(id).subscribe((result) => {
+            // console.log(result);
+            let priceTier = Object(result).response.venue.price.tier;
+            this.priceFood.set(id, priceTier);
+            console.log(this.priceFood);
+          });
+        }
       }
     });
   }

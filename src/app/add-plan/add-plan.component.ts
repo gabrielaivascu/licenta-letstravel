@@ -71,14 +71,7 @@ export class AddPlanComponent implements OnInit, OnDestroy {
   }
 
   addMarker(result) {
-    console.log(result);
     this.locationList.push(result);
-    // let dist1 = new google.maps.LatLng(19.432608, -99.133209);
-    // let dist2 = new google.maps.LatLng(40.730610, -73.935242);
-    // let distance = google.maps.geometry.spherical.computeDistanceBetween(dist1, dist2);
-    // console.log(distance/1000 + ' km');
-    // if(this.locationList.length > 1 && this.locationList) {
-    // }
   }
 
 

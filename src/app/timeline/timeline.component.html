@@ -48,14 +48,12 @@
                     <div *ngIf="event.type === 'distance'">
                       <p>Distance: <b>{{event.content}} km</b></p>
                       <p>Estimated walking time: <b>{{getEstimation(event.content, 'walk')}} minutes</b>.</p>
-                      <p>Estimated driving time: <b>{{getEstimation(event.content, 'drive')}} minutes</b>.</p>
                     </div>
                   </mgl-timeline-entry-header>
                   <mgl-timeline-entry-content>
                   </mgl-timeline-entry-content>
                   <mgl-timeline-entry-dot class="primary" [size]="size" (click)="onDotClick($event)">
                   </mgl-timeline-entry-dot>
-                  <!-- <mgl-timeline-entry-side>Day {{i + 1}}</mgl-timeline-entry-side> -->
                 </mgl-timeline-entry>
               </ng-container>
             </ng-container>

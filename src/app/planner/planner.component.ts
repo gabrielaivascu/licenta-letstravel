@@ -64,8 +64,7 @@ export class PlannerComponent implements OnInit, OnDestroy {
       if (result.type === 'flight') {
         this.events.push({
           content: 'Flight to ' + result.data.value.destination,
-          type: 'flight',
-          coord: { lat: result.data.value.airportLocation.latitude, lng: result.data.value.airportLocation.longitude } 
+          type: 'flight'
         });
       }
       if (result.type === 'other') {
@@ -84,7 +83,6 @@ export class PlannerComponent implements OnInit, OnDestroy {
         this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
       }
       if (result.type === 'hotel') {
-        // console.log(result.data.value);
         this.events.push({ content: 'Go to ' + result.data.value.name, type: 'hotel', coord: { lat:  result.data.value.coord.latitude, lng:  result.data.value.coord.longitude }, });
         this.newLocation.emit({ lat: result.data.value.coord.latitude, lng: result.data.value.coord.longitude });
       }
