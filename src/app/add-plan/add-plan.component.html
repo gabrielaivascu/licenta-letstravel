@@ -21,7 +21,7 @@
           <mat-step *ngFor="let tab of tabs; let i = index">
             <ng-template matStepLabel>{{tab}}</ng-template>
             <app-planner [location]="data.location" (newLocation)="addMarker($event)" [day]="i"
-              (eventsList)="addEvents($event)"></app-planner>
+              (eventsList)="addEvents($event)" [coord]="coordonate"></app-planner>
           </mat-step>
         </mat-horizontal-stepper>
 
@@ -29,6 +29,14 @@
           <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
             <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
             </agm-marker>
+            <ng-container *ngFor="let days of coords; let index = i">
+              <ng-container *ngIf="days.length > 1">
+                <agm-direction *ngIf="days.length === 2" [origin]="days[0]" [destination]="days[days.length - 1]">
+                </agm-direction>
+                <agm-direction *ngIf="days.length > 2" [origin]="days[0]" [destination]="days[days.length - 1]" [waypoints]="waypoints[i]">
+                </agm-direction>
+              </ng-container>
+            </ng-container>
           </agm-map>
         </div>
       </div>

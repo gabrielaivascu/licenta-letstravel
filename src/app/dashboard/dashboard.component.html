@@ -61,7 +61,7 @@
               <span class="number"><b>{{daysTrip(trip.startDate, trip.endDate)}}</b> day trip</span>
               <span class="days">{{numberOfDaysLeft(trip.startDate)}} days left</span>
               <div class="img-container">
-                <img src="{{trip.photoUrl}}">
+                <img src="{{photosPlace.get(trip.placeId)}}">
               </div>
               <app-button type="yellow" class="more" [routerLink]="['/timeline', trip.tripId]">See plan</app-button>
             </div>
@@ -94,7 +94,7 @@
           <div class="container">
             <span class="number"><b>{{daysTrip(trip.startDate, trip.endDate)}}</b> day trip</span>
             <div class="img-container">
-              <img src="{{trip.photoUrl}}">
+              <img src="{{photosPlace.get(trip.placeId)}}">
             </div>
             <app-button type="yellow" class="more" [routerLink]="['/timeline', trip.tripId]">See plan</app-button>
           </div>
@@ -117,3 +117,5 @@
     </div>
   </div>
 </div>
+<agm-map latitude=0 longitude=0 id="map">
+  </agm-map>

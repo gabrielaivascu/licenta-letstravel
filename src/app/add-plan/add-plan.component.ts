@@ -4,7 +4,6 @@ import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { PlacesService } from '../services/places.service';
 import { FirebaseService } from '../services/firebase.service';
 
 @Component({
@@ -21,17 +20,20 @@ export class AddPlanComponent implements OnInit, OnDestroy {
 
   allEvents: any = [];
 
-  lat: number = 52.520008;
-  lng: number = 13.404954;
+  lat: number = 41.85;
+  lng: number = -87.65;
   zoom: number = 12;
 
   locationList: any = [];
+  public origin: any;
+public destination: any;
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
     public authService: AuthService, private location: Location, public router: Router,
     public firebaseService: FirebaseService) { }
 
   ngOnInit() {
+  
     this.startPlanService.currentData.subscribe(data => {
       this.data = data.value;
       this.key = data.key;
@@ -53,8 +55,29 @@ export class AddPlanComponent implements OnInit, OnDestroy {
     localStorage.setItem('location', '');
   }
 
+  coords: any = [];
+  waypoints: any = [];
+
   addEvents(e: any) {
+    let coordsDay : any =[];
     this.allEvents[e.index] = {events: e.events};
+    this.allEvents[e.index].events.forEach(event => {
+      if(event.coord) {
+        coordsDay.push(event.coord);
+      }
+    });
+    if(coordsDay.length > 1) {
+      let copyCoords = coordsDay.slice(1,coordsDay.length - 1);
+      let copyArray = [];
+      copyCoords.forEach(coord => {
+        copyArray.push({location: coord, stopover: false});
+      })
+
+      this.waypoints[e.index] = copyArray;
+    }
+
+    this.coords[e.index] = coordsDay;
+    console.log(this.waypoints);
   }
 
   changed(e: any) {

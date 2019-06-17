@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { StartPlanService } from '../services/start-plan.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,8 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { Location } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
-
+import PlacesService = google.maps.places.PlacesService;
+import { AgmCoreModule } from '@agm/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ import PlaceResult = google.maps.places.PlaceResult;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   destinations: string[] = ['Barcelona', 'Rome', 'Antalya'];
   destination: string = '';
   hasUpcomingTrip: boolean = false;
@@ -26,7 +28,7 @@ export class DashboardComponent implements OnInit {
   location: any;
   latitude: number;
   longitude: number;
-
+  photosPlace = new Map();
   upcomingTrips: any = [];
   prevTrips: any = [];
 
@@ -45,6 +47,7 @@ export class DashboardComponent implements OnInit {
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
+        this.retrievePhotoUrlsFromPlaceId(trip.placeId);
         if (start > current) {
           this.upcomingTrips.push(trip);
         } else {
@@ -58,7 +61,7 @@ export class DashboardComponent implements OnInit {
       startDate: new FormControl(),
       endDate: new FormControl(),
       coord: new FormControl(),
-      photoUrl: new FormControl()
+      placeId: new FormControl()
     });
   }
 
@@ -69,11 +72,33 @@ export class DashboardComponent implements OnInit {
   onAutocompleteSelected(result: PlaceResult) {
     this.formGroupTrip.patchValue({ location: result.name });
     this.formGroupTrip.patchValue({
-      photoUrl: result.photos[5].getUrl({
-        maxHeight: undefined,
-        maxWidth: 640
-      })
+      placeId: result.place_id
     });
+  }
+
+
+  retrievePhotoUrlsFromPlaceId(placeId) {
+    console.log("intra aici")
+    let lat = 24.799448;
+    let lng = 120.979021;
+    if (!this.photosPlace.get(placeId)) {
+      let map = new google.maps.Map(document.getElementById('map'),
+        { center: { lat: lat, lng: lng}, zoom: 13 });
+
+      let service = new google.maps.places.PlacesService(map);
+      service.getDetails(
+        {
+          placeId: placeId
+        }, (placeResult, status) => {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            this.photosPlace.set(placeId, placeResult.photos[1].getUrl({
+              maxWidth: 500,
+              maxHeight: undefined
+            }));
+          }
+        }
+      );
+    }
   }
 
   numberOfDaysLeft(startDate: any) {

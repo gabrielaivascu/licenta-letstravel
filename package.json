@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@agm/core": "^1.0.0-beta.5",
+    "@agm/core": "^1.0.0-beta.6",
     "@angular-material-extensions/google-maps-autocomplete": "^1.6.1",
     "@angular/animations": "^7.2.7",
     "@angular/cdk": "^7.3.3",
@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "agm-direction": "^0.7.8",
     "angular-mgl-timeline": "^0.3.2",
     "core-js": "^2.5.4",
     "date-fns": "^1.30.1",

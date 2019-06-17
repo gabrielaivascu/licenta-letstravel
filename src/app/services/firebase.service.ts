@@ -39,7 +39,7 @@ export class FirebaseService {
         location: data.location,
         startDate: String(data.startDate),
         endDate: String(data.endDate),
-        photoUrl: data.photoUrl
+        placeId: data.placeId
       };
     firebase.database().ref().update(updates);
 

@@ -163,11 +163,9 @@ export class DialogComponent implements OnInit {
         });
         if(section === 'food') {
           this.placesService.getDetails(id).subscribe((result) => {
-            // console.log(result);
             if(Object(result).response.venue.price !== undefined) {
               let priceTier = Object(result).response.venue.price.tier;
               this.priceFood.set(id, priceTier);
-              console.log(this.priceFood);
             }
           });
         }

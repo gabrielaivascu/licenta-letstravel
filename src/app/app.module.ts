@@ -68,8 +68,8 @@ import { AgmCoreModule } from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { TimelineComponent } from './timeline/timeline.component'; 
 import { MglTimelineModule } from 'angular-mgl-timeline';
-import { NavComponent } from './components/nav/nav.component';
 import { PreviousTripComponent } from './previous-trip/previous-trip.component';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -85,7 +85,6 @@ import { PreviousTripComponent } from './previous-trip/previous-trip.component';
     PlannerComponent,
     DialogComponent,
     TimelineComponent,
-    NavComponent,
     PreviousTripComponent
   ],
   imports: [
@@ -140,9 +139,9 @@ import { PreviousTripComponent } from './previous-trip/previous-trip.component';
       libraries: ['places', 'geometry'],
       language: 'en'
     }),
+    AgmDirectionModule,
     MatGoogleMapsAutocompleteModule.forRoot(),
     MglTimelineModule
-    
   ],
   entryComponents: [DialogComponent],
   providers: [AuthService, UserService, UserResolver, AuthGuard, FirebaseService],

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { FirebaseService } from '../services/firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upcoming-trips',
@@ -15,7 +16,8 @@ export class UpcomingTripsComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     public userService: UserService,
-    public authService: AuthService) { }
+    public authService: AuthService,
+    public router: Router) { }
 
   ngOnInit() {
     let user = this.firebaseService.getCurrentUser();
@@ -44,5 +46,14 @@ export class UpcomingTripsComponent implements OnInit {
     let end = new Date(endDate);
     let day = 1000 * 60 * 60 * 24;
     return (Math.round((end.getTime() - start.getTime()) / day) + 1);
+  }
+
+  logout() {
+    this.authService.doLogout()
+      .then((res) => {
+        this.router.navigateByUrl('/homepage');
+      }, (error) => {
+        console.log("Logout error", error);
+      });
   }
 }
