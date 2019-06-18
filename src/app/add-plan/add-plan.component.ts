@@ -20,8 +20,8 @@ export class AddPlanComponent implements OnInit, OnDestroy {
 
   allEvents: any = [];
 
-  lat: number = 41.85;
-  lng: number = -87.65;
+  lat: number = 39.46005809999999;
+  lng: number = -0.3495368999999755
   zoom: number = 12;
 
   locationList: any = [];
@@ -33,7 +33,7 @@ public destination: any;
     public firebaseService: FirebaseService) { }
 
   ngOnInit() {
-  
+
     this.startPlanService.currentData.subscribe(data => {
       this.data = data.value;
       this.key = data.key;
@@ -70,7 +70,7 @@ public destination: any;
       let copyCoords = coordsDay.slice(1,coordsDay.length - 1);
       let copyArray = [];
       copyCoords.forEach(coord => {
-        copyArray.push({location: coord, stopover: false});
+        copyArray.push({location: coord});
       })
 
       this.waypoints[e.index] = copyArray;
@@ -78,6 +78,7 @@ public destination: any;
 
     this.coords[e.index] = coordsDay;
     console.log(this.waypoints);
+    console.log(this.coords);
   }
 
   changed(e: any) {
