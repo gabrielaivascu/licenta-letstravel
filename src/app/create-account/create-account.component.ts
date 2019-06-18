@@ -36,14 +36,6 @@ export class CreateAccountComponent {
      )
    }
 
-   tryTwitterLogin(){
-     this.authService.doTwitterLogin()
-     .then(res =>{
-       this.router.navigate(['/dashboard']);
-     }, err => console.log(err)
-     )
-   }
-
    tryGoogleLogin(){
      this.authService.doGoogleLogin()
      .then(res =>{

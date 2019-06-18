@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StartPlanService } from '../services/start-plan.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -8,7 +8,6 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { Location } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
-import PlacesService = google.maps.places.PlacesService;
 import { AgmCoreModule } from '@agm/core';
 
 @Component({
@@ -37,7 +36,9 @@ export class DashboardComponent implements OnInit {
     public router: Router,
     public firebaseService: FirebaseService,
     public userService: UserService,
-    public authService: AuthService) { }
+    public authService: AuthService) { 
+    }
+    
 
   ngOnInit() {
     let user = this.firebaseService.getCurrentUser();
@@ -47,7 +48,9 @@ export class DashboardComponent implements OnInit {
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
-        this.retrievePhotoUrlsFromPlaceId(trip.placeId);
+        if (!this.photosPlace.get(trip.placeId)) {
+          this.retrievePhotoUrlsFromPlaceId(trip.placeId);
+        }
         if (start > current) {
           this.upcomingTrips.push(trip);
         } else {
@@ -57,9 +60,9 @@ export class DashboardComponent implements OnInit {
     });
 
     this.formGroupTrip = new FormGroup({
-      location: new FormControl(),
-      startDate: new FormControl(),
-      endDate: new FormControl(),
+      location: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      endDate: new FormControl('', [Validators.required]),
       coord: new FormControl(),
       placeId: new FormControl()
     });
@@ -78,10 +81,9 @@ export class DashboardComponent implements OnInit {
 
 
   retrievePhotoUrlsFromPlaceId(placeId) {
-    console.log("intra aici")
-    let lat = 24.799448;
-    let lng = 120.979021;
     if (!this.photosPlace.get(placeId)) {
+      let lat = 24.799448;
+      let lng = 120.979021;
       let map = new google.maps.Map(document.getElementById('map'),
         { center: { lat: lat, lng: lng}, zoom: 13 });
 

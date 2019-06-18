@@ -23,20 +23,6 @@ export class AuthService {
     })
   }
 
-  doTwitterLogin(){
-    return new Promise<any>((resolve, reject) => {
-      let provider = new firebase.auth.TwitterAuthProvider();
-      this.afAuth.auth
-      .signInWithPopup(provider)
-      .then(res => {
-        resolve(res);
-      }, err => {
-        console.log(err);
-        reject(err);
-      })
-    })
-  }
-
   doGoogleLogin(){
     return new Promise<any>((resolve, reject) => {
       let provider = new firebase.auth.GoogleAuthProvider();
@@ -55,7 +41,8 @@ export class AuthService {
 
   doRegister(value){
     return new Promise<any>((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
+      firebase.auth()
+      .createUserWithEmailAndPassword(value.email, value.password)
       .then(res => {
         resolve(res);
       }, err => reject(err))

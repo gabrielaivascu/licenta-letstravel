@@ -20,7 +20,9 @@
         <app-button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-default">Register
         </app-button>
       </form>
-      <app-button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Register with Google
+      <app-button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Login with Google
+      </app-button>
+      <app-button type="button" class="btn btn-danger btn-block" (click)="tryFacebookLogin()">Login with Google
       </app-button>
     </ng-container>
     <ng-container *ngIf="successMessage">

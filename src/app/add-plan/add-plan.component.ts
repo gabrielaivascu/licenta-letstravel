@@ -25,8 +25,6 @@ export class AddPlanComponent implements OnInit, OnDestroy {
   zoom: number = 12;
 
   locationList: any = [];
-  public origin: any;
-public destination: any;
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
     public authService: AuthService, private location: Location, public router: Router,
@@ -38,7 +36,9 @@ public destination: any;
       this.data = data.value;
       this.key = data.key;
       let day = 1000 * 60 * 60 * 24;
-      this.days = Math.round((this.data.endDate.getTime() - this.data.startDate.getTime()) / day) + 1;
+      if(this.data.endDate && this.data.startDate) {
+        this.days = Math.round((this.data.endDate.getTime() - this.data.startDate.getTime()) / day) + 1;
+      }
       for (let i = 0; i < this.days; i++) {
         this.tabs.push('Day ' + (i + 1));
       }
@@ -77,8 +77,6 @@ public destination: any;
     }
 
     this.coords[e.index] = coordsDay;
-    console.log(this.waypoints);
-    console.log(this.coords);
   }
 
   changed(e: any) {
@@ -100,7 +98,6 @@ public destination: any;
 
 
   savePlan() {
-    console.log(this.allEvents);
     this.firebaseService.createPlan(this.allEvents, this.key);
     this.router.navigate(['/timeline', this.key]);
   }

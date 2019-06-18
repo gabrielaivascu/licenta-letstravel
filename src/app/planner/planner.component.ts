@@ -56,36 +56,36 @@ export class PlannerComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
-
-      if (result.type === 'flight') {
-        this.events.push({
-          content: 'Flight to ' + result.data.value.destination,
-          type: 'flight'
-        });
+    
+      if(result) {
+        if (result.type === 'flight') {
+          this.events.push({
+            content: 'Flight to ' + result.data.value.destination,
+            type: 'flight'
+          });
+        }
+        if (result.type === 'other') {
+          this.events.push({ content: result.data.value.name, type: 'other' });
+        }
+        if (result.type === 'food') {
+          this.events.push({ content: 'Eating at ' + result.place.name, type: 'food', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address, price: result.price });
+          this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
+        }
+        if (result.type === 'outdoor') {
+          this.events.push({ content: 'Visit ' + result.place.name, type: 'outdoor', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address  });
+          this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
+        }
+        if (result.type === 'shops') {
+          this.events.push({ content: 'Shopping at ' + result.place.name, type: 'shop', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address });
+          this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
+        }
+        if (result.type === 'hotel') {
+          this.events.push({ content: 'Go to ' + result.data.value.name, type: 'hotel', coord: { lat:  result.data.value.coord.latitude, lng: result.data.value.coord.longitude } });
+          this.newLocation.emit({ lat: result.data.value.coord.latitude, lng: result.data.value.coord.longitude });
+        }
+  
+        this.eventsList.emit({ events: this.events, index: this.day, type: result.type });
       }
-      if (result.type === 'other') {
-        this.events.push({ content: result.data.value.name, type: 'other' });
-      }
-      if (result.type === 'food') {
-        this.events.push({ content: 'Eating at ' + result.place.name, type: 'food', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address, price: result.price });
-        this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
-      }
-      if (result.type === 'outdoor') {
-        this.events.push({ content: 'Visit ' + result.place.name, type: 'outdoor', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address  });
-        this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
-      }
-      if (result.type === 'shops') {
-        this.events.push({ content: 'Shopping at ' + result.place.name, type: 'shop', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address });
-        this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
-      }
-      if (result.type === 'hotel') {
-        console.log(result.data);
-        this.events.push({ content: 'Go to ' + result.data.value.name, type: 'hotel', coord: { lat:  result.data.value.coord.latitude, lng: result.data.value.coord.longitude } });
-        this.newLocation.emit({ lat: result.data.value.coord.latitude, lng: result.data.value.coord.longitude });
-      }
-
-      this.eventsList.emit({ events: this.events, index: this.day, type: result.type });
     });
   }
 }

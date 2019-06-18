@@ -28,4 +28,10 @@ button {
     font-weight: bold;
     font-size: 12px;
   }
+
+  &.disabled{
+    pointer-events: none;
+    border: 2px solid $grey-2;
+    color: $grey-2;
+  }
 }

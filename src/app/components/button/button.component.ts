@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ButtonComponent implements OnInit {
   @Input() type: 'default' | 'yellow' | 'secodary' = 'default';
+  @Input() disabled: boolean;
   constructor() { }
 
   ngOnInit() {
