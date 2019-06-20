@@ -1,4 +1,4 @@
-@import "../../../assets/base/colors";
+@import '../../../assets/base/colors';
 
 .header {
   position: relative;
@@ -52,6 +52,113 @@
       font-size: 22px;
     }
 
+    ::ng-deep .mobile-menu {
+      display: none;
+
+      .list-menu {
+        max-height: 0px;
+        overflow: hidden;
+        list-style: none;
+        transition: all 1s cubic-bezier(0.325, 1, 0.22, 1);
+        padding: 0 30px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50px;
+        background: #fff;
+
+        li {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          font-weight: 600;
+          font-size: 14px;
+          position: relative;
+          padding: 5px 0px;
+
+          &:hover,
+          &.active {
+              color: $blue;
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 15px;
+          }
+
+          &.logout {
+            a {
+              text-decoration: none;
+              color: black;
+              font-size: 22px;
+            }
+          }
+        }
+      }
+
+      input[type='checkbox'] {
+        display: none;
+      }
+
+      input[type='checkbox']:checked ~ .list-menu {
+        height: 180px;
+        max-height: 12rem;
+        transition: all 1s cubic-bezier(0.5, 1, 0.22, 1);
+      }
+
+      .hamburger {
+        display: block;
+        position: absolute;
+        top: 18px;
+        right: 13px;
+        height: 27px;
+        width: 27px;
+        cursor: pointer;
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .line {
+        position: absolute;
+        display: block;
+        background: $black;
+        width: 18px;
+        height: 0.15rem;
+        border-radius: 0.2rem;
+        left: 0;
+        transition: all 0.6s cubic-bezier(0.5, 0.1, 0, 1.2);
+      }
+
+      .line-1 {
+        top: 0;
+      }
+
+      .line-2 {
+        top: 7px;
+        width: 14px;
+        transform: translateX(2px);
+        -webkit-transform: translateX(2px);
+      }
+
+      .line-3 {
+        top: 14px;
+      }
+
+      input[type='checkbox']:checked ~ label .line-1 {
+        top: 0px;
+        width: 22px;
+        transform: translateX(-11px) rotate(-45deg) translateY(12px);
+      }
+
+      input[type='checkbox']:checked ~ label .line-2 {
+        opacity: 0;
+      }
+
+      input[type='checkbox']:checked ~ label .line-3 {
+        top: 14px;
+        width: 22px;
+        transform: translateX(-8px) rotate(45deg) translateY(-8px);
+      }
+    }
+
     ::ng-deep .user-menu {
       display: flex;
       font-size: 16px;
@@ -68,7 +175,7 @@
         position: relative;
 
         &:after {
-          content: "";
+          content: '';
           position: absolute;
           width: 0%;
           height: 2px;
@@ -133,6 +240,19 @@
         font-size: 18px;
         margin: 0;
         margin-right: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .header {
+    .right-side {
+      ::ng-deep .user-menu {
+        display: none;
+      }
+      ::ng-deep .mobile-menu {
+        display: flex;
       }
     }
   }

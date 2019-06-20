@@ -113,7 +113,7 @@ export class DialogComponent implements OnInit {
         console.log("invalid");
       }
     }
-    this.placesService.getPlace(this.data.location, section, 2).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 4).subscribe((result) => {
       let exploreResult = Object(result).response.groups[0].items;
 
       for (let i = 0; i < exploreResult.length; i++) {

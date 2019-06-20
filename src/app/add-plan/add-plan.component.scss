@@ -111,3 +111,33 @@ h3 {
     }
   }
 }
+
+
+
+@media screen and (max-width: 640px) {
+ .planner {
+   height: auto;
+
+   .container {
+     padding: 0;
+
+     .row-container {
+       flex-direction: column;
+
+       .mat-stepper-horizontal {
+         width: 100%;
+       }
+
+       .map-container {
+         width: 100%;
+         min-width: 100%;
+         
+         .agm-map-container-inner {
+           height: 300px;
+           max-width: 100%;
+         }
+       }
+     }
+   }
+ }
+}

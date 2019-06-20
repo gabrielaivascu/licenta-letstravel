@@ -294,3 +294,52 @@
 .box.trips {
   min-height: 330px;
 }
+
+
+@media screen and (max-width: 1240px) {
+  .flex-row{
+   display: flex;
+   flex-direction: column;
+
+   .main-section {
+     margin: 30px;
+     margin-bottom: 0;
+   }
+   
+   .add-plan {
+     width: 100%;
+   }
+  }
+ }
+
+@media screen and (max-width: 700px) {
+  .main-section {
+    .add-plan {
+      .container {
+        .img {
+          width: 100%;
+          height: 300px;
+          overflow: hidden;
+        }
+
+        .form {
+          width: 100%;
+        }
+      }
+    }
+  }
+ }
+
+@media screen and (max-width: 640px) {
+  .main-section {
+    .add-plan {
+  
+      .container {
+        flex-direction: column;
+      }
+    }
+  }
+  .secondary-section {
+    min-width: auto;
+  }
+ }

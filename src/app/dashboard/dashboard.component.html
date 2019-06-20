@@ -7,6 +7,34 @@
       <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
     </li>
   </ul>
+  <div class="mobile-menu" menu-btn="menu">
+    <!-- <span class="burger-menu"> -->
+        <input type="checkbox" id="checkbox_toggle">
+        <label for="checkbox_toggle" class="hamburger">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+         </label>
+    <!-- </span> -->
+ 
+        <ul class="list-menu">
+            <li class="active"><a>Dashboard</a></li>
+            <li routerLink="/upcoming-trips"><a>Next trip</a></li>
+            <li routerLink="/previous-trips"><a>Previous trip</a></li>
+            <li class="logout">
+              <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+            </li>
+      </ul>
+        
+    <!-- <ul class="list-menu">
+      <li class="active"><a>Dashboard</a></li>
+      <li routerLink="/upcoming-trips"><a>Next trip</a></li>
+      <li routerLink="/previous-trips"><a>Previous trip</a></li>
+      <li class="logout">
+        <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+      </li>
+    </ul> -->
+  </div>
 </app-header>
 
 <div class="flex-row">
@@ -54,7 +82,7 @@
         <h3>Next trips</h3>
       </div>
       <div class="container">
-          <div *ngIf="upcomingTrips.length === 0" class="trip-list">No trip is coming</div>
+        <div *ngIf="upcomingTrips.length === 0" class="trip-list">No trip is coming</div>
         <ul *ngIf="upcomingTrips.length > 0" class="trip-list">
           <li *ngFor="let trip of upcomingTrips" class="trip">
             <div class="container">
@@ -118,4 +146,4 @@
   </div>
 </div>
 <agm-map latitude=0 longitude=0 id="map">
-  </agm-map>
+</agm-map>
