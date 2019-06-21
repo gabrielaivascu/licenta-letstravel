@@ -1,12 +1,28 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li routerLink="/dashboard"><a>Dashboard</a></li>
+    <li class="active"><a>Dashboard</a></li>
     <li routerLink="/upcoming-trips"><a>Next trip</a></li>
-    <li class="active" routerLink="/previous-trips"><a>Previous trip</a></li>
+    <li routerLink="/previous-trips"><a>Previous trip</a></li>
     <li class="logout">
       <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
     </li>
   </ul>
+  <div class="mobile-menu" menu-btn="menu">
+        <input type="checkbox" id="checkbox_toggle">
+        <label for="checkbox_toggle" class="hamburger">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+         </label> 
+        <ul class="list-menu">
+            <li routerLink="/dashboard"><a>Dashboard</a></li>
+            <li routerLink="/upcoming-trips"><a>Next trip</a></li>
+            <li class="active" routerLink="/previous-trips"><a>Previous trip</a></li>
+            <li class="logout">
+              <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+            </li>
+      </ul>
+  </div>
 </app-header>
 
 <div class="flex-row">

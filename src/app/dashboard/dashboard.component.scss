@@ -1,6 +1,6 @@
-@import "../../assets/base/base";
-@import "../../assets/base/colors";
-@import "../../assets/base/mixins";
+@import '../../assets/base/base';
+@import '../../assets/base/colors';
+@import '../../assets/base/mixins';
 
 :host() {
   display: flex;
@@ -61,7 +61,7 @@
       position: relative;
 
       &::after {
-        content: "";
+        content: '';
         width: 100%;
         background: rgba(0, 0, 0, 0.15);
         height: 45px;
@@ -276,7 +276,7 @@
       &:nth-child(n + 5) {
         display: none;
       }
-      
+
       .container {
         height: 170px;
       }
@@ -295,22 +295,21 @@
   min-height: 330px;
 }
 
-
 @media screen and (max-width: 1240px) {
-  .flex-row{
-   display: flex;
-   flex-direction: column;
+  .flex-row {
+    display: flex;
+    flex-direction: column;
 
-   .main-section {
-     margin: 30px;
-     margin-bottom: 0;
-   }
-   
-   .add-plan {
-     width: 100%;
-   }
+    .main-section {
+      margin: 30px;
+      margin-bottom: 0;
+    }
+
+    .add-plan {
+      width: 100%;
+    }
   }
- }
+}
 
 @media screen and (max-width: 700px) {
   .main-section {
@@ -318,7 +317,7 @@
       .container {
         .img {
           width: 100%;
-          height: 300px;
+          height: 240px;
           overflow: hidden;
         }
 
@@ -328,18 +327,45 @@
       }
     }
   }
- }
+}
 
 @media screen and (max-width: 640px) {
   .main-section {
     .add-plan {
-  
       .container {
         flex-direction: column;
+
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .form-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
       }
     }
   }
-  .secondary-section {
+  .box.secondary-section {
     min-width: auto;
+    flex-basis: auto;
   }
- }
+
+  .previous-trip {
+    flex-direction: column;
+
+    .trip-list {
+      display: inline-block;
+
+    }
+
+    .trip {
+      max-width: auto;
+      margin-right: 0;
+      max-height: auto;
+    }
+  }
+}

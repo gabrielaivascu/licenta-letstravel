@@ -1,16 +1,13 @@
 @import '../../../assets/base/colors';
 @import '../../../assets/base/mixins';
 
-// ::ng-deep .cdk-overlay-pane {
-//   height: 80% !important;
-// }
-
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
   background-color: $blue !important;
 }
 
 ::ng-deep .mat-tab-body-content {
   display: flex;
+  padding: 15px;
 }
 
 .search {
