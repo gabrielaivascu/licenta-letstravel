@@ -1,8 +1,8 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li class="active"><a>Dashboard</a></li>
+    <li  routerLink="/dashboard"><a>Dashboard</a></li>
     <li routerLink="/upcoming-trips"><a>Next trip</a></li>
-    <li routerLink="/previous-trips"><a>Previous trip</a></li>
+    <li class="active" routerLink="/previous-trips"><a>Previous trip</a></li>
     <li class="logout">
       <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
     </li>
@@ -38,7 +38,7 @@
               <div class="container">
                 <span class="number"><b>{{daysTrip(trip.startDate, trip.endDate)}}</b> day trip</span>
                 <div class="img-container">
-                  <img src="{{trip.photoUrl}}">
+                  <img src="{{photosPlace.get(trip.placeId)}}">
                 </div>
                 <app-button type="yellow" class="more" [routerLink]="['/timeline', trip.tripId]">See plan</app-button>
               </div>
@@ -62,3 +62,4 @@
     </div>
   </section>
 </div>
+<div id="map"></div>

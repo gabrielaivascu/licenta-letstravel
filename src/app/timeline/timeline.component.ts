@@ -4,9 +4,6 @@ import * as firebase from 'firebase/app';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-import { AgmCoreModule } from '@agm/core';
-
-
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -73,48 +70,22 @@ export class TimelineComponent implements OnInit {
   }
 
   getDistances(events: any) {
-    // console.log(events);
     events.forEach((day) => {
+      let indexRoutes = 0;
       if (day.events.length > 0) {
+   
         for (let i = 1; i < day.events.length; i++) {
           if (day.events[i - 1].coord !== undefined && day.events[i].coord !== undefined) {
-
-            let distResult = this.getDistanceBetweenTwo(day.events[i - 1].coord, day.events[i].coord);
-            if (distResult !== null) {
-              day.events.splice(i, 0, { content: distResult, type: 'distance' });
-              i++;
-              // this.getEstimation(distResult);
-            }
+              day.events.splice(i, 0, { content: Object(day.routes[indexRoutes]), type: 'distance' });
+              indexRoutes++;
           }
         }
       }
     })
   }
 
-  getDistanceBetweenTwo(coord1: any, coord2: any) {
-    let dist1 = new google.maps.LatLng(coord1.lat, coord1.lng);
-    let dist2 = new google.maps.LatLng(coord2.lat, coord2.lng);
-
-    let distance = google.maps.geometry.spherical.computeDistanceBetween(dist1, dist2);
-    if (distance !== NaN) {
-      return +(distance / 1000).toFixed(2);
-    } else {
-      return null;
-    }
-  }
-
-  getEstimation(km: number, type: string) {
-    if (type === 'walk') {
-      let walking = (60 * km) / 4.6;
-      return Math.round(walking);
-    }
-    if (type === 'drive') {
-      let driving = (60 * km) / 60;
-      return Math.round(driving);
-    }
-  }
-
   getIcon(type: string) {
+  
     if (type === 'flight') {
       return 'flight';
     }
@@ -124,7 +95,7 @@ export class TimelineComponent implements OnInit {
     if (type === 'outdoor') {
       return 'location_city';
     }
-    if (type === 'shop') {
+    if (type === 'shops') {
       return 'shopping_basket';
     }
     if (type === 'other') {
@@ -133,8 +104,14 @@ export class TimelineComponent implements OnInit {
     if (type === 'hotel') {
       return 'hotel';
     }
-    if (type === 'distance') {
+    if (type === 'WALKING') {
       return 'directions_walk';
+    }
+    if (type === 'DRIVING') {
+      return 'directions_car';
+    }
+    if (type === 'BICYCLING') {
+      return 'directions_bike';
     }
   }
 

@@ -177,17 +177,11 @@ export class DialogComponent implements OnInit {
     if(type === 'hotel') {
       this.hotelData.patchValue({ coord: location });
     }
-    if(type === 'flight') {
-      this.flightData.patchValue({ airportLocation: location });
-    }
   }
 
   onAutocompleteSelected(result: PlaceResult, type: String) {
     if(type === 'hotel') {
       this.hotelData.patchValue({ name: result.name });
-    }
-    if(type === 'flight') {
-      this.flightData.patchValue({ airport: result.name });
     }
   }
 
@@ -251,7 +245,9 @@ export class DialogComponent implements OnInit {
       if (this.exploreResults.food.values[j].name === this.foodPlace) {
         this.locationData.lat = this.exploreResults.food.values[j].lat;
         this.locationData.lng = this.exploreResults.food.values[j].lng;
-        this.locationData.address = this.exploreResults.food.values[j].address;
+        if(this.exploreResults.food.values[j].address !== undefined) {
+          this.locationData.address = this.exploreResults.food.values[j].address;
+        }
         let id = Number(this.exploreResults.food.values[j].id);
         if(this.priceFood.get(this.exploreResults.food.values[j].id) !== undefined) {
           priceTier = this.priceFood.get(this.exploreResults.food.values[j].id);
@@ -268,7 +264,9 @@ export class DialogComponent implements OnInit {
       if (this.exploreResults.outdoor.values[j].name === this.outdoorPlace) {
         this.locationData.lat = this.exploreResults.outdoor.values[j].lat;
         this.locationData.lng = this.exploreResults.outdoor.values[j].lng;
-        this.locationData.address = this.exploreResults.outdoor.values[j].address;
+        if(this.exploreResults.outdoor.values[j].address !== undefined) {
+          this.locationData.address = this.exploreResults.outdoor.values[j].address;
+        }
       }
     }
     this.dialogRef.close({ type: 'outdoor', place: this.locationData });
@@ -281,7 +279,9 @@ export class DialogComponent implements OnInit {
       if (this.exploreResults.shops.values[j].name === this.shopsPlace) {
         this.locationData.lat = this.exploreResults.shops.values[j].lat;
         this.locationData.lng = this.exploreResults.shops.values[j].lng;
-        this.locationData.address = this.exploreResults.shops.values[j].address;
+        if(this.exploreResults.shops.values[j].address !== undefined) {
+          this.locationData.address = this.exploreResults.shops.values[j].address;
+        }
       }
     }
     this.dialogRef.close({ type: 'shops', place: this.locationData });

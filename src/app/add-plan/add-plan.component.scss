@@ -22,9 +22,45 @@
 
 .map-container {
   display: flex;
+  flex-direction: column;
     justify-content: center;
     width: 40%;
     min-width: 500px;
+
+    .toggle {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .content {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+
+        .icon-map {
+          width: 40px;
+          margin-right: 10px;
+        }
+      }
+
+      ::ng-deep .mat-button-toggle-group {
+        &.mat-button-toggle-group-appearance-standard {
+          border-radius: 7px;
+        }
+
+        .mat-button-toggle-appearance-standard {
+          font-family: 'Poppins';
+          font-weight: bold;
+          font-size: 12px;
+        }
+        .mat-button-toggle-checked {
+          background: $blue;
+          color: $white;
+        }
+      }
+    }
 }
 
 agm-map {
@@ -41,7 +77,7 @@ agm-map {
 
   ::ng-deep .mat-horizontal-stepper-header {
     height: 60px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     flex-direction: column;
     justify-content: center;
     
@@ -117,6 +153,8 @@ h3 {
 @media screen and (max-width: 640px) {
  .planner {
    height: auto;
+   margin: 0;
+   margin-top: 0;
 
    .container {
      padding: 0;
@@ -131,12 +169,22 @@ h3 {
        .map-container {
          width: 100%;
          min-width: 100%;
+         margin-top: 15px;
+
+         agm-map {
+          width: 320px;
+          height: 320px;
+         }
          
          .agm-map-container-inner {
            height: 300px;
            max-width: 100%;
          }
        }
+     }
+
+     app-button {
+       margin-bottom: 25px;
      }
    }
  }

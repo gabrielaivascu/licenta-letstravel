@@ -41,12 +41,37 @@
         </mat-horizontal-stepper>
 
         <div class="map-container">
+          <div class="toggle">
+            <div class="content">
+              <h3 *ngIf="totalTime>0">Total time duration: {{totalTime}} mins</h3>
+            </div>
+            <mat-button-toggle-group name="travelMode" [(ngModel)]="travelMode">
+                <mat-button-toggle value="WALKING">
+                    <i class="material-icons">
+                        directions_walk
+                        </i>
+                                                
+                </mat-button-toggle>
+                <mat-button-toggle value="DRIVING" selected>
+                  <i class="material-icons">
+                    directions_car
+                    </i>
+                  </mat-button-toggle>
+                <mat-button-toggle value="BICYCLING">
+                    <i class="material-icons">
+                        directions_bike
+                        </i>
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+          </div>
           <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
-            <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
-            </agm-marker>
+            <ng-container *ngIf="locationList.length < 2">
+              <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
+              </agm-marker>
+            </ng-container>
             <ng-container *ngFor="let days of coords; let i = index">
               <ng-container *ngIf="days.length > 1">
-                <agm-direction [origin]="days[0]" [destination]="days[days.length - 1]" [waypoints]="waypoints[i]">
+                <agm-direction [origin]="days[0]" [destination]="days[days.length - 1]" [waypoints]="waypoints[i]" [travelMode]="travelMode" (onResponse)="onResponse($event)">
                 </agm-direction>
               </ng-container>
             </ng-container>
@@ -59,3 +84,5 @@
   </section>
 
 </div>
+
+<!-- <div id="map"></div> -->

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StartPlanService } from '../services/start-plan.service';
 import { Router } from '@angular/router';
@@ -85,7 +85,9 @@ export class DashboardComponent implements OnInit {
       let lat = 24.799448;
       let lng = 120.979021;
       let map = new google.maps.Map(document.getElementById('map'),
-        { center: { lat: lat, lng: lng}, zoom: 13 });
+        {  zoom: 4,
+          center: {lat: -33, lng: 151}
+        });
 
       let service = new google.maps.places.PlacesService(map);
       service.getDetails(
@@ -93,7 +95,7 @@ export class DashboardComponent implements OnInit {
           placeId: placeId
         }, (placeResult, status) => {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
-            this.photosPlace.set(placeId, placeResult.photos[1].getUrl({
+            this.photosPlace.set(placeId, placeResult.photos[3].getUrl({
               maxWidth: 500,
               maxHeight: undefined
             }));

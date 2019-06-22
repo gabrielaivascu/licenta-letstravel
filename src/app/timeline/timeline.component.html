@@ -1,6 +1,6 @@
 <app-header [loggedIn]="true">
   <ul class="user-menu" menu-btn="menu">
-    <li class="active"><a>Dashboard</a></li>
+    <li><a>Dashboard</a></li>
     <li routerLink="/upcoming-trips"><a>Next trip</a></li>
     <li routerLink="/previous-trips"><a>Previous trip</a></li>
     <li class="logout">
@@ -56,8 +56,11 @@
                   toggle="false">
                   <mgl-timeline-entry-header (click)="onHeaderClick($event)">
                     <div class="header-icon">
-                      <i class="material-icons">
+                      <i *ngIf="event.type !== 'distance'" class="material-icons">
                         {{getIcon(event.type)}}
+                      </i>
+                      <i *ngIf="event.type === 'distance'" class="material-icons">
+                        {{getIcon(event.content.mode)}}
                       </i>
                     </div>
                     <div *ngIf="event.type === 'food'">
@@ -70,8 +73,8 @@
                       <p *ngIf="event.address">Address: <i>{{event.address}}</i></p>
                     </div>
                     <div *ngIf="event.type === 'distance'">
-                      <p>Distance: <b>{{event.content}} km</b></p>
-                      <p>Estimated walking time: <b>{{getEstimation(event.content, 'walk')}} minutes</b>.</p>
+                      <p>Distance: <b>{{event.content.distance}}</b></p>
+                      <p>Duration: <b>{{event.content.duration}}</b></p>
                     </div>
                   </mgl-timeline-entry-header>
                   <mgl-timeline-entry-content>
@@ -83,10 +86,6 @@
             </ng-container>
           </mgl-timeline>
         </ng-container>
-        <agm-map latitude=0 longitude=0>
-          <!-- <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
-          </agm-marker> -->
-        </agm-map>
       </div>
     </div>
   </section>

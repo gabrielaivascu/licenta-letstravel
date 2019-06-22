@@ -252,3 +252,56 @@
 // .modal-btn {
 //   margin-top: 10px;
 // }
+
+
+@media screen and (max-width: 700px) {
+
+  ::ng-deep .cdk-overlay-pane {
+    max-width: 90vw !important;
+  }
+  
+
+  ::ng-deep .mat-dialog-container {
+    padding: 0;
+
+    .mat-tab-body-wrapper {
+      padding: 15px;
+
+      .column-layout {
+        .row-layout {
+          flex-direction: column;
+
+          .search {
+            margin: 0;
+          }
+
+          .explore {
+            min-width: auto; 
+            
+            .places-list {
+              height: 240px;
+              flex-direction: row;
+
+              .mat-radio-group {
+                display: flex;
+
+                .place {
+                  min-width: 200px;
+                  margin-right: 20px;
+
+                  &:not(:last-child) {
+                    margin-bottom: 0;
+                  }
+
+                  .img-container {
+                    height: 150px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

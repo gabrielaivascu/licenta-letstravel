@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class UpcomingTripsComponent implements OnInit {
   upcomingTrips: any = [];
   trips: any;
+  photosPlace = new Map();
 
   constructor(
     public firebaseService: FirebaseService,
@@ -27,6 +28,9 @@ export class UpcomingTripsComponent implements OnInit {
       this.trips.forEach(trip => {
         let start = new Date(trip.startDate);
         let current = new Date();
+        if (!this.photosPlace.get(trip.placeId)) {
+          this.retrievePhotoUrlsFromPlaceId(trip.placeId);
+        }
         if (start > current) {
           this.upcomingTrips.push(trip);
         }
@@ -55,5 +59,28 @@ export class UpcomingTripsComponent implements OnInit {
       }, (error) => {
         console.log("Logout error", error);
       });
+  }
+
+  retrievePhotoUrlsFromPlaceId(placeId) {
+    if (!this.photosPlace.get(placeId)) {
+      let lat = 24.799448;
+      let lng = 120.979021;
+      let map = new google.maps.Map(document.getElementById('map'),
+        { center: { lat: lat, lng: lng}, zoom: 13 });
+
+      let service = new google.maps.places.PlacesService(map);
+      service.getDetails(
+        {
+          placeId: placeId
+        }, (placeResult, status) => {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            this.photosPlace.set(placeId, placeResult.photos[3].getUrl({
+              maxWidth: 500,
+              maxHeight: undefined
+            }));
+          }
+        }
+      );
+    }
   }
 }

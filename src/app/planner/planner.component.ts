@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
-import { PlacesService } from '../services/places.service';
 
 @Component({
   selector: 'app-planner',
@@ -23,10 +22,9 @@ export class PlannerComponent implements OnInit, OnDestroy {
 
   @Input() location: string;
   @Input() coord: any;
-  origin: { lat: number; lng: number; };
-  destination: { lat: number; lng: number; };
 
-  constructor(public dialog: MatDialog, private placesService: PlacesService) {
+
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -56,31 +54,44 @@ export class PlannerComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-    
+
       if(result) {
         if (result.type === 'flight') {
           this.events.push({
             content: 'Flight to ' + result.data.value.destination,
-            type: 'flight'
+            type: result.type
           });
         }
         if (result.type === 'other') {
-          this.events.push({ content: result.data.value.name, type: 'other' });
+          this.events.push({ content: result.data.value.name, type: result.type });
         }
+
         if (result.type === 'food') {
-          this.events.push({ content: 'Eating at ' + result.place.name, type: 'food', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address, price: result.price });
+          if(result.place.address !== undefined) {
+            this.events.push({ content: 'Eating at ' + result.place.name, type: result.type, coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address, price: result.price });
+          } else {
+            this.events.push({ content: 'Eating at ' + result.place.name, type: result.type, coord: { lat: result.place.lat, lng: result.place.lng }, price: result.price });
+          }
           this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
         }
         if (result.type === 'outdoor') {
-          this.events.push({ content: 'Visit ' + result.place.name, type: 'outdoor', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address  });
+          if(result.place.address !== undefined) {
+            this.events.push({ content: 'Visit ' + result.place.name, type: result.type, coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address });
+          } else {
+            this.events.push({ content: 'Visit ' + result.place.name, type: result.type, coord: { lat: result.place.lat, lng: result.place.lng } });
+          }
           this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
         }
         if (result.type === 'shops') {
-          this.events.push({ content: 'Shopping at ' + result.place.name, type: 'shop', coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address });
+          if(result.place.address !== undefined) {
+            this.events.push({ content: 'Shopping at ' + result.place.name, type: result.type, coord: { lat: result.place.lat, lng: result.place.lng }, address: result.place.address });
+          } else {
+            this.events.push({ content: 'Shopping at ' + result.place.name, type: result.type, coord: { lat: result.place.lat, lng: result.place.lng }});
+          }
           this.newLocation.emit({ lat: result.place.lat, lng: result.place.lng });
         }
         if (result.type === 'hotel') {
-          this.events.push({ content: 'Go to ' + result.data.value.name, type: 'hotel', coord: { lat:  result.data.value.coord.latitude, lng: result.data.value.coord.longitude } });
+          this.events.push({ content: 'Go to ' + result.data.value.name, type: result.type, coord: { lat:  result.data.value.coord.latitude, lng: result.data.value.coord.longitude } });
           this.newLocation.emit({ lat: result.data.value.coord.latitude, lng: result.data.value.coord.longitude });
         }
   
