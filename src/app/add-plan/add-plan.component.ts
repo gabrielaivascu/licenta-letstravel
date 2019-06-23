@@ -18,7 +18,6 @@ export class AddPlanComponent implements OnInit {
   tabs: any[] = [];
   selectedIndex = 0;
   travelMode: String = 'DRIVING';
-  // travelMode: String = 'WALKING';
   totalTime: any;
   allEvents: any = [];
   activeIndex: any;
@@ -30,7 +29,7 @@ export class AddPlanComponent implements OnInit {
   locationList: any = [];
 
   constructor(public startPlanService: StartPlanService, public userService: UserService,
-    public authService: AuthService, private location: Location, public router: Router,
+    public authService: AuthService, public router: Router,
     public firebaseService: FirebaseService) { }
 
   ngOnInit() {
@@ -47,16 +46,11 @@ export class AddPlanComponent implements OnInit {
       }
 
       if (this.data.location) {
-        // localStorage.setItem('location', this.data.location);
         this.lat = this.data.coord.latitude;
         this.lng = this.data.coord.longitude;
       }
     });
   }
-
-  // ngOnDestroy() {
-  //   localStorage.setItem('location', '');
-  // }
 
   coords: any = [];
   waypoints: any = [];

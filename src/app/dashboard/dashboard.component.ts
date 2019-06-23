@@ -36,9 +36,8 @@ export class DashboardComponent implements OnInit {
     public router: Router,
     public firebaseService: FirebaseService,
     public userService: UserService,
-    public authService: AuthService) { 
-    }
-    
+    public authService: AuthService) {
+  }
 
   ngOnInit() {
     let user = this.firebaseService.getCurrentUser();
@@ -77,29 +76,26 @@ export class DashboardComponent implements OnInit {
     this.formGroupTrip.patchValue({ placeId: result.place_id });
   }
 
-
   retrievePhotoUrlsFromPlaceId(placeId) {
     if (!this.photosPlace.get(placeId)) {
-      let lat = 24.799448;
-      let lng = 120.979021;
+
       let map = new google.maps.Map(document.getElementById('map'),
-        {  zoom: 4,
-          center: {lat: -33, lng: 151}
+        {
+          zoom: 4,
+          center: { lat: -33, lng: 151 }
         });
 
       let service = new google.maps.places.PlacesService(map);
-      service.getDetails(
-        {
-          placeId: placeId
-        }, (placeResult, status) => {
-          if (status == google.maps.places.PlacesServiceStatus.OK) {
-            this.photosPlace.set(placeId, placeResult.photos[3].getUrl({
-              maxWidth: 500,
-              maxHeight: undefined
-            }));
-          }
+      service.getDetails({
+        placeId: placeId
+      }, (placeResult, status) => {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          this.photosPlace.set(placeId, placeResult.photos[3].getUrl({
+            maxWidth: 500,
+            maxHeight: undefined
+          }));
         }
-      );
+      });
     }
   }
 

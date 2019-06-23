@@ -42,7 +42,6 @@ export class FirebaseService {
         placeId: data.placeId
       };
     firebase.database().ref().update(updates);
-
     return newPostKey;
   }
 
