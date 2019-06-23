@@ -74,9 +74,7 @@ export class DashboardComponent implements OnInit {
 
   onAutocompleteSelected(result: PlaceResult) {
     this.formGroupTrip.patchValue({ location: result.name });
-    this.formGroupTrip.patchValue({
-      placeId: result.place_id
-    });
+    this.formGroupTrip.patchValue({ placeId: result.place_id });
   }
 
 
