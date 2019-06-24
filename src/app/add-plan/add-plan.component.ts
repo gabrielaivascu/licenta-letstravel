@@ -17,7 +17,7 @@ export class AddPlanComponent implements OnInit {
   days: number;
   tabs: any[] = [];
   selectedIndex = 0;
-  travelMode: String = 'DRIVING';
+  travelMode: String = 'WALKING';
   totalTime: any;
   allEvents: any = [];
   activeIndex: any;

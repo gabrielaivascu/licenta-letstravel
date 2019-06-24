@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PlacesService {
   key: string = 'client_id=5N0W1JXCK0BHBK5XJWZL0NBJQ0DE11HGFL2HAIHSFUO54O1O&client_secret=ITJHRE1I2XCXO4KNLDJDW5JY0C0MVEYAQIETRUMBMM521M0T&v=20180323';
-  // googleApiKey: '&key=AIzaSyAGjPKxEo7Jy5BsHwdrgA5lPzHC3eHAxtE';
+
   constructor(private http: HttpClient) { }
 
   getPlacebySearch(city, text) {

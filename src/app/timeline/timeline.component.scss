@@ -69,6 +69,7 @@ h3 {
       position: relative;
       padding-top: 30px;
       overflow: visible;
+      pointer-events: none;
 
       h4 {
         margin-top: 0;
@@ -93,7 +94,9 @@ h3 {
     .mgl-timeline-entry-card,
     .mgl-timeline-entry-card-header {
       border-radius: 5px;
+      pointer-events: none;
     }
+    
     mgl-timeline-entry-dot {
       display: flex;
       justify-content: center;

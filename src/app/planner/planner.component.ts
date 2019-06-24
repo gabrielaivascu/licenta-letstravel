@@ -8,7 +8,7 @@ import { DialogComponent } from './dialog/dialog.component';
   templateUrl: './planner.component.html',
   styleUrls: ['./planner.component.scss']
 })
-export class PlannerComponent implements OnInit, OnDestroy {
+export class PlannerComponent implements OnInit {
   nameEvent: string;
   events = [];
   eventType: string;
@@ -30,9 +30,6 @@ export class PlannerComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  ngOnDestroy() {
-  }
-
   addEvent() {
     this.events.push(this.nameEvent);
   }
@@ -44,7 +41,6 @@ export class PlannerComponent implements OnInit, OnDestroy {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.events, event.previousIndex, event.currentIndex);
   }
-  locationList: any = [];
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {

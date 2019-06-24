@@ -144,10 +144,14 @@
   width: 100%;
   justify-content: space-between;
 
+  ::ng-deep app-button {
+    margin-top: 8px;
+  }
+
   .fligh-banner {
     max-height: 200px;
     overflow: hidden;
-    margin-top: 20px;
+    margin-top: 50px;
 
     img {
       width: 100%;
@@ -166,7 +170,7 @@
 
   .other-banner, .hotel-banner {
     overflow: hidden;
-    margin-top: 40px;
+    margin-top: 50px;
     height: 250px;
     max-width: 150px;
 
@@ -268,6 +272,11 @@
       padding: 15px;
 
       .column-layout {
+
+        ::ng-deep app-button {
+          margin-top: 8px;
+        }
+
         .row-layout {
           flex-direction: column;
 

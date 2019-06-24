@@ -35,18 +35,15 @@ export class TimelineComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let self = this;
+    let copyThis = this;
     let tripKey = this.route.snapshot.paramMap.get("plan");
-
     firebase.auth().onAuthStateChanged((user) => {
-
-      self.firebaseService.getPlans(user.uid).subscribe(plans => {
-        self.plans = plans;
-
-        self.plans.forEach(plan => {
+      copyThis.firebaseService.getPlans(user.uid).subscribe(plans => {
+        copyThis.plans = plans;
+        copyThis.plans.forEach(plan => {
           if (plan.tripId === tripKey) {
-            self.events = Object(plan).events;
-            this.getDistances(self.events);
+            copyThis.events = Object(plan).events;
+            this.getDistances(copyThis.events);
             this.showTimeline = true;
           }
         });
@@ -55,17 +52,17 @@ export class TimelineComponent implements OnInit {
   }
 
   getPrice(tier: number) {
-    if (tier === 1) {
-      return '< $10'
-    }
-    if (tier === 2) {
-      return '$10 - $20'
-    }
-    if (tier === 3) {
-      return '$20 - $30'
-    }
-    if (tier === 3) {
-      return '> $30'
+    switch(tier) {
+      case 1:
+          return '< $10';
+      case 2:
+          return '$10 - $20';
+      case 3:
+          return '$20 - $30';
+      case 4:
+          return '> $30';
+      default:
+        return;
     }
   }
 
@@ -115,23 +112,6 @@ export class TimelineComponent implements OnInit {
     }
   }
 
-  addEntry() {
-    this.entries.push({
-      header: 'header',
-      content: 'content'
-    })
-  }
-
-  removeEntry() {
-    this.entries.pop();
-  }
-
-  onHeaderClick(event) {
-    if (!this.expandEnabled) {
-      event.stopPropagation();
-    }
-  }
-
   logout() {
     this.authService.doLogout()
       .then((res) => {
@@ -139,16 +119,6 @@ export class TimelineComponent implements OnInit {
       }, (error) => {
         console.log("Logout error", error);
       });
-  }
-
-  onDotClick(event) {
-    if (!this.expandEnabled) {
-      event.stopPropagation();
-    }
-  }
-
-  onExpandEntry(expanded, index) {
-    console.log(`Expand status of entry #${index} changed to ${expanded}`)
   }
 
   toggleSide() {

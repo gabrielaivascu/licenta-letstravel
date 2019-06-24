@@ -48,6 +48,8 @@
       ::ng-deep .mat-button-toggle-group {
         &.mat-button-toggle-group-appearance-standard {
           border-radius: 7px;
+          flex-shrink: 0;
+    margin-left: 15px;
         }
 
         .mat-button-toggle-appearance-standard {
@@ -77,7 +79,7 @@ agm-map {
 
   ::ng-deep .mat-horizontal-stepper-header {
     height: 60px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     flex-direction: column;
     justify-content: center;
     
@@ -156,6 +158,10 @@ h3 {
    margin: 0;
    margin-top: 0;
 
+   .header {
+    padding: 0 25px;
+   }
+
    .container {
      padding: 0;
 
@@ -170,6 +176,7 @@ h3 {
          width: 100%;
          min-width: 100%;
          margin-top: 15px;
+         padding: 0 25px;
 
          agm-map {
           width: 320px;

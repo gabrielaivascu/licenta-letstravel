@@ -26,7 +26,7 @@
                   (onAutocompleteSelected)="onAutocompleteSelected($event, 'hotel')" formControlName="name">
               </mat-form-field>
         </form>
-        <app-button (click)="submit('hotel')">Add event</app-button>
+        <app-button (click)="submit('hotel')" [disabled]="!hotelData.valid">Add event</app-button>
       </div>
     </mat-tab>
     
@@ -43,8 +43,8 @@
                 <div class="search-img-container">
                   <img src="{{searchResult.photoUrl}}" alt="">
                 </div>
-              <p>Currency: <b>{{searchResult.price}} <span>{{searchResult.priceMessage}}</span></b></p>
-              <p>Price level: <b>{{searchResult.priceMessage}}</b></p>
+              <p *ngIf="searchResult.price">Currency: <b>{{searchResult.price}}</b></p>
+              <p *ngIf="searchResult.priceMessage">Price level: <b>{{searchResult.priceMessage}}</b></p>
             </div>
             <div class="selected">
               <p>Place to eat selected: <b>{{foodPlace}}</b></p>
@@ -60,7 +60,7 @@
                     <img src="{{photosUrl.get(place.id)}}">
                   </div>
                   <div class="category">
-                    <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}" alt="">
+                    <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}">
                     <p class="text">{{place.category.name}}</p>
                   </div>
                   <div class="select">
@@ -70,6 +70,7 @@
               </mat-radio-group>
             </ul>
           </div>
+
         </div>
         <app-button (click)="submitFood()">Add event</app-button>
       </div>
@@ -87,7 +88,8 @@
                   <div class="search-img-container">
                     <img src="{{searchResult.photoUrl}}" alt="">
                   </div>
-                <p>Price: <b>{{searchResult.price}} <span>{{searchResult.priceMessage}}</span></b></p>
+                  <p *ngIf="searchResult.price">Currency: <b>{{searchResult.price}}</b></p>
+                  <p *ngIf="searchResult.priceMessage">Price level: <b>{{searchResult.priceMessage}}</b></p>
               </div>
             <div class="selected">
               <p>Outdoor selected: <b>{{outdoorPlace}}</b></p>
@@ -130,7 +132,8 @@
                     <div class="search-img-container">
                       <img src="{{searchResult.photoUrl}}" alt="">
                     </div>
-                  <p>Price: <b>{{searchResult.price}} <span>{{searchResult.priceMessage}}</span></b></p>
+                    <p *ngIf="searchResult.price">Currency: <b>{{searchResult.price}}</b></p>
+                    <p *ngIf="searchResult.priceMessage">Price level: <b>{{searchResult.priceMessage}}</b></p>
                 </div>
               <div class="selected">
                 <p>Shops selected: <b>{{shopsPlace}}</b></p>
