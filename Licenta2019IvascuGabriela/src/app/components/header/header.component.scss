@@ -1,0 +1,260 @@
+@import '../../../assets/base/colors';
+
+.header {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 60px;
+  padding: 0 30px;
+  background: white;
+
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
+
+  &.user-mode {
+    .logo {
+      justify-content: flex-start;
+    }
+  }
+
+  .logo {
+    flex-grow: 1;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+
+    img {
+      margin-right: 7px;
+      width: 28px;
+    }
+
+    a {
+      text-decoration: none;
+      height: 20px;
+      align-items: center;
+      display: flex;
+
+      b {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .right-side {
+    display: flex;
+    align-items: center;
+    flex-basis: 100px;
+    cursor: pointer;
+    justify-content: flex-end;
+
+    i {
+      margin: 0 10px;
+      font-size: 22px;
+    }
+
+    ::ng-deep .mobile-menu {
+      display: none;
+
+      .list-menu {
+        max-height: 0px;
+        overflow: hidden;
+        list-style: none;
+        transition: all 1s cubic-bezier(0.325, 1, 0.22, 1);
+        padding: 0 30px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50px;
+        background: #fff;
+        z-index: 999;
+
+        li {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          font-weight: 600;
+          font-size: 14px;
+          position: relative;
+          padding: 5px 0px;
+
+          &:hover,
+          &.active {
+              color: $blue;
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 15px;
+          }
+
+          &.logout {
+            a {
+              text-decoration: none;
+              color: black;
+              font-size: 22px;
+            }
+          }
+        }
+      }
+
+      input[type='checkbox'] {
+        display: none;
+      }
+
+      input[type='checkbox']:checked ~ .list-menu {
+        height: 180px;
+        max-height: 12rem;
+        transition: all 1s cubic-bezier(0.5, 1, 0.22, 1);
+      }
+
+      .hamburger {
+        display: block;
+        position: absolute;
+        top: 18px;
+        right: 13px;
+        height: 27px;
+        width: 27px;
+        cursor: pointer;
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .line {
+        position: absolute;
+        display: block;
+        background: $black;
+        width: 18px;
+        height: 0.15rem;
+        border-radius: 0.2rem;
+        left: 0;
+        transition: all 0.6s cubic-bezier(0.5, 0.1, 0, 1.2);
+      }
+
+      .line-1 {
+        top: 0;
+      }
+
+      .line-2 {
+        top: 7px;
+        width: 14px;
+        transform: translateX(2px);
+        -webkit-transform: translateX(2px);
+      }
+
+      .line-3 {
+        top: 14px;
+      }
+
+      input[type='checkbox']:checked ~ label .line-1 {
+        top: 0px;
+        width: 22px;
+        transform: translateX(-11px) rotate(-45deg) translateY(12px);
+      }
+
+      input[type='checkbox']:checked ~ label .line-2 {
+        opacity: 0;
+      }
+
+      input[type='checkbox']:checked ~ label .line-3 {
+        top: 14px;
+        width: 22px;
+        transform: translateX(-8px) rotate(45deg) translateY(-8px);
+      }
+    }
+
+    ::ng-deep .user-menu {
+      display: flex;
+      font-size: 16px;
+      list-style: none;
+      padding: 0;
+      flex-shrink: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        font-weight: 600;
+        font-size: 14px;
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          border-radius: 2px;
+          bottom: 0;
+          background-color: $blue;
+          transition: width 0.3s;
+        }
+
+        &:hover,
+        &.active {
+          &:not(.logout) {
+            &:after {
+              width: 100%;
+            }
+          }
+
+          &.logout {
+            a {
+              color: $blue;
+            }
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: 25px;
+        }
+
+        &.logout {
+          a {
+            text-decoration: none;
+            color: black;
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    flex-basis: 100px;
+    cursor: pointer;
+
+    i {
+      margin: 0 10px;
+      font-size: 22px;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    padding: 0 10px;
+    height: 50px;
+
+    .left-side {
+      flex-basis: 80px;
+
+      i {
+        font-size: 18px;
+        margin: 0;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .header {
+    .right-side {
+      ::ng-deep .user-menu {
+        display: none;
+      }
+      ::ng-deep .mobile-menu {
+        display: flex;
+      }
+    }
+  }
+}

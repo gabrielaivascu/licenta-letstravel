@@ -1,0 +1,180 @@
+<div class="modal-content">
+  <mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="tabChanged($event)">
+    <mat-tab label="Flight">
+      <div class="column-layout">
+        <div class="fligh-banner">
+          <img src="https://image.flaticon.com/icons/svg/129/129500.svg" alt="">
+        </div>
+        <form [formGroup]="flightData" class="form">
+          <mat-form-field>
+            <input matInput placeholder="To" formControlName="destination">
+          </mat-form-field>
+        </form>
+        <app-button (click)="submit('flight')">Add event</app-button>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Hotel">
+      <div class="column-layout">
+        <div class="hotel-banner">
+          <img src="https://image.flaticon.com/icons/svg/1040/1040993.svg" alt="">
+        </div>
+        <form [formGroup]="hotelData" class="form">
+            <mat-form-field>
+                <input matInput matGoogleMapsAutocomplete placeholder="Accommodation name"
+                  (onLocationSelected)="onLocationSelected($event, 'hotel')"
+                  (onAutocompleteSelected)="onAutocompleteSelected($event, 'hotel')" formControlName="name">
+              </mat-form-field>
+        </form>
+        <app-button (click)="submit('hotel')" [disabled]="!hotelData.valid">Add event</app-button>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Food">
+      <div class="column-layout">
+        <div class="row-layout">
+          <div class="search">
+            <mat-form-field>
+              <input matInput placeholder="Search" [(ngModel)]="searchString">
+            </mat-form-field>
+            <app-button (click)="search(searchString, 'food')" type="secondary">Search</app-button>
+            <div *ngIf="searchResult" class="result-container">
+              <p>Name: <b>{{searchResult.name}}</b></p>
+                <div class="search-img-container">
+                  <img src="{{searchResult.photoUrl}}" alt="">
+                </div>
+              <p *ngIf="searchResult.price">Currency: <b>{{searchResult.price}}</b></p>
+              <p *ngIf="searchResult.priceMessage">Price level: <b>{{searchResult.priceMessage}}</b></p>
+            </div>
+            <div class="selected">
+              <p>Place to eat selected: <b>{{foodPlace}}</b></p>
+            </div>
+          </div>
+
+          <div class="explore">
+            <h3> <i class="material-icons">explore</i> Our suggestion</h3>
+            <ul *ngIf="exploreResults.food.values.length > 0" class="places-list">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="foodPlace">
+                <li *ngFor="let place of exploreResults.food.values; let i = index" class="place">
+                  <div class="img-container">
+                    <img src="{{photosUrl.get(place.id)}}">
+                  </div>
+                  <div class="category">
+                    <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}">
+                    <p class="text">{{place.category.name}}</p>
+                  </div>
+                  <div class="select">
+                    <mat-radio-button [value]="place.name">{{place.name}}</mat-radio-button>
+                  </div>
+                </li>
+              </mat-radio-group>
+            </ul>
+          </div>
+
+        </div>
+        <app-button (click)="submitFood()">Add event</app-button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Outdoors">
+      <div class="column-layout">
+        <div class="row-layout">
+          <div class="search">
+            <mat-form-field>
+              <input matInput placeholder="Search" [(ngModel)]="searchString">
+            </mat-form-field>
+            <app-button (click)="search(searchString, 'outdoor')" type="secondary">Search</app-button>
+            <div *ngIf="searchResult" class="result-container">
+                <p>Name: <b>{{searchResult.name}}</b></p>
+                  <div class="search-img-container">
+                    <img src="{{searchResult.photoUrl}}" alt="">
+                  </div>
+                  <p *ngIf="searchResult.price">Currency: <b>{{searchResult.price}}</b></p>
+                  <p *ngIf="searchResult.priceMessage">Price level: <b>{{searchResult.priceMessage}}</b></p>
+              </div>
+            <div class="selected">
+              <p>Outdoor selected: <b>{{outdoorPlace}}</b></p>
+            </div>
+          </div>
+
+          <div class="explore">
+            <h3> <i class="material-icons">explore</i> Our suggestion</h3>
+            <ul *ngIf="exploreResults.outdoor.values.length > 0" class="places-list">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="outdoorPlace">
+                <li *ngFor="let place of exploreResults.outdoor.values; let i = index" class="place">
+                  <div class="img-container">
+                    <img src="{{photosUrl.get(place.id)}}">
+                  </div>
+                  <div class="category">
+                    <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}" alt="">
+                    <p class="text">{{place.category.name}}</p>
+                  </div>
+                  <div class="select">
+                    <mat-radio-button [value]="place.name">{{place.name}}</mat-radio-button>
+                  </div>
+                </li>
+              </mat-radio-group>
+            </ul>
+          </div>
+        </div>
+        <app-button (click)="submitOutdoor()" class="modal-btn">Add event</app-button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Shops">
+        <div class="column-layout">
+          <div class="row-layout">
+            <div class="search">
+              <mat-form-field>
+                <input matInput placeholder="Search" [(ngModel)]="searchString">
+              </mat-form-field>
+              <app-button (click)="search(searchString, 'shops')" type="secondary">Search</app-button>
+              <div *ngIf="searchResult" class="result-container">
+                  <p>Name: <b>{{searchResult.name}}</b></p>
+                    <div class="search-img-container">
+                      <img src="{{searchResult.photoUrl}}" alt="">
+                    </div>
+                    <p *ngIf="searchResult.price">Currency: <b>{{searchResult.price}}</b></p>
+                    <p *ngIf="searchResult.priceMessage">Price level: <b>{{searchResult.priceMessage}}</b></p>
+                </div>
+              <div class="selected">
+                <p>Shops selected: <b>{{shopsPlace}}</b></p>
+              </div>
+            </div>
+  
+            <div class="explore">
+              <h3> <i class="material-icons">explore</i> Our suggestion</h3>
+              <ul *ngIf="exploreResults.shops.values.length > 0" class="places-list">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="shopsPlace">
+                  <li *ngFor="let place of exploreResults.shops.values; let i = index" class="place">
+                    <div class="img-container">
+                      <img src="{{photosUrl.get(place.id)}}">
+                    </div>
+                    <div class="category">
+                      <img src="{{place.category.icon.prefix}}90{{place.category.icon.suffix}}" alt="">
+                      <p class="text">{{place.category.name}}</p>
+                    </div>
+                    <div class="select">
+                      <mat-radio-button [value]="place.name">{{place.name}}</mat-radio-button>
+                    </div>
+                  </li>
+                </mat-radio-group>
+              </ul>
+            </div>
+          </div>
+          <app-button (click)="submitShops()" class="modal-btn">Add event</app-button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Other activity">
+          <div class="column-layout">
+            <div class="other-banner">
+              <img src="https://image.flaticon.com/icons/svg/214/214333.svg" alt="">
+            </div>
+            <form [formGroup]="otherData" class="form">
+              <mat-form-field>
+                <input matInput placeholder="Some activity" formControlName="name">
+              </mat-form-field>
+            </form>
+            <app-button (click)="submit('other')">Add event</app-button>
+          </div>
+        </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,57 @@
+@import '../../assets/base/colors';
+
+:host {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.main-container {
+    width: 100%;
+    background-image: url('../../assets/images/roma.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .box {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        max-width: 540px;
+        background: rgba(255,255,255, 0.35);
+        padding: 45px;
+        border-radius: 15px;
+        text-align: center;
+
+        button {
+            background-color: #2b727e;
+            max-width: 200px;
+            color: white;
+            font-family: 'Poppins';
+        }
+    }
+}
+
+.login {
+    a {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+
+        i {
+            font-size: 22px;
+            margin-right: 5px;
+        }
+
+        &:hover {
+            color: $blue;
+        }
+    }
+}

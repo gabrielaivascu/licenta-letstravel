@@ -1,0 +1,135 @@
+@import "../../assets/base/colors";
+@import "../../assets/base/base";
+@import "../../assets/base/mixins";
+
+:host() {
+  width: 100%;
+}
+
+h3 {
+  i {
+    padding: 0 5px;
+  }
+}
+
+.flex-row {
+  @include scrollbar($grey-1);
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+}
+
+.box.full-section {
+  margin-top: 30px;
+}
+
+::ng-deep mgl-timeline {
+  width: 100%;
+  display: block;
+  font-family: "Poppins", sans-serif !important;
+
+  mgl-timeline-entry {
+
+    &.none {
+      display: none;
+    }
+
+    &.day-number {
+      .mgl-timeline-entry-card {
+        box-shadow: none;
+      }
+
+      .mgl-timeline-entry-card-header {
+        background: transparent !important;
+      }
+
+      mgl-timeline-entry-dot {
+        background-color: #395aff !important;
+        width: 80px !important;
+        padding: 15px;
+        font-weight: bold;
+      }
+    }
+
+    &.expanded {
+      .mgl-timeline-entry-card {
+        overflow: hidden;
+      }
+
+      mgl-timeline-entry-dot {
+        justify-content: flex-end;
+        padding-right: 15px;
+      }
+
+      .mgl-timeline-entry-card-header {
+        color: $white;
+      }
+    }
+
+    mgl-timeline-entry-header {
+      position: relative;
+      padding-top: 30px;
+      overflow: visible;
+      pointer-events: none;
+
+      h4 {
+        margin-top: 0;
+      }
+
+      .header-icon {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #3a5aff;
+        border-radius: 50%;
+        display: flex;
+        color: white;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .mgl-timeline-entry-card,
+    .mgl-timeline-entry-card-header {
+      border-radius: 5px;
+      pointer-events: none;
+    }
+    
+    mgl-timeline-entry-dot {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $white;
+
+      &.primary {
+        background-color: $white;
+        border: 3px solid $blue;
+      }
+    }
+  }
+
+  .mgl-timeline-line {
+    width: 8px !important;
+    background-color: $grey-4 !important;
+    border-radius: 5px;
+  }
+}
+
+.container {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-container {
+  display: flex;
+  width: 100%;
+}
+
+.timeline-container {
+  min-height: calc(100vh - 225px);
+}

@@ -1,0 +1,88 @@
+<app-header [loggedIn]="true">
+  <ul class="user-menu" menu-btn="menu">
+    <li class="active"><a>Dashboard</a></li>
+    <li routerLink="/upcoming-trips"><a>Next trip</a></li>
+    <li routerLink="/previous-trips"><a>Previous trip</a></li>
+    <li class="logout">
+      <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+    </li>
+  </ul>
+  <div class="mobile-menu" menu-btn="menu">
+    <input type="checkbox" id="checkbox_toggle">
+    <label for="checkbox_toggle" class="hamburger">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="line line-3"></div>
+    </label>
+    <ul class="list-menu">
+      <li routerLink="/dashboard"><a>Dashboard</a></li>
+      <li routerLink="/upcoming-trips"><a>Next trip</a></li>
+      <li routerLink="/previous-trips"><a>Previous trip</a></li>
+      <li class="logout">
+        <a routerLink="/homepage" (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+      </li>
+    </ul>
+  </div>
+</app-header>
+<div class="flex-row">
+  <section class="box full-section planner">
+    <div class="header">
+      <h3>Hi! Let's plan your next trip to <span *ngIf="data">{{data.location}}</span> <i class="fa fa-plane"
+          aria-hidden="true"></i> {{days}} days</h3>
+    </div>
+    <div class="container">
+      <div class="row-container">
+        <mat-horizontal-stepper #stepper (selectionChange)="changed($event)">
+          <mat-step *ngFor="let tab of tabs; let i = index">
+            <ng-template matStepLabel>{{tab}}</ng-template>
+            <app-planner [location]="data.location" (newLocation)="addMarker($event)" [day]="i"
+              (eventsList)="addEvents($event)" [coord]="coordonate"></app-planner>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+        <div class="map-container">
+          <div class="toggle">
+            <div class="content">
+              <h3 *ngIf="totalTime>0">Total time duration: {{totalTime}} mins</h3>
+            </div>
+            <mat-button-toggle-group name="travelMode" [(ngModel)]="travelMode">
+              <mat-button-toggle value="WALKING" selected>
+                <i class="material-icons">
+                  directions_walk
+                </i>
+              </mat-button-toggle>
+              <mat-button-toggle value="DRIVING">
+                <i class="material-icons">
+                  directions_car
+                </i>
+              </mat-button-toggle>
+              <mat-button-toggle value="BICYCLING">
+                <i class="material-icons">
+                  directions_bike
+                </i>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+          <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
+            <ng-container *ngFor="let days of coords; let i = index">
+              <ng-container *ngIf="days.length === 1">
+                <agm-marker *ngFor="let location of locationList" [latitude]="location.lat" [longitude]="location.lng">
+                </agm-marker>
+              </ng-container>
+              <ng-container *ngIf="days.length > 1">
+                <agm-direction [origin]="days[0]" [destination]="days[days.length - 1]" [waypoints]="waypoints[i]"
+                  [travelMode]="travelMode" (onResponse)="onResponse($event)">
+                </agm-direction>
+              </ng-container>
+            </ng-container>
+          </agm-map>
+        </div>
+      </div>
+
+      <app-button type="secondary" (click)="savePlan()">Save plan</app-button>
+    </div>
+  </section>
+
+</div>
+
+<div id="map"></div>

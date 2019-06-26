@@ -1,0 +1,37 @@
+@import "../../../assets/base/colors";
+
+button {
+  background-color: $blue;
+  max-width: 300px;
+  border-radius: 23px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: "Poppins";
+  cursor: pointer;
+  padding: 3px 40px;
+  line-height: 30px;
+
+  &.secondary {
+    border: 2px solid $blue;
+    background: transparent;
+    color: $blue;
+  }
+
+  &.yellow {
+    border-radius: 15px;
+    background-color: $yellow;
+    color: $black;
+    min-width: 50px;
+    line-height: 30px;
+    padding: 0px 12px;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  &.disabled{
+    pointer-events: none;
+    border: 2px solid $grey-2;
+    color: $grey-2;
+  }
+}
