@@ -344,6 +344,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            .mat-form-field:first-of-type {
+              margin-right: 0;
+            }
           }
         }
       }

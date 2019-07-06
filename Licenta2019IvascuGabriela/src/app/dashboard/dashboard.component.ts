@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
         placeId: placeId
       }, (placeResult, status) => {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          this.photosPlace.set(placeId, placeResult.photos[3].getUrl({
+          this.photosPlace.set(placeId, placeResult.photos[0].getUrl({
             maxWidth: 500,
             maxHeight: undefined
           }));

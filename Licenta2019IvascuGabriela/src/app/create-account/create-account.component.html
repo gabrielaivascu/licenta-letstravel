@@ -1,4 +1,8 @@
-<app-header></app-header>
+<app-header>
+  <div class="login" menu-btn="login">
+    <a routerLink="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> LOG IN</a>
+  </div>
+</app-header>
 <div class="main-container">
   <div class="box">
     <ng-container *ngIf="!successMessage">

@@ -91,10 +91,6 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   explore(section: string) {
     switch (section) {
       case "outdoor": {
@@ -113,7 +109,7 @@ export class DialogComponent implements OnInit {
         console.log("invalid");
       }
     }
-    this.placesService.getPlace(this.data.location, section, 5).subscribe((result) => {
+    this.placesService.getPlace(this.data.location, section, 6).subscribe((result) => {
       let exploreResult = Object(result).response.groups[0].items;
 
       for (let i = 0; i < exploreResult.length; i++) {
@@ -189,12 +185,14 @@ export class DialogComponent implements OnInit {
     this.placesService.getPlacebySearch(this.data.location, text).subscribe((result) => {
       this.searchResult = Object(result).response.venues[0];
       let id = Object(result).response.venues[0].id;
+
       this.placesService.getDetails(id).subscribe((result) => {
         this.searchResult.photoUrl = Object(result).response.venue.bestPhoto.prefix + '300' + Object(result).response.venue.bestPhoto.suffix;
         this.searchResult.price = Object(result).response.venue.price.currency;
         this.searchResult.priceMessage = Object(result).response.venue.price.message;
         this.searchResult.shortUrl = Object(result).response.venue.shortUrl;
       });
+      
       this.locationData.name = this.searchResult.name;
       this.locationData.lat = this.searchResult.location.lat;
       this.locationData.lng = this.searchResult.location.lng;
